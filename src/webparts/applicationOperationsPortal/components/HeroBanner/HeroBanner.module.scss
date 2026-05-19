@@ -1,0 +1,210 @@
+
+
+// $color-border: #e0e0e0;
+// $color-maroon: #8B0000;
+// $color-text: #333333;
+// $radius-sm: 4px;
+
+// .hero {
+//   display: grid;
+//   grid-template-columns: 360px 1fr;
+//   gap: 32px;
+//   background: #fff;
+//   padding: 8px 0;
+// }
+
+// .imageWrap {
+//   width: 100%;
+//   height: 420px;
+//   overflow: hidden;
+//   border-radius: $radius-sm;
+//   img {
+//     width: 100%;
+//     height: 100%;
+//     object-fit: cover;
+//     display: block;
+//   }
+// }
+
+// .content {
+//   padding: 8px 0;
+//   display: flex;
+//   flex-direction: column;
+// }
+
+// .title {
+//   color: $color-maroon;
+//   font-size: 28px;
+//   font-weight: 700;
+//   line-height: 1.25;
+//   margin: 0 0 16px 0;
+// }
+
+// .paragraph {
+//   font-size: 14px;
+//   line-height: 1.7;
+//   color: $color-text;
+//   margin: 0 0 14px 0;
+// }
+
+// // YEH BUTTONS KA SECTION - Content ke end mein aayega
+// .actions {
+//   display: grid;
+//   grid-template-columns: repeat(4, 1fr);
+//   gap: 16px;
+//   margin-top: 24px;
+// }
+
+// .actionButton {
+//   border: 1.5px solid $color-maroon;
+//   color: $color-maroon;
+//   background: #fff;
+//   text-decoration: none;
+//   font-weight: 600;
+//   font-size: 13px;
+//   padding: 14px 18px;
+//   border-radius: $radius-sm;
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   gap: 12px;
+//   transition: background 0.15s, color 0.15s;
+
+//   &:hover {
+//     background: $color-maroon;
+//     color: #fff;
+//   }
+// }
+
+// .arrow {
+//   font-size: 16px;
+//   font-weight: 400;
+// }
+
+// @media (max-width: 1024px) {
+//   .actions {
+//     grid-template-columns: repeat(2, 1fr);
+//   }
+// }
+
+// @media (max-width: 768px) {
+//   .hero {
+//     grid-template-columns: 1fr;
+//   }
+//   .imageWrap {
+//     height: 280px;
+//   }
+//   .actions {
+//     grid-template-columns: 1fr;
+//   }
+// }
+
+
+$color-border: #e0e0e0;
+$color-maroon: #8B0000;
+$color-text: #333333;
+$radius-sm: 4px;
+
+.hero {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 32px;
+  background: #fff;
+  padding: 8px 0;
+}
+
+.imageWrap {
+  width: 100%;
+  height: 420px;
+  overflow: hidden;
+  border-radius: $radius-sm;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+.content {
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  color: $color-maroon;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0 0 16px 0;
+}
+
+.paragraph {
+  font-size: 14px;
+  line-height: 1.7;
+  color: $color-text;
+  margin: 0 0 14px 0;
+}
+
+// BUTTONS SECTION - Same height, reduced width
+.actions {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 12px;
+  margin-top: 24px;
+  justify-content: start;
+}
+
+.actionButton {
+  border: 1.5px solid $color-maroon;
+  color: $color-maroon;
+  background: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 14px 12px;  // Same height (14px), width reduced (18px → 12px)
+  border-radius: $radius-sm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+  width: auto;
+
+  &:hover {
+    background: $color-maroon;
+    color: #fff;
+  }
+}
+
+.arrow {
+  font-size: 13px;
+  font-weight: 400;
+}
+
+@media (max-width: 1024px) {
+  .actions {
+    grid-template-columns: repeat(2, auto);
+    justify-content: start;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+  .imageWrap {
+    height: 280px;
+  }
+  .actions {
+    grid-template-columns: repeat(2, auto);
+  }
+}
+
+@media (max-width: 550px) {
+  .actions {
+    grid-template-columns: 1fr;
+  }
+}

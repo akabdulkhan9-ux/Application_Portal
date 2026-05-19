@@ -1,0 +1,92 @@
+.popup {
+  position: fixed;
+  z-index: 1000;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  min-width: 240px;
+  animation: fadeIn 0.15s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.popupContent {
+  padding: 12px;
+}
+
+.popupHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 10px;
+}
+
+.popupAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #8B0000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  span {
+    color: #fff;
+    font-weight: 600;
+    font-size: 20px;
+  }
+}
+
+.popupTitle {
+  flex: 1;
+}
+
+.popupName {
+  font-size: 15px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.popupRole {
+  font-size: 12px;
+  color: #8B0000;
+}
+
+.popupDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.popupRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #666;
+}
+
+.popupIcon {
+  font-size: 14px;
+  width: 20px;
+}
