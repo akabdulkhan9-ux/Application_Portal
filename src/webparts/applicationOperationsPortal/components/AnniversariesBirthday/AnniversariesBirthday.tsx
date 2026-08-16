@@ -34,9 +34,6 @@ type RankVariant = 'gold' | 'silver' | 'bronze' | 'default';
 const getMonthLabel = (date: Date): string =>
   date.toLocaleString('default', { month: 'long', year: 'numeric' });
 
-const getMonthShort = (date: Date): string =>
-  date.toLocaleString('default', { month: 'short' });
-
 const getMonthValue = (date: Date): string => {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
@@ -126,15 +123,6 @@ const CalendarIcon: React.FC<{ className?: string }> = ({ className }) => (
   </svg>
 );
 
-const ClipboardIcon: React.FC = () => (
-  <svg className={styles.rowIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <rect x="6" y="4" width="12" height="17" rx="2" />
-    <path d="M9 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1" />
-    <line x1="9" y1="11" x2="15" y2="11" />
-    <line x1="9" y1="15" x2="13" y2="15" />
-  </svg>
-);
-
 const CakeIconSmall: React.FC<{ className?: string }> = ({ className }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <path d="M20 21v-8H4v8" />
@@ -142,22 +130,6 @@ const CakeIconSmall: React.FC<{ className?: string }> = ({ className }) => (
     <path d="M12 3v4" />
     <path d="M9 3.5c0 1.5 3 1.5 3 3.5" />
     <path d="M15 3.5c0 1.5-3 1.5-3 3.5" />
-  </svg>
-);
-
-const CakeCandlesIcon: React.FC = () => (
-  <svg className={styles.cakeCandlesIcon} viewBox="0 0 64 56" xmlns="http://www.w3.org/2000/svg">
-    <path d="M16 10c-2 3 2 5 0 8" stroke="#f0973b" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-    <path d="M32 6c-2 3 2 5 0 8" stroke="#f0973b" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-    <path d="M48 10c-2 3 2 5 0 8" stroke="#f0973b" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-    <rect x="14" y="18" width="4" height="10" rx="1" fill="#f6da9a" />
-    <rect x="30" y="14" width="4" height="14" rx="1" fill="#f6da9a" />
-    <rect x="46" y="18" width="4" height="10" rx="1" fill="#f6da9a" />
-    <rect x="8" y="28" width="48" height="12" rx="3" fill="currentColor" opacity="0.95" />
-    <rect x="4" y="40" width="56" height="12" rx="3" fill="currentColor" />
-    <circle cx="16" cy="34" r="1.6" fill="#ffffff" opacity="0.85" />
-    <circle cx="32" cy="34" r="1.6" fill="#ffffff" opacity="0.85" />
-    <circle cx="48" cy="34" r="1.6" fill="#ffffff" opacity="0.85" />
   </svg>
 );
 
@@ -328,9 +300,9 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
 
   const isLoading = isAnniversaryLoading || isBirthdayLoading;
   const selectedMonthLabel = getMonthLabel(selectedMonth);
-  const selectedMonthShort = getMonthShort(selectedMonth);
   const isCurrentMonth = selectedMonthValue === currentMonthValue;
   const anniversaryTitleMonth = isCurrentMonth ? 'Current Month' : selectedMonthLabel;
+  const birthdayTitleMonth = isCurrentMonth ? 'Current Month' : selectedMonthLabel;
 
   if (isLoading) {
     return (
@@ -471,21 +443,12 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
         <div className={`${styles.panelCard} ${styles.birthdayPanel}`}>
           <div className={styles.panelHeader}>
             <div className={styles.panelTitleWrap}>
-              <h2 className={styles.title}>Employee Birthdays – {selectedMonthLabel}</h2>
-              <p className={styles.subtitle}>Celebrate and make your colleagues feel special!</p>
+              <h2 className={styles.title}>Employee Birthdays – {birthdayTitleMonth}</h2>
+              <p className={styles.subtitle}>
+                Celebrating birthdays this month. Wishing a very happy birthday to our amazing team!
+              </p>
             </div>
             {renderMonthSelector()}
-          </div>
-
-          <div className={styles.summaryBanner}>
-            <div className={styles.summaryIcon}>
-              <CakeIconSmall />
-            </div>
-            <div className={styles.summaryText}>
-              <span className={styles.summaryMonth}>{selectedMonthLabel}</span>
-              <span className={styles.summaryLabel}>Birthdays This Month</span>
-              <span className={styles.summaryCount}>{birthdays.length}<span> employees</span></span>
-            </div>
           </div>
 
           {birthdayError && <div className={styles.errorBanner}>{birthdayError}</div>}
@@ -498,56 +461,70 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
 
           {birthdays.length > 0 && (
             <div className={styles.panelBody}>
-              <div className={styles.contentRow}>
-                <div className={styles.carouselWrap}>
-                  <button
-                    className={styles.navButton}
-                    onClick={handleBirthdayPrev}
-                    disabled={birthdayPage === 0}
-                    aria-label="Previous"
-                  >
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polyline points="15 18 9 12 15 6" />
-                    </svg>
-                  </button>
-
-                  <div className={styles.birthdayGrid}>
-                    {currentBirthdayItems.map((item) => (
-                      <div key={item.employeeId} className={styles.birthdayCard}>
-                        <div className={styles.cakeHeader}>
-                          <CakeCandlesIcon />
-                        </div>
-                        <div className={styles.dateCenter}>
-                          <span className={styles.dateDay}>{item.date} {selectedMonthShort}</span>
-                          <span className={styles.dateWeekday}>{item.day}</span>
-                        </div>
-                        <div className={styles.cardDivider} />
-                        <div className={styles.cardBody}>
-                          <h3 className={styles.employeeName}>{item.fullName}</h3>
-                          <span className={styles.infoRow}><ClipboardIcon />{item.jobTitle}</span>
-                          <span className={styles.infoRow}><BuildingIcon />{item.department}</span>
-                        </div>
-                        <div className={styles.cardFooter}>
-                          <span className={styles.happyBirthdayTag}>Happy Birthday!</span>
-                        </div>
-                      </div>
-                    ))}
+              <div className={styles.birthdayCarousel}>
+                <div className={styles.summaryBanner}>
+                  <div className={styles.summaryIcon}>
+                    <CakeIconSmall />
                   </div>
-
-                  <button
-                    className={styles.navButton}
-                    onClick={handleBirthdayNext}
-                    disabled={birthdayPage >= birthdayTotalPages - 1}
-                    aria-label="Next"
-                  >
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polyline points="9 18 15 12 9 6" />
-                    </svg>
-                  </button>
+                  <div className={styles.summaryText}>
+                    <span className={styles.summaryMonth}>{selectedMonthLabel}</span>
+                    <span className={styles.summaryLabel}>Birthdays This Month</span>
+                    <span className={styles.summaryCount}>{birthdays.length}<span> employees</span></span>
+                  </div>
                 </div>
-              </div>
 
-              <div className={styles.bottomStack}>
+                <div className={styles.contentRow}>
+                  <div className={styles.carouselWrap}>
+                    <button
+                      className={styles.navButton}
+                      onClick={handleBirthdayPrev}
+                      disabled={birthdayPage === 0}
+                      aria-label="Previous"
+                    >
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <polyline points="15 18 9 12 15 6" />
+                      </svg>
+                    </button>
+
+                    <div className={styles.birthdayGrid}>
+                      {currentBirthdayItems.map((item) => (
+                        <div key={item.employeeId} className={styles.birthdayCard}>
+                          <div className={styles.cakeHeader}>
+                            <CakeIconSmall className={styles.cardCakeIcon} />
+                          </div>
+                          <div className={styles.dateCenter}>
+                            <span className={styles.dateDay}>{item.date}</span>
+                            <span className={styles.dateWeekday}>{item.day}</span>
+                          </div>
+                          <div className={styles.cardDivider} />
+                          <div className={styles.cardBody}>
+                            <h3 className={styles.employeeName}>{item.fullName}</h3>
+                            <span className={styles.infoRow}><BuildingIcon />{item.department}</span>
+                          </div>
+                          <div className={styles.cardFooter}>
+                            <span className={styles.happyBirthdayTag}>
+                              <span aria-hidden="true">🎉</span>
+                              Happy Birthday!
+                              <span aria-hidden="true">✨</span>
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <button
+                      className={styles.navButton}
+                      onClick={handleBirthdayNext}
+                      disabled={birthdayPage >= birthdayTotalPages - 1}
+                      aria-label="Next"
+                    >
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <polyline points="9 18 15 12 9 6" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
                 <div className={styles.dots}>
                   {getDots(birthdayTotalPages).map((index) => (
                     <button
@@ -558,10 +535,11 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
                     />
                   ))}
                 </div>
-                <div className={styles.footer}>
-                  <span className={styles.footerIcon}><InfoIcon /></span>
-                  <span>Showing {birthdays.length} employees with birthdays in {selectedMonthLabel}.</span>
-                </div>
+              </div>
+
+              <div className={styles.footer}>
+                <span className={styles.footerIcon}><InfoIcon /></span>
+                <span>Showing employees with birthdays during {selectedMonthLabel}.</span>
               </div>
             </div>
           )}

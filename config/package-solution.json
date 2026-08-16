@@ -3,7 +3,7 @@
   "solution": {
     "name": "application-operation-department-client-side-solution",  
     "id": "0a91df3d-5ea5-45fd-907b-d1786f72a9d3",  
-    "version": "1.0.2.0",  
+    "version": "1.0.2.10",  
     "includeClientSideAssets": true,
     "skipFeatureDeployment" : true,
     "isDomainIsolated": false,

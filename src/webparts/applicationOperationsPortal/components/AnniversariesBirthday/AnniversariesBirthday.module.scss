@@ -16,13 +16,15 @@ $card-bg: #ffffff;
 $border-light: #e8eaf0;
 $page-bg: #f8f9ff;
 
-// Birthday panel keeps maroon brand
-$maroon-900: #5c0d1f;
-$maroon-800: #7a1430;
-$maroon-700: #8b1538;
-$maroon-600: #a11d42;
-$maroon-050: #fdf1f4;
-$maroon-border: #f0e2e6;
+// CIBC brand red (used for birthday heading)
+$cibc-red: #8B0000;
+
+// Birthday panel accents (matches attached design)
+$birthday-accent: #6b5ce7;
+$birthday-accent-soft: #f4f3ff;
+$birthday-card-border: #eceaf6;
+$birthday-footer-bg: #eef4ff;
+$info-blue: #3b82f6;
 
 $gold: #d4a017;
 $silver: #9aa3b2;
@@ -237,60 +239,148 @@ $bronze: #c67b3c;
 
 .birthdayPanel {
   .title {
-    color: $maroon-800;
+    color: $cibc-red;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .subtitle {
+    color: $text-muted;
+    font-size: 13.5px;
+    max-width: 520px;
   }
 
   .summaryBanner {
-    background: linear-gradient(135deg, $maroon-050, #fffaf9);
-    border: 1px solid rgba($maroon-700, 0.06);
+    background: transparent;
+    border: none;
+    padding: 4px 8px 12px;
+    margin-bottom: 4px;
   }
 
   .summaryIcon {
-    background: linear-gradient(135deg, $maroon-600, $maroon-800);
-    box-shadow: 0 6px 16px rgba($maroon-700, 0.32);
-  }
-
-  .summaryMonth,
-  .summaryCount {
-    color: $maroon-800;
-  }
-
-  .monthSelectorWrap {
-    border-color: $maroon-700;
+    background: $birthday-accent;
+    box-shadow: 0 6px 16px rgba($birthday-accent, 0.35);
 
     svg {
-      stroke: $maroon-700;
+      stroke: #ffffff;
     }
   }
 
-  .monthSelect {
-    color: $maroon-700;
+  .summaryText {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
   }
 
-  .navButton svg {
-    stroke: $maroon-700;
+  .summaryMonth {
+    color: $text-navy;
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  .summaryLabel {
+    color: $text-navy;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .summaryCount {
+    color: $birthday-accent;
+    font-size: 28px;
+    font-weight: 800;
+
+    span {
+      color: $text-muted;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+
+  .monthSelectorWrap {
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    padding: 8px 32px 8px 12px;
+
+    &:hover {
+      box-shadow: 0 2px 8px rgba(26, 39, 68, 0.08);
+    }
+
+    &:focus-within {
+      border-color: $birthday-accent;
+      box-shadow: 0 0 0 3px rgba($birthday-accent, 0.15);
+    }
+  }
+
+  .monthSelectorIcon {
+    stroke: $info-blue !important;
+    color: $info-blue;
+  }
+
+  .monthSelect {
+    color: $text-navy;
+    font-weight: 600;
+  }
+
+  .monthSelectorChevron {
+    color: $text-muted;
+  }
+
+  .navButton {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border: 1px solid $border-light;
+    box-shadow: 0 2px 6px rgba(26, 39, 68, 0.06);
+
+    svg {
+      stroke: $text-navy;
+      width: 16px;
+      height: 16px;
+    }
+
+    &:hover:not(:disabled) {
+      background: $birthday-accent-soft;
+      box-shadow: 0 4px 12px rgba($birthday-accent, 0.15);
+    }
+  }
+
+  .infoRow {
+    justify-content: center;
+    color: $text-muted;
   }
 
   .rowIcon {
-    stroke: $maroon-700;
+    stroke: $text-muted;
+  }
+
+  .employeeName {
+    color: $text-navy;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
   }
 
   .dot.active {
-    background: $maroon-700;
-    width: 18px;
-    border-radius: 3px;
+    background: $birthday-accent;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    box-shadow: none;
   }
 
   .footer {
-    background: $maroon-050;
-    color: $maroon-800;
+    background: $birthday-footer-bg;
+    color: $text-muted;
+    padding: 10px 14px;
+    margin-top: 12px;
   }
 
   .footerIcon {
-    background: rgba($maroon-700, 0.1);
+    background: transparent;
 
     svg {
-      stroke: $maroon-700;
+      stroke: $info-blue;
     }
   }
 }
@@ -623,8 +713,14 @@ $bronze: #c67b3c;
 }
 
 // ============================================================
-// Birthday cards (unchanged layout)
+// Birthday cards — 3 cards per page, matching design mock
 // ============================================================
+.birthdayCarousel {
+  background: $birthday-accent-soft;
+  border-radius: 14px;
+  padding: 16px 12px 14px;
+}
+
 .birthdayGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -647,22 +743,23 @@ $bronze: #c67b3c;
   flex-direction: column;
   align-items: center;
   background: $card-bg;
-  border: 1px solid $maroon-border;
+  border: 1px solid $birthday-card-border;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba($maroon-900, 0.04);
-  padding-top: 14px;
+  box-shadow: 0 1px 4px rgba(26, 39, 68, 0.04);
+  padding: 16px 10px 12px;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 
   &:hover {
-    border-color: $maroon-700;
-    box-shadow: 0 10px 24px -6px rgba($maroon-900, 0.16);
+    border-color: $birthday-accent;
+    box-shadow: 0 10px 24px -6px rgba($birthday-accent, 0.22);
     transform: translateY(-3px);
   }
 
   .employeeName {
     text-align: center;
-    color: #2a2027;
+    color: $text-navy;
+    margin-bottom: 6px;
   }
 
   .infoRow {
@@ -674,41 +771,44 @@ $bronze: #c67b3c;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
-.cakeCandlesIcon {
-  width: 46px;
-  height: 40px;
-  color: $maroon-700;
+.cardCakeIcon {
+  width: 22px;
+  height: 22px;
+  color: $birthday-accent;
+  stroke: $birthday-accent;
 }
 
 .dateCenter {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .dateDay {
-  font-size: 14px;
-  font-weight: 700;
-  color: $maroon-700;
+  font-size: 20px;
+  font-weight: 800;
+  color: $birthday-accent;
+  line-height: 1.15;
 }
 
 .dateWeekday {
-  font-size: 10px;
+  font-size: 12px;
   color: $text-muted;
+  margin-top: 2px;
 }
 
 .cardDivider {
-  width: 85%;
+  width: 72%;
   height: 1px;
-  background: $maroon-border;
+  background: #eceef3;
 }
 
 .cardBody {
-  padding: 12px;
+  padding: 12px 8px 8px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -717,18 +817,22 @@ $bronze: #c67b3c;
 }
 
 .cardFooter {
-  padding: 8px 12px;
-  background: $maroon-050;
-  border-top: 1px solid $maroon-border;
+  padding: 6px 8px 2px;
+  background: transparent;
+  border-top: none;
   text-align: center;
   width: 100%;
   box-sizing: border-box;
 }
 
 .happyBirthdayTag {
-  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 12px;
   font-weight: 700;
-  color: $maroon-700;
+  color: $birthday-accent;
 }
 
 .errorBanner {
@@ -754,6 +858,10 @@ $bronze: #c67b3c;
   background: $purple-050;
   border-radius: 12px;
   margin-bottom: 12px;
+}
+
+.birthdayPanel .emptyState {
+  background: $birthday-accent-soft;
 }
 
 .emptyStateIcon {
@@ -833,7 +941,8 @@ $bronze: #c67b3c;
     align-items: stretch;
   }
 
-  .anniversaryPanel .title {
+  .anniversaryPanel .title,
+  .birthdayPanel .title {
     font-size: 18px;
   }
 
