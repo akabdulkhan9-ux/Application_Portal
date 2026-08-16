@@ -72,8 +72,8 @@ const rankColors: Record<RankVariant, { fill: string; stroke: string; text: stri
 
 const yearsColorMap: Record<RankVariant, string> = {
   gold: '#D4A017',
-  silver: '#9AA3B2',
-  bronze: '#C67B3C',
+  silver: '#A0A6B0',
+  bronze: '#C4783A',
   default: '#b3a5ac',
 };
 
@@ -150,38 +150,59 @@ const MedalRibbonIcon: React.FC<{ rank: number; variant: RankVariant }> = ({ ran
   );
 };
 
-const LaurelWreathSvg: React.FC = () => (
-  <svg className={styles.laurelSvg} viewBox="0 0 96 72" aria-hidden="true">
-    <g fill="currentColor">
-      <ellipse cx="30" cy="62" rx="8" ry="3.4" transform="rotate(-58 30 62)" />
-      <ellipse cx="21" cy="54" rx="8" ry="3.4" transform="rotate(-42 21 54)" />
-      <ellipse cx="15" cy="44" rx="7.6" ry="3.2" transform="rotate(-26 15 44)" />
-      <ellipse cx="13" cy="33" rx="7.2" ry="3" transform="rotate(-10 13 33)" />
-      <ellipse cx="16" cy="22" rx="6.6" ry="2.8" transform="rotate(10 16 22)" />
-      <ellipse cx="24" cy="14" rx="6" ry="2.6" transform="rotate(28 24 14)" />
-      <ellipse cx="66" cy="62" rx="8" ry="3.4" transform="rotate(58 66 62)" />
-      <ellipse cx="75" cy="54" rx="8" ry="3.4" transform="rotate(42 75 54)" />
-      <ellipse cx="81" cy="44" rx="7.6" ry="3.2" transform="rotate(26 81 44)" />
-      <ellipse cx="83" cy="33" rx="7.2" ry="3" transform="rotate(10 83 33)" />
-      <ellipse cx="80" cy="22" rx="6.6" ry="2.8" transform="rotate(-10 80 22)" />
-      <ellipse cx="72" cy="14" rx="6" ry="2.6" transform="rotate(-28 72 14)" />
-    </g>
-    <path
-      d="M44 66 C 20 60 12 40 16 18"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-    />
-    <path
-      d="M52 66 C 76 60 84 40 80 18"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-    />
-  </svg>
-);
+const leftLeaves: Array<{ x: number; y: number; r: number; s: number }> = [
+  { x: 52, y: 80, r: -72, s: 1.05 },
+  { x: 41, y: 74, r: -60, s: 1.08 },
+  { x: 32, y: 66, r: -48, s: 1.08 },
+  { x: 25, y: 57, r: -38, s: 1.06 },
+  { x: 20, y: 47, r: -26, s: 1.04 },
+  { x: 18, y: 37, r: -14, s: 1.02 },
+  { x: 19, y: 27, r: -2, s: 1.0 },
+  { x: 23, y: 18, r: 12, s: 0.96 },
+  { x: 30, y: 11, r: 26, s: 0.9 },
+  { x: 39, y: 7, r: 40, s: 0.84 }
+];
+
+const LaurelWreathSvg: React.FC = () => {
+  const uid = React.useId().replace(/:/g, '');
+  const leafId = `laurelLeaf-${uid}`;
+
+  return (
+    <svg className={styles.laurelSvg} viewBox="0 0 120 90" aria-hidden="true">
+      <defs>
+        <path id={leafId} d="M0 9 C 2.8 4.2 3.1 -2.2 0 -10 C -3.1 -2.2 -2.8 4.2 0 9 Z" />
+      </defs>
+      <g fill="currentColor" stroke="currentColor" strokeWidth="0.35">
+        <path
+          d="M57 84 C 24 76 14 50 22 12"
+          fill="none"
+          strokeWidth="1.7"
+          strokeLinecap="round"
+        />
+        <path
+          d="M63 84 C 96 76 106 50 98 12"
+          fill="none"
+          strokeWidth="1.7"
+          strokeLinecap="round"
+        />
+        {leftLeaves.map((leaf, i) => (
+          <use
+            key={`l-${i}`}
+            href={`#${leafId}`}
+            transform={`translate(${leaf.x} ${leaf.y}) rotate(${leaf.r}) scale(${leaf.s})`}
+          />
+        ))}
+        {leftLeaves.map((leaf, i) => (
+          <use
+            key={`r-${i}`}
+            href={`#${leafId}`}
+            transform={`translate(${120 - leaf.x} ${leaf.y}) rotate(${-leaf.r}) scale(${leaf.s})`}
+          />
+        ))}
+      </g>
+    </svg>
+  );
+};
 
 /** Years of service inside a rank-colored laurel wreath */
 const LaurelYearsBadge: React.FC<{ years: number | string; variant: RankVariant }> = ({ years, variant }) => {
