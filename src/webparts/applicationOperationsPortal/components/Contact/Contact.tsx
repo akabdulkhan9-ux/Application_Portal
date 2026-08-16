@@ -559,7 +559,7 @@ export interface IContactProps {
 }
 
 const ITEMS_PER_PAGE = 3;
-const AUTO_ROTATE_MS = 10000;
+const AUTO_ROTATE_MS = 15000;
 const PAST_MONTHS_RANGE = 3;
 const FUTURE_MONTHS_RANGE = 9;
 
@@ -604,14 +604,6 @@ const getDots = (count: number): number[] => {
     dots.push(i);
   }
   return dots;
-};
-
-const getInitials = (name: string): string => {
-  if (!name) return '?';
-  const parts = name.trim().split(/\s+/);
-  const first = parts[0] ? parts[0].charAt(0) : '';
-  const last = parts.length > 1 ? parts[parts.length - 1].charAt(0) : '';
-  return (first + last).toUpperCase();
 };
 
 // ===== Small reusable icons =====
@@ -877,6 +869,8 @@ export const Contact: React.FC<IContactProps> = (props) => {
 
   const currentItems = leaves.slice(currentPage * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE + ITEMS_PER_PAGE);
   const selectedMonthLabel = getMonthLabel(selectedMonth);
+  const isCurrentMonth = selectedMonthValue === currentMonthValue;
+  const leaveTitleMonth = isCurrentMonth ? 'Current Month' : selectedMonthLabel;
 
   return (
     <section className={styles.contactSection}>
@@ -886,8 +880,8 @@ export const Contact: React.FC<IContactProps> = (props) => {
         <div className={styles.leaveColumn}>
           <div className={styles.leaveHeader}>
             <div className={styles.leaveTitleWrap}>
-              <h2 className={styles.title}>🗓️ Employees on Leave</h2>
-              <p className={styles.subtitle}>View all employees who are on leave during the selected month.</p>
+              <h2 className={styles.title}>Employees on Leave – {leaveTitleMonth}</h2>
+              <p className={styles.subtitle}>View all employees who are on leave during the current month.</p>
             </div>
 
             <div className={styles.monthSelectorWrap}>
@@ -913,9 +907,7 @@ export const Contact: React.FC<IContactProps> = (props) => {
             <div className={styles.summaryText}>
               <span className={styles.summaryMonth}>{selectedMonthLabel}</span>
               <span className={styles.summaryLabel}>Employees on Leave</span>
-            </div>
-            <div className={styles.summaryCount}>
-              {leaves.length}<span>employees</span>
+              <span className={styles.summaryCount}>{leaves.length}<span> employees</span></span>
             </div>
           </div>
 
@@ -935,7 +927,6 @@ export const Contact: React.FC<IContactProps> = (props) => {
                   <div className={styles.carouselTrack}>
                     {currentItems.map((leave) => (
                       <div key={leave.id} className={styles.leaveCard}>
-                        <div className={styles.avatar}>{getInitials(leave.fullName)}</div>
                         <h3 className={styles.employeeName}>{leave.fullName}</h3>
                         <span className={styles.employeeTitle}>{leave.jobTitle}</span>
                         <span className={`${styles.leaveType} ${getLeaveTypeClass(leave.leaveType)}`}>
@@ -977,10 +968,7 @@ export const Contact: React.FC<IContactProps> = (props) => {
 
           <div className={styles.footer}>
             <InfoIcon />
-            <span>
-              Showing employees who are on leave during {selectedMonthLabel}.
-              <span className={styles.memberCount}> {leaves.length} members</span>
-            </span>
+            <span>Showing employees who are on leave during {selectedMonthLabel}.</span>
           </div>
         </div>
 

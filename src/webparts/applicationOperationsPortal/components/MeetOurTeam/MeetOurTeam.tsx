@@ -150,6 +150,7 @@
 // src/webparts/applicationOperationsPortal/components/MeetOurTeam/MeetOurTeam.tsx
 
 import * as React from "react";
+import { createPortal } from "react-dom";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 import styles from "./MeetOurTeam.module.scss";
 import { teamMembersService, ITeamMember } from "../../services/TeamMembersService";
@@ -284,8 +285,7 @@ export const MeetOurTeam: React.FC<IMeetOurTeamProps> = (props) => {
         {filtered.length} {filtered.length === 1 ? 'member' : 'members'}
       </div>
 
-      {/* Popup with high-quality image */}
-      {hoveredMember && (
+      {hoveredMember && typeof document !== 'undefined' && createPortal(
         <TeamMemberPopup
           name={hoveredMember.name}
           role={hoveredMember.role}
@@ -294,7 +294,8 @@ export const MeetOurTeam: React.FC<IMeetOurTeamProps> = (props) => {
           department={hoveredMember.department || ''}
           avatarUrl={hoveredMember.popupImageUrl || hoveredMember.profileImageUrl}
           position={popupPosition}
-        />
+        />,
+        document.body
       )}
     </div>
   );

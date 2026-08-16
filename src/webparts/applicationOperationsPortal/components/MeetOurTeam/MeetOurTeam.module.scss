@@ -282,21 +282,18 @@ $radius-md: 9px;
   padding: 22px 18px;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  }
+  height: auto;
+  max-height: 560px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
 .title {
-  font-size: 18px;  // ✅ Increased from 14px
+  font-size: 22px;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: -0.02em;
   margin: 0 0 15px;
-  color: $color-maroon;  // ✅ Changed from $color-text to $color-maroon
+  color: $color-maroon;
   position: relative;
   display: inline-block;
   
@@ -358,9 +355,11 @@ $radius-md: 9px;
 }
 
 .listContainer {
-  flex: 1;
-  max-height: 465px;
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: 400px;
   overflow-y: auto;
+  overflow-x: hidden;
   margin-bottom: 13px;
 
   &::-webkit-scrollbar {
@@ -500,7 +499,7 @@ $radius-md: 9px;
   }
   
   .title {
-    font-size: 16px;  // ✅ Increased
+    font-size: 18px;
   }
   
   .listContainer {

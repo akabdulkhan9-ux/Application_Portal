@@ -838,9 +838,7 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 14px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid $color-border;
+  margin-bottom: 16px;
   flex-wrap: wrap;
   gap: 10px;
 }
@@ -850,15 +848,16 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   flex-direction: column;
   gap: 4px;
   flex: 1;
+  min-width: 200px;
 }
 
 .title {
-  font-size: 19px;
+  font-size: 22px;
   font-weight: 700;
   color: $color-maroon;
   margin: 0;
   padding: 0;
-  letter-spacing: 0.2px;
+  letter-spacing: -0.02em;
 }
 
 .subtitle {
@@ -874,15 +873,20 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   position: relative;
   display: flex;
   align-items: center;
-  border: 1px solid $color-maroon;
-  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
   padding: 8px 32px 8px 12px;
   background: #ffffff;
   flex-shrink: 0;
   min-width: 150px;
   transition: box-shadow 0.2s ease;
 
+  &:hover {
+    box-shadow: 0 2px 8px rgba(26, 39, 68, 0.08);
+  }
+
   &:focus-within {
+    border-color: $color-maroon;
     box-shadow: 0 0 0 3px rgba($color-maroon, 0.12);
   }
 }
@@ -920,9 +924,9 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   border: none;
   background: transparent;
   outline: none;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
-  color: $color-maroon;
+  color: $color-text;
   font-family: $font-family;
   cursor: pointer;
   padding-right: 4px;
@@ -938,16 +942,17 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 12px 16px;
+  padding: 16px 18px;
   background: $color-maroon-lighter;
-  border-radius: $radius-md;
+  border-radius: 12px;
   margin-bottom: 14px;
+  flex-wrap: nowrap;
 }
 
 .calendarIconWrap {
-  width: 42px;
-  height: 42px;
-  min-width: 42px;
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
   border-radius: 50%;
   background: $color-maroon;
   color: #fff;
@@ -955,43 +960,51 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  box-shadow: 0 6px 16px rgba($color-maroon, 0.32);
 
   svg {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     stroke: #ffffff;
   }
 }
 
 .summaryText {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: baseline;
+  flex-wrap: nowrap;
+  gap: 10px;
   flex: 1;
+  min-width: 0;
 }
 
 .summaryMonth {
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 600;
   color: $color-text;
+  white-space: nowrap;
 }
 
 .summaryLabel {
-  font-size: 12.5px;
-  color: $color-text-muted;
+  font-size: 15px;
+  font-weight: 700;
+  color: $color-maroon;
+  white-space: nowrap;
 }
 
 .summaryCount {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 800;
   color: $color-maroon;
   line-height: 1;
   display: flex;
   align-items: baseline;
-  gap: 5px;
+  gap: 6px;
 
   span {
-    font-size: 12.5px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 500;
     color: $color-text-muted;
   }
 }
@@ -1027,43 +1040,27 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 16px 12px 14px;
+  padding: 18px 12px 16px;
   background: #ffffff;
   border: 1px solid $color-border;
-  border-radius: $radius-md;
-  transition: all 0.25s ease;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(26, 39, 68, 0.04);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
   min-height: 190px;
   box-sizing: border-box;
 
   &:hover {
     border-color: $color-maroon;
-    box-shadow: 0 6px 16px rgba($color-maroon, 0.1);
+    box-shadow: 0 10px 24px -6px rgba($color-maroon, 0.16);
     transform: translateY(-3px);
   }
 }
 
-.avatar {
-  width: 40px;
-  height: 40px;
-  min-width: 40px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, $color-maroon, $color-maroon-dark);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  margin-bottom: 8px;
-  box-shadow: 0 2px 6px rgba($color-maroon, 0.3);
-}
-
 .employeeName {
-  font-size: 14.5px;
+  font-size: 15px;
   font-weight: 700;
   color: $color-text;
-  margin: 0 0 2px 0;
+  margin: 0 0 4px 0;
   padding: 0;
   line-height: 1.3;
 }
@@ -1134,20 +1131,19 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
 }
 
 .days {
-  font-size: 13px;
-  font-weight: 700;
-  color: #fff;
-  background: $color-maroon;
-  padding: 3px 12px;
-  border-radius: 20px;
+  font-size: 15px;
+  font-weight: 800;
+  color: $color-maroon;
+  background: transparent;
+  padding: 0;
   margin-top: auto;
 }
 
 // ===== CAROUSEL CONTROLS =====
 .navButton {
-  width: 32px;
-  height: 32px;
-  min-width: 32px;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
   border-radius: 50%;
   border: 1px solid $color-border;
   background: #fff;
@@ -1157,12 +1153,14 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   justify-content: center;
   cursor: pointer;
   flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(26, 39, 68, 0.06);
   transition: all 0.2s ease;
 
   &:hover:not(:disabled) {
     border-color: $color-maroon;
     color: $color-maroon;
     background: $color-maroon-lighter;
+    box-shadow: 0 4px 12px rgba($color-maroon, 0.15);
   }
 
   &:disabled {
@@ -1185,33 +1183,40 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
 }
 
 .dot {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   border: none;
-  background: #e0d6d9;
+  background: #d1d5db;
   cursor: pointer;
   padding: 0;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: #9ca3af;
+  }
 
   &.active {
     background: $color-maroon;
-    width: 18px;
-    border-radius: 4px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
   }
 }
 
 .footer {
   margin-top: 12px;
-  padding: 9px 14px;
-  background: $color-maroon-lighter;
-  border-radius: $radius-sm;
+  padding: 10px 14px;
+  background: #fdecee;
+  border-radius: 8px;
   font-size: 12.5px;
   color: $color-text-muted;
   display: flex;
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
 
   svg {
     width: 15px;

@@ -233,10 +233,8 @@ $color-maroon: #8B0000;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  
-  > * {
-    flex: 1;
-  }
+  align-items: stretch;
+  align-self: start;
 }
 
 .contentArea {
