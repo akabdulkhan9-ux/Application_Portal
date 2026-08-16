@@ -1,11 +1,11 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
-    "name": "united-arab-bank-department-client-side-solution",
-    "id": "0a91df3d-5ea5-45fd-907b-d1786f72a9d3",
-    "version": "1.0.2.4",
+    "name": "application-operation-department-client-side-solution",  
+    "id": "0a91df3d-5ea5-45fd-907b-d1786f72a9d3",  
+    "version": "1.0.2.0",  
     "includeClientSideAssets": true,
-    "skipFeatureDeployment": true,
+    "skipFeatureDeployment" : true,
     "isDomainIsolated": false,
     "developer": {
       "name": "",
@@ -16,10 +16,10 @@
     },
     "metadata": {
       "shortDescription": {
-        "default": "United-Arab-Bank-Department description"
+        "default": "Application Operation Department Portal"
       },
       "longDescription": {
-        "default": "United-Arab-Bank-Department description"
+        "default": "Application Operation Department Portal for CIBC/ALUBAF Bank"
       },
       "screenshotPaths": [],
       "videoUrl": "",
@@ -27,14 +27,14 @@
     },
     "features": [
       {
-        "title": "united-arab-bank-department Feature",
-        "description": "The feature that activates elements of the united-arab-bank-department solution.",
-        "id": "5f0e79ec-86da-4eff-9edc-2941b779fcee",
+        "title": "Application Operation Department Feature",
+        "description": "The feature that activates elements of the Application Operation Department solution.",
+        "id": "5f0e79ec-86da-4eff-9edc-2941b779fcee", 
         "version": "1.0.0.0"
       }
     ]
   },
   "paths": {
-    "zippedPackage": "solution/united-arab-bank-department.sppkg"
+    "zippedPackage": "solution/application-operation-department.sppkg"  
   }
 }

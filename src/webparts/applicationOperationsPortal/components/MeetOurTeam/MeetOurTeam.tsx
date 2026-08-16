@@ -1,87 +1,156 @@
+
+
 // import * as React from "react";
 // import styles from "./MeetOurTeam.module.scss";
-
-// // Internal interface - replace with import from models folder later
-// interface ITeamMember {
-//   id: string;
-//   name: string;
-//   role: string;
-//   avatarUrl?: string;
-// }
+// import { teamMembersService, ITeamMember } from "../../services/TeamMembersService";
+// import { TeamMemberPopup } from "./TeamMemberPopup";
+// import { isPnPjsInitialized } from "../../services/pnpjsConfig";
 
 // export interface IMeetOurTeamProps {
 //   isDarkTheme?: boolean;
 //   hasTeamsContext?: boolean;
 //   userDisplayName?: string;
+//   context?: any;
 // }
 
-// export const MeetOurTeam: React.FC<IMeetOurTeamProps> = () => {
+// export const MeetOurTeam: React.FC<IMeetOurTeamProps> = (props) => {
 //   const [members, setMembers] = React.useState<ITeamMember[]>([]);
 //   const [query, setQuery] = React.useState("");
-
-//   // Mock data - replace with intranetService.getTeamMembers()
-//   const getMockMembers = (): Promise<ITeamMember[]> => {
-//     return Promise.resolve([
-//       { id: "1", name: "Hassan Al-Zahrani", role: "Associate Analyst", avatarUrl: "" },
-//       { id: "2", name: "Mousa Al-Shammari", role: "Associate Analyst", avatarUrl: "" },
-//       { id: "3", name: "Shahha Al Kaabi", role: "Associate Analyst", avatarUrl: "" },
-//       { id: "4", name: "Mansour bin Zayed", role: "Associate Analyst", avatarUrl: "" },
-//       { id: "5", name: "Amina Shawar", role: "Associate Analyst", avatarUrl: "" },
-//       { id: "6", name: "Maryam Al Tunajji", role: "Associate Analyst", avatarUrl: "" },
-//       { id: "7", name: "Amina Shomar", role: "Associate Analyst", avatarUrl: "" },
-//       { id: "8", name: "Musabbar Al-Farisi", role: "Associate Analyst", avatarUrl: "" },
-//     ]);
-//   };
+//   const [isLoading, setIsLoading] = React.useState<boolean>(true);
+//   const [hoveredMember, setHoveredMember] = React.useState<ITeamMember | null>(null);
+//   const [popupPosition, setPopupPosition] = React.useState({ x: 0, y: 0 });
 
 //   React.useEffect(() => {
-//     getMockMembers().then(setMembers).catch(console.error);
-//   }, []);
+//     const loadMembers = async () => {
+//       try {
+//         let retries = 0;
+//         while (!isPnPjsInitialized() && retries < 10) {
+//           await new Promise(resolve => setTimeout(resolve, 500));
+//           retries++;
+//         }
+//         const data = await teamMembersService.getTeamMembers(props.context);
+//         setMembers(data);
+//       } catch (error) {
+//         // Silent error handling
+//       } finally {
+//         setIsLoading(false);
+//       }
+//     };
+//     loadMembers();
+//   }, [props.context]);
 
-//   // Using indexOf() instead of includes() for ES5 compatibility
-//   const filtered = members.filter((m) =>
+//   const handleMouseEnter = (member: ITeamMember, event: React.MouseEvent) => {
+//     setHoveredMember(member);
+//     setPopupPosition({ x: event.clientX, y: event.clientY });
+//   };
+
+//   const handleMouseLeave = () => {
+//     setHoveredMember(null);
+//   };
+
+//   const handleMouseMove = (event: React.MouseEvent) => {
+//     if (hoveredMember) {
+//       setPopupPosition({ x: event.clientX, y: event.clientY });
+//     }
+//   };
+
+//   const filtered = members.filter((m: ITeamMember) =>
 //     m.name.toLowerCase().indexOf(query.toLowerCase()) !== -1
 //   );
 
+//   if (isLoading) {
+//     return (
+//       <div className={styles.card}>
+//         <h3 className={styles.title}>MEET OUR TEAM</h3>
+//         <div className={styles.loadingState}>Loading team members...</div>
+//       </div>
+//     );
+//   }
+
 //   return (
 //     <div className={styles.card}>
-//       <h3 className={styles.title}>MEET OUR TEAM</h3>
-      
+//       <h3 className={styles.title}>MEET OUR LEADERS</h3>
+
 //       <div className={styles.searchWrapper}>
 //         <input
 //           type="text"
 //           className={styles.search}
 //           placeholder="Search"
 //           value={query}
-//           onChange={(e) => setQuery(e.target.value)}
+//           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
 //         />
 //         <span className={styles.searchIcon}>🔍</span>
 //       </div>
-      
-//       <ul className={styles.list}>
-//         {filtered.map((m) => (
-//           <li key={m.id} className={styles.item}>
-//             <div className={styles.avatar}>
-//               {m.avatarUrl ? (
-//                 <img src={m.avatarUrl} alt={m.name} />
-//               ) : (
-//                 <span className={styles.avatarInitial}>
-//                   {m.name.charAt(0).toUpperCase()}
-//                 </span>
-//               )}
-//             </div>
-//             <div className={styles.meta}>
-//               <div className={styles.name}>{m.name}</div>
-//               <div className={styles.role}>{m.role}</div>
-//             </div>
-//           </li>
-//         ))}
-//       </ul>
+
+//       <div className={styles.listContainer}>
+//         <ul className={styles.list}>
+//           {filtered.map((m: ITeamMember) => (
+//             <li
+//               key={m.id}
+//               className={styles.item}
+//               onMouseEnter={(e: React.MouseEvent) => handleMouseEnter(m, e)}
+//               onMouseLeave={handleMouseLeave}
+//               onMouseMove={handleMouseMove}
+//             >
+//               {/* ✅ Use thumbnailUrl for SHARP list images */}
+//               <div className={styles.avatar}>
+//                 {m.thumbnailUrl ? (
+//                   <img src={m.thumbnailUrl} alt={m.name} />
+//                 ) : (
+//                   <span className={styles.avatarInitial}>
+//                     {m.name && m.name !== "Unknown" ? m.name.charAt(0).toUpperCase() : '?'}
+//                   </span>
+//                 )}
+//               </div>
+//               <div className={styles.meta}>
+//                 <div className={styles.name}>{m.name !== "Unknown" ? m.name : 'No Name'}</div>
+//                 <div className={styles.role}>{m.role || 'No Role'}</div>
+//               </div>
+//             </li>
+//           ))}
+//         </ul>
+//       </div>
+
+//       <div className={styles.memberCount}>
+//         {filtered.length} {filtered.length === 1 ? 'member' : 'members'}
+//       </div>
+
+//       {/* ✅ Popup uses original image for HIGH QUALITY */}
+//       {/* {hoveredMember && (
+//         <TeamMemberPopup
+//           name={hoveredMember.name}
+//           role={hoveredMember.role}
+//           email={hoveredMember.email || ''}
+//           phone={hoveredMember.phone || ''}
+//           department={hoveredMember.department || ''}
+//           avatarUrl={hoveredMember.profileImageUrl}
+//           position={popupPosition}
+//         />
+//       )} */}
+
+//       {/* ✅ Popup uses larger image (Option 1 + Option 4) */}
+//       {hoveredMember && (
+//         <TeamMemberPopup
+//           name={hoveredMember.name}
+//           role={hoveredMember.role}
+//           email={hoveredMember.email || ''}
+//           phone={hoveredMember.phone || ''}
+//           department={hoveredMember.department || ''}
+//           avatarUrl={hoveredMember.popupImageUrl || hoveredMember.profileImageUrl}
+//           position={popupPosition}
+//         />
+//       )}
 //     </div>
 //   );
 // };
 
 
+
+
+// src/webparts/applicationOperationsPortal/components/MeetOurTeam/MeetOurTeam.tsx
+
 import * as React from "react";
+import { WebPartContext } from "@microsoft/sp-webpart-base";
 import styles from "./MeetOurTeam.module.scss";
 import { teamMembersService, ITeamMember } from "../../services/TeamMembersService";
 import { TeamMemberPopup } from "./TeamMemberPopup";
@@ -91,9 +160,16 @@ export interface IMeetOurTeamProps {
   isDarkTheme?: boolean;
   hasTeamsContext?: boolean;
   userDisplayName?: string;
+  context?: WebPartContext;
+  /** Maximum height for the list container (default: 465px) */
+  maxHeight?: string;
+  /** Show search bar (default: true) */
+  showSearch?: boolean;
 }
 
-export const MeetOurTeam: React.FC<IMeetOurTeamProps> = () => {
+export const MeetOurTeam: React.FC<IMeetOurTeamProps> = (props) => {
+  const { maxHeight = '465px', showSearch = true } = props;
+  
   const [members, setMembers] = React.useState<ITeamMember[]>([]);
   const [query, setQuery] = React.useState("");
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
@@ -101,54 +177,48 @@ export const MeetOurTeam: React.FC<IMeetOurTeamProps> = () => {
   const [popupPosition, setPopupPosition] = React.useState({ x: 0, y: 0 });
 
   React.useEffect(() => {
-    const loadMembers = async () => {
+    const loadMembers = async (): Promise<void> => {
       try {
-        // Wait for PnPjs to initialize
         let retries = 0;
         while (!isPnPjsInitialized() && retries < 10) {
           await new Promise(resolve => setTimeout(resolve, 500));
           retries++;
         }
-
-        const data = await teamMembersService.getTeamMembers();
+        const data = await teamMembersService.getTeamMembers(props.context);
         setMembers(data);
       } catch (error) {
-        console.error("Error loading team members:", error);
+        // Silent error handling
+        console.warn('[MeetOurTeam] Error loading members:', error);
       } finally {
         setIsLoading(false);
       }
     };
+    loadMembers().catch((): void => undefined);
+  }, [props.context]);
 
-    loadMembers();
-  }, []);
-
-  // Handle mouse enter on member
-  const handleMouseEnter = (member: ITeamMember, event: React.MouseEvent) => {
+  const handleMouseEnter = (member: ITeamMember, event: React.MouseEvent): void => {
     setHoveredMember(member);
     setPopupPosition({ x: event.clientX, y: event.clientY });
   };
 
-  // Handle mouse leave
-  const handleMouseLeave = () => {
+  const handleMouseLeave = (): void => {
     setHoveredMember(null);
   };
 
-  // Update popup position on mouse move
-  const handleMouseMove = (event: React.MouseEvent) => {
+  const handleMouseMove = (event: React.MouseEvent): void => {
     if (hoveredMember) {
       setPopupPosition({ x: event.clientX, y: event.clientY });
     }
   };
 
-  // Filter members based on search query
-  const filtered = members.filter((m) =>
+  const filtered = members.filter((m: ITeamMember) =>
     m.name.toLowerCase().indexOf(query.toLowerCase()) !== -1
   );
 
   if (isLoading) {
     return (
       <div className={styles.card}>
-        <h3 className={styles.title}>MEET OUR TEAM</h3>
+        <h3 className={styles.title}>MEET OUR LEADERS</h3>
         <div className={styles.loadingState}>Loading team members...</div>
       </div>
     );
@@ -156,57 +226,78 @@ export const MeetOurTeam: React.FC<IMeetOurTeamProps> = () => {
 
   return (
     <div className={styles.card}>
-      <h3 className={styles.title}>MEET OUR TEAM</h3>
-      
-      <div className={styles.searchWrapper}>
-        <input
-          type="text"
-          className={styles.search}
-          placeholder="Search"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <span className={styles.searchIcon}>🔍</span>
-      </div>
-      
-      <ul className={styles.list}>
-        {filtered.map((m) => (
-          <li 
-            key={m.id} 
-            className={styles.item}
-            onMouseEnter={(e) => handleMouseEnter(m, e)}
-            onMouseLeave={handleMouseLeave}
-            onMouseMove={handleMouseMove}
-          >
-            <div className={styles.avatar}>
-              {m.avatarUrl ? (
-                <img src={m.avatarUrl} alt={m.name} />
-              ) : (
-                <span className={styles.avatarInitial}>
-                  {m.name.charAt(0).toUpperCase()}
-                </span>
-              )}
-            </div>
-            <div className={styles.meta}>
-              <div className={styles.name}>{m.name}</div>
-              <div className={styles.role}>{m.role}</div>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <h3 className={styles.title}>MEET OUR LEADERS</h3>
 
-      {/* Hover Popup */}
+      {showSearch && (
+        <div className={styles.searchWrapper}>
+          <input
+            type="text"
+            className={styles.search}
+            placeholder="Search"
+            value={query}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
+            aria-label="Search team members"
+          />
+          <span className={styles.searchIcon}>🔍</span>
+        </div>
+      )}
+
+      <div 
+        className={styles.listContainer}
+        style={{ maxHeight: maxHeight }}
+      >
+        {filtered.length === 0 ? (
+          <div className={styles.emptyState}>
+            {query ? 'No members found matching your search.' : 'No team members available.'}
+          </div>
+        ) : (
+          <ul className={styles.list}>
+            {filtered.map((m: ITeamMember) => (
+              <li
+                key={m.id}
+                className={styles.item}
+                onMouseEnter={(e: React.MouseEvent) => handleMouseEnter(m, e)}
+                onMouseLeave={handleMouseLeave}
+                onMouseMove={handleMouseMove}
+              >
+                {/* Avatar with thumbnailUrl */}
+                <div className={styles.avatar}>
+                  {m.thumbnailUrl ? (
+                    <img src={m.thumbnailUrl} alt={m.name} />
+                  ) : (
+                    <span className={styles.avatarInitial}>
+                      {m.name && m.name !== "Unknown" ? m.name.charAt(0).toUpperCase() : '?'}
+                    </span>
+                  )}
+                </div>
+                <div className={styles.meta}>
+                  <div className={styles.name}>{m.name !== "Unknown" ? m.name : 'No Name'}</div>
+                  <div className={styles.role}>{m.role || 'No Role'}</div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      <div className={styles.memberCount}>
+        {filtered.length} {filtered.length === 1 ? 'member' : 'members'}
+      </div>
+
+      {/* Popup with high-quality image */}
       {hoveredMember && (
         <TeamMemberPopup
           name={hoveredMember.name}
           role={hoveredMember.role}
-          email={hoveredMember.email}
-          phone={hoveredMember.phone}
-          department={hoveredMember.department}
-          avatarUrl={hoveredMember.avatarUrl}
+          email={hoveredMember.email || ''}
+          phone={hoveredMember.phone || ''}
+          department={hoveredMember.department || ''}
+          avatarUrl={hoveredMember.popupImageUrl || hoveredMember.profileImageUrl}
           position={popupPosition}
         />
       )}
     </div>
   );
 };
+
+export default MeetOurTeam;

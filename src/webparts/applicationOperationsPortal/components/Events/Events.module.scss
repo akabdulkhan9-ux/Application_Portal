@@ -1,134 +1,16 @@
 
-// $color-border: #e0e0e0;
-// $color-maroon: #8B0000;
-// $color-text-muted: #666666;
-// $radius-md: 8px;
-// $radius-sm: 4px;
 
-// .section {
-//   background: #fff;
-//   border: 1px solid $color-border;
-//   border-radius: $radius-md;
-//   padding: 20px;
-// }
-
-// .head {
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-//   margin-bottom: 16px;
-// }
-
-// .title {
-//   font-size: 14px;
-//   font-weight: 700;
-//   letter-spacing: 1px;
-//   margin: 0;
-// }
-
-// .viewAll {
-//   color: $color-maroon;
-//   font-size: 13px;
-//   font-weight: 600;
-//   text-decoration: none;
-//   display: inline-flex;
-//   align-items: center;
-//   gap: 6px;
-// }
-
-// .grid {
-//   display: grid;
-//   grid-template-columns: repeat(3, 1fr);
-//   gap: 16px;
-// }
-
-// .card {
-//   display: flex;
-//   flex-direction: column;
-//   transition: transform 0.2s ease, box-shadow 0.2s ease;
-//   cursor: pointer;
-  
-//   &:hover {
-//     transform: translateY(-4px);
-    
-//     .imageWrap img {
-//       transform: scale(1.05);
-//     }
-    
-//     .cardTitle {
-//       color: $color-maroon;
-//     }
-//   }
-// }
-
-// .imageWrap {
-//   height: 140px;
-//   overflow: hidden;
-//   border-radius: $radius-sm;
-  
-//   img {
-//     width: 100%;
-//     height: 100%;
-//     object-fit: cover;
-//     transition: transform 0.3s ease;
-//   }
-// }
-
-// .body {
-//   padding: 12px 0;
-//   display: flex;
-//   flex-direction: column;
-//   gap: 6px;
-// }
-
-// .cardTitle {
-//   font-size: 14px;
-//   font-weight: 700;
-//   margin: 0 0 4px;
-//   transition: color 0.2s ease;
-// }
-
-// .meta {
-//   display: flex;
-//   align-items: center;
-//   gap: 6px;
-//   font-size: 12.5px;
-//   color: $color-maroon;
-// }
-
-// .icon {
-//   color: $color-maroon;
-// }
-
-// .row {
-//   display: flex;
-//   gap: 16px;
-//   color: $color-text-muted;
-//   span {
-//     color: $color-text-muted;
-//   }
-// }
-
-// .loadingState,
-// .emptyState {
-//   text-align: center;
-//   padding: 40px 20px;
-//   color: #666666;
-//   font-size: 14px;
-// }
-
-// @media (max-width: 900px) {
-//   .grid {
-//     grid-template-columns: 1fr;
-//   }
-// }
 $color-border: #e0e0e0;
-$color-maroon: #8B0000;
+$color-maroon: #8b0000;
 $color-text: #333333;
 $color-text-muted: #666666;
 $radius-md: 8px;
 $radius-sm: 4px;
 $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+// ============================================
+// HOME PAGE EVENTS SECTION
+// ============================================
 
 .section {
   background: #fff;
@@ -162,7 +44,7 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  
+
   &:hover {
     text-decoration: underline;
   }
@@ -189,7 +71,7 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
   &:hover {
     transform: translateY(-4px);
     box-shadow: $shadow-lg;
-    
+
     .imageWrap img {
       transform: scale(1.05);
     }
@@ -197,16 +79,32 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 .imageWrap {
-  height: 140px;
+  position: relative;
+  height: 150px;
   overflow: hidden;
   background: #f5f5f5;
-  
+
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
   }
+}
+
+.noImage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 160px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+  color: #6c757d;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  border-radius: 12px;
 }
 
 .body {
@@ -240,7 +138,7 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
   display: flex;
   gap: 16px;
   color: $color-text-muted;
-  
+
   .meta span {
     color: $color-text-muted;
   }
@@ -254,7 +152,10 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
   font-size: 14px;
 }
 
-// Detail Page Styles
+// ============================================
+// EVENT DETAIL PAGE
+// ============================================
+
 .detailPage {
   max-width: 800px;
   margin: 0 auto;
@@ -272,7 +173,7 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
   font-weight: 600;
   font-size: 14px;
   margin: 20px 24px;
-  
+
   &:hover {
     text-decoration: underline;
   }
@@ -282,7 +183,7 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
   width: 100%;
   height: 300px;
   overflow: hidden;
-  
+
   img {
     width: 100%;
     height: 100%;
@@ -324,43 +225,48 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
   font-size: 15px;
   line-height: 1.7;
   color: $color-text-muted;
-  
+
   p {
     margin: 0 0 16px 0;
   }
 }
 
-// All Events Page
+// ============================================
+// ALL EVENTS PAGE (LISTING) - FOOTER FIX
+// ============================================
+
 .allEventsPage {
   background: #fff;
   border-radius: $radius-md;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 200px);
 }
 
-.allEventsHeader {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid $color-border;
+.allEventsContent {
+  flex: 1;
 }
 
 .backToHome {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   color: $color-maroon;
   text-decoration: none;
   font-weight: 600;
   font-size: 14px;
-  
+  margin-bottom: 20px;
+
   &:hover {
     text-decoration: underline;
   }
 }
 
 .allEventsTitle {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
-  margin: 0;
+  margin: 0 0 20px 0;
   color: $color-text;
 }
 
@@ -369,6 +275,63 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
+
+// ============================================
+// SCROLLABLE PAGINATION (INFINITE SCROLL) STYLES
+// ============================================
+
+.sentinel {
+  text-align: center;
+  padding: 20px;
+  min-height: 60px;
+  width: 100%;
+}
+
+.loadingMore {
+  text-align: center;
+  padding: 20px;
+  color: #666666;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.loadingMore::before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e0e0e0;
+  border-top-color: #8B0000;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.noMoreItems {
+  text-align: center;
+  padding: 20px;
+  color: #999999;
+  font-size: 13px;
+  font-style: italic;
+}
+
+.totalCount {
+  font-size: 14px;
+  font-weight: 400;
+  color: #666666;
+  margin-left: 8px;
+}
+
+// ============================================
+// RESPONSIVE DESIGN
+// ============================================
 
 @media (max-width: 1024px) {
   .grid,
@@ -381,16 +344,16 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
   .detailImage {
     height: 200px;
   }
-  
+
   .detailTitle {
     font-size: 22px;
     margin: 20px;
   }
-  
+
   .detailMeta {
     margin: 0 20px 20px 20px;
   }
-  
+
   .detailBody {
     padding: 0 20px 20px 20px;
   }
@@ -401,54 +364,40 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
   .allEventsGrid {
     grid-template-columns: 1fr;
   }
-  
+
   .section {
     padding: 16px;
   }
+
+  .allEventsPage {
+    padding: 16px;
+  }
+
+  .allEventsTitle {
+    font-size: 20px;
+  }
 }
 
 
-.allEventsPage {
+// ============================================
+// DETAIL PAGE WRAPPER - FOOTER FIX
+// ============================================
+
+.detailPageWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  width: 100%;
+}
+
+// Update existing detailPage to work with wrapper
+.detailPage {
+  flex: 1;
+  max-width: 800px;
+  margin: 0 auto;
   background: #fff;
   border-radius: $radius-md;
-  padding: 20px;
-}
-
-.allEventsTitle {
-  font-size: 24px;
-  font-weight: 700;
-  margin: 20px 0;
-  color: $color-text;
-}
-
-.allEventsGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.backToHome {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: $color-maroon;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 14px;
-  
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-@media (max-width: 1024px) {
-  .allEventsGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 640px) {
-  .allEventsGrid {
-    grid-template-columns: 1fr;
-  }
+  overflow: hidden;
+  width: 100%;
 }

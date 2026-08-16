@@ -1,121 +1,182 @@
-// // import * as React from 'react';
-// // import styles from './ApplicationOperationsPortal.module.scss';
-// // import { IApplicationOperationsPortalProps } from './IApplicationOperationsPortalProps';
 
-// // // Import all section components
-// // import { Header } from './Header/Header';
-// // import { HeroBanner } from './HeroBanner/HeroBanner';
-// // import { MeetOurTeam } from './MeetOurTeam/MeetOurTeam';
-// // import { Announcements } from './Announcements/Announcements';
-// // import { Events } from './Events/Events';
-// // import { Contact } from './Contact/Contact';
-// // import { Footer } from './Footer/Footer';
 
-// // export default class ApplicationOperationsPortal extends React.Component<IApplicationOperationsPortalProps, {}> {
-// //   public render(): React.ReactElement<IApplicationOperationsPortalProps> {
-// //     return (
-// //       <div className={styles.applicationOperationsPortal}>
-// //         <Header 
-// //           isDarkTheme={this.props.isDarkTheme}
-// //           userDisplayName={this.props.userDisplayName}
-// //         />
-        
-// //         <main className={styles.main}>
-// //           <HeroBanner />
-          
-// //           <div className={styles.contentGrid}>
-// //             <aside className={styles.sidebar}>
-// //               <MeetOurTeam />
-// //             </aside>
-            
-// //             <section className={styles.contentArea}>
-// //               <Announcements 
-// //                 title="ANNOUNCEMENTS"
-// //                 itemsToShow={3}
-// //                 isDarkTheme={this.props.isDarkTheme}
-// //                 hasTeamsContext={this.props.hasTeamsContext}
-// //                 userDisplayName={this.props.userDisplayName}
-// //               />
-// //               <Events />
-// //               <Contact />
-// //             </section>
-// //           </div>
-// //         </main>
-        
-// //         <Footer />
-// //       </div>
-// //     );
-// //   }
-// // }
+
+// // src/webparts/applicationOperationsPortal/components/ApplicationOperationsPortal.tsx
 
 // import * as React from 'react';
 // import styles from './ApplicationOperationsPortal.module.scss';
 // import { IApplicationOperationsPortalProps } from './IApplicationOperationsPortalProps';
-// import { initPnPjs } from '../services/pnpjsConfig';
 
-// // Import all section components
-// // import { Header } from './Header/Header';
+// // Import section components
 // import { HeroBanner } from './HeroBanner/HeroBanner';
 // import { MeetOurTeam } from './MeetOurTeam/MeetOurTeam';
-// import { Announcements } from './Announcements/Announcements';
-// import { Events } from './Events/Events';
 // import { Contact } from './Contact/Contact';
 // import { Footer } from './Footer/Footer';
 
-// export default class ApplicationOperationsPortal extends React.Component<IApplicationOperationsPortalProps, { isPnPjsReady: boolean }> {
-  
+// // Import Power BI Reports Section
+// import { PowerBIReportsSection } from './PowerBI/PowerBIReportsSection';
+
+// // Import User Service
+// import { userService, IUserInfo } from '../services/UserService';
+
+// // Import PnPjs utilities
+// import { initPnPjs } from '../services/pnpjsConfig';
+
+// type ViewMode = 'home' | 'contact';
+
+// interface IApplicationOperationsPortalState {
+//   isPnPjsReady: boolean;
+//   currentView: ViewMode;
+//   selectedId: string | null;
+//   currentUser: IUserInfo | null;
+//   isUserLoaded: boolean;
+// }
+
+// export default class ApplicationOperationsPortal extends React.Component<
+//   IApplicationOperationsPortalProps,
+//   IApplicationOperationsPortalState
+// > {
 //   constructor(props: IApplicationOperationsPortalProps) {
 //     super(props);
-//     this.state = { isPnPjsReady: false };
+//     this.state = {
+//       isPnPjsReady: false,
+//       currentView: 'home',
+//       selectedId: null,
+//       currentUser: null,
+//       isUserLoaded: false
+//     };
 //   }
 
 //   async componentDidMount() {
-//     // Initialize PnPjs using context passed from web part
 //     if (this.props.spfxContext) {
 //       await initPnPjs(this.props.spfxContext);
 //       this.setState({ isPnPjsReady: true });
+
+//       await this.loadCurrentUser();
 //     } else {
-//       // If no context, still show content (use mock data)
-//       this.setState({ isPnPjsReady: true });
+//       this.setState({
+//         isPnPjsReady: true,
+//         isUserLoaded: true
+//       });
 //     }
+
+//     this.checkUrlParams();
+//     window.addEventListener('popstate', () => {
+//       this.checkUrlParams();
+//     });
 //   }
 
+//   private loadCurrentUser = async (): Promise<void> => {
+//     try {
+//       const user = await userService.getCurrentUser();
+//       this.setState({
+//         currentUser: user,
+//         isUserLoaded: true
+//       });
+//       console.log('[ApplicationOperationsPortal] User loaded:', user.displayName);
+//     } catch (error) {
+//       console.error('[ApplicationOperationsPortal] Error loading user:', error);
+//       this.setState({ isUserLoaded: true });
+//     }
+//   };
+
+//   /**
+//    * Check URL parameters for routing
+//    */
+//   private checkUrlParams = (): void => {
+//     const urlParams = new URLSearchParams(window.location.search);
+//     const page = urlParams.get('page');
+
+//     if (page === 'contact') {
+//       this.setState({ currentView: 'contact', selectedId: null });
+//     } else {
+//       this.setState({ currentView: 'home', selectedId: null });
+//     }
+//   };
+
+//   /**
+//    * Get the Power BI page URL dynamically using context
+//    */
+//   private getPowerBIPageUrl = (): string => {
+//     const { spfxContext } = this.props;
+//     const webUrl = spfxContext?.pageContext?.web?.absoluteUrl || '';
+//     const cleanWebUrl = webUrl.replace(/\/$/, '');
+//     const powerBIPageUrl = `${cleanWebUrl}/SitePages/PowerBI.aspx`;
+//     console.log('[ApplicationOperationsPortal] Power BI page URL:', powerBIPageUrl);
+//     return powerBIPageUrl;
+//   };
+
+//   /**
+//    * Navigate to Power BI page (opens in new tab)
+//    */
+//   private navigateToPowerBIPage = (): void => {
+//     const powerBIPageUrl = this.getPowerBIPageUrl();
+//     console.log('[ApplicationOperationsPortal] Navigating to Power BI page:', powerBIPageUrl);
+//     window.open(powerBIPageUrl, '_blank');
+//   };
+
+//   private renderView = (): React.ReactNode => {
+//     const { currentView } = this.state;
+//     const { spfxContext } = this.props;
+
+//     switch (currentView) {
+//       case 'contact':
+//         return <Contact context={spfxContext} />;
+
+//       default:
+//         return (
+//           <>
+//             <HeroBanner context={spfxContext} />
+//             <div className={styles.contentGrid}>
+//               <aside className={styles.sidebar}>
+//                 <MeetOurTeam 
+//                   context={spfxContext}
+//                   maxHeight="400px"
+//                   showSearch={true}
+//                 />
+//               </aside>
+//               <section className={styles.contentArea}>
+//                 {/* Power BI Reports Section with New Title & Description */}
+//                 <div className={styles.reportsSection}>
+//                   <PowerBIReportsSection
+//                     onNavigate={this.navigateToPowerBIPage}
+//                     title="AO Incident Management Dashboard"
+//                     description="Provides a consolidated view of AO incidents, status, trends, SLA performance, and resolution metrics to support effective monitoring and informed decision-making."
+//                     icon="📊"
+//                   />
+//                 </div>
+
+//                 <div className={styles.contactSectionWrapper}>
+//                   <Contact context={spfxContext} />
+//                 </div>
+//               </section>
+//             </div>
+//           </>
+//         );
+//     }
+//   };
+
 //   public render(): React.ReactElement<IApplicationOperationsPortalProps> {
-//     // Show loading until PnPjs is ready (optional)
-//     if (!this.state.isPnPjsReady) {
+//     if (!this.state.isPnPjsReady || !this.state.isUserLoaded) {
 //       return (
 //         <div className={styles.applicationOperationsPortal}>
-//           <div style={{ textAlign: 'center', padding: '50px' }}>Loading portal...</div>
+//           <div className={styles.loadingContainer}>
+//             <div className={styles.spinner}></div>
+//             <p>
+//               {!this.state.isPnPjsReady
+//                 ? 'Initializing application...'
+//                 : 'Loading user information...'}
+//             </p>
+//           </div>
 //         </div>
 //       );
 //     }
 
 //     return (
 //       <div className={styles.applicationOperationsPortal}>
-//         {/* <Header 
-//           isDarkTheme={this.props.isDarkTheme}
-//           userDisplayName={this.props.userDisplayName}
-//         /> */}
-        
 //         <main className={styles.main}>
-//           <HeroBanner />
-          
-//           <div className={styles.contentGrid}>
-//             <aside className={styles.sidebar}>
-//               <MeetOurTeam />
-//             </aside>
-            
-//             <section className={styles.contentArea}>
-//               <Announcements 
-//                 title="ANNOUNCEMENTS"
-//                 itemsToShow={3}
-//               />
-//               <Events />
-//               <Contact />
-//             </section>
-//           </div>
+//           {this.renderView()}
 //         </main>
-        
 //         <Footer />
 //       </div>
 //     );
@@ -123,151 +184,150 @@
 // }
 
 
+
+
+// src/webparts/applicationOperationsPortal/components/ApplicationOperationsPortal.tsx
+
 import * as React from 'react';
 import styles from './ApplicationOperationsPortal.module.scss';
 import { IApplicationOperationsPortalProps } from './IApplicationOperationsPortalProps';
-import { initPnPjs } from '../services/pnpjsConfig';
 
-// Import all section components
+// Import section components
 import { HeroBanner } from './HeroBanner/HeroBanner';
 import { MeetOurTeam } from './MeetOurTeam/MeetOurTeam';
-import { Announcements } from './Announcements/Announcements';
-import { AnnouncementDetail } from './Announcements/AnnouncementDetail';
-import { AllAnnouncements } from './Announcements/AllAnnouncements';
-import { Events } from './Events/Events';
-import { EventDetail } from './Events/EventDetail';
-import { AllEvents } from './Events/AllEvents';
 import { Contact } from './Contact/Contact';
 import { Footer } from './Footer/Footer';
+import { PowerBIReportsSection } from './PowerBI/PowerBIReportsSection';
+import { AnniversariesBirthday } from './AnniversariesBirthday/AnniversariesBirthday';  // 👈 NEW
 
-type ViewMode = 'home' | 'announcements' | 'announcementDetail' | 'events' | 'eventDetail' | 'contact';
+// Import User Service
+import { userService, IUserInfo } from '../services/UserService';
+import { initPnPjs } from '../services/pnpjsConfig';
 
-export default class ApplicationOperationsPortal extends React.Component<IApplicationOperationsPortalProps, { 
+type ViewMode = 'home' | 'contact';
+
+interface IApplicationOperationsPortalState {
   isPnPjsReady: boolean;
   currentView: ViewMode;
-  selectedId: string | null;
-}> {
-  
+  selectedId: string | undefined;
+  currentUser: IUserInfo | undefined;
+  isUserLoaded: boolean;
+}
+
+export default class ApplicationOperationsPortal extends React.Component<
+  IApplicationOperationsPortalProps,
+  IApplicationOperationsPortalState
+> {
   constructor(props: IApplicationOperationsPortalProps) {
     super(props);
-    this.state = { 
+    this.state = {
       isPnPjsReady: false,
       currentView: 'home',
-      selectedId: null
+      selectedId: undefined,
+      currentUser: undefined,
+      isUserLoaded: false
     };
   }
 
-  async componentDidMount() {
-    // Initialize PnPjs using context passed from web part
+  async componentDidMount(): Promise<void> {
     if (this.props.spfxContext) {
       await initPnPjs(this.props.spfxContext);
       this.setState({ isPnPjsReady: true });
+      await this.loadCurrentUser();
     } else {
-      this.setState({ isPnPjsReady: true });
+      this.setState({
+        isPnPjsReady: true,
+        isUserLoaded: true
+      });
     }
-    
-    // Check URL parameters for routing
+
     this.checkUrlParams();
-    
-    // Listen for browser back/forward buttons
     window.addEventListener('popstate', () => {
       this.checkUrlParams();
     });
   }
 
+  componentWillUnmount(): void {
+    window.removeEventListener('popstate', this.checkUrlParams);
+  }
+
+  private loadCurrentUser = async (): Promise<void> => {
+    try {
+      const user = await userService.getCurrentUser();
+      this.setState({
+        currentUser: user,
+        isUserLoaded: true
+      });
+      console.log('[ApplicationOperationsPortal] User loaded:', user.displayName);
+    } catch (error) {
+      console.error('[ApplicationOperationsPortal] Error loading user:', error);
+      this.setState({ isUserLoaded: true });
+    }
+  };
+
   private checkUrlParams = (): void => {
     const urlParams = new URLSearchParams(window.location.search);
     const page = urlParams.get('page');
-    const id = urlParams.get('id');
-    
-    if (page === 'announcements') {
-      this.setState({ currentView: 'announcements', selectedId: null });
-    } else if (page === 'announcement' && id) {
-      this.setState({ currentView: 'announcementDetail', selectedId: id });
-    } else if (page === 'events') {
-      this.setState({ currentView: 'events', selectedId: null });
-    } else if (page === 'event' && id) {
-      this.setState({ currentView: 'eventDetail', selectedId: id });
-    } else if (page === 'contact') {
-      this.setState({ currentView: 'contact', selectedId: null });
-    } else {
-      this.setState({ currentView: 'home', selectedId: null });
-    }
-  }
 
-  private navigateTo = (view: ViewMode, id?: string): void => {
-    let newUrl = window.location.pathname + '?page=' + view;
-    if (id) {
-      newUrl += '&id=' + id;
+    if (page === 'contact') {
+      this.setState({ currentView: 'contact', selectedId: undefined });
+    } else {
+      this.setState({ currentView: 'home', selectedId: undefined });
     }
-    window.history.pushState({}, '', newUrl);
-    this.setState({ currentView: view, selectedId: id || null });
+  };
+
+  private getPowerBIPageUrl = (): string => {
+    const { spfxContext } = this.props;
+    const webUrl = spfxContext?.pageContext?.web?.absoluteUrl || '';
+    const cleanWebUrl = webUrl.replace(/\/$/, '');
+    return `${cleanWebUrl}/SitePages/PowerBI.aspx`;
+  };
+
+  private navigateToPowerBIPage = (): void => {
+    const powerBIPageUrl = this.getPowerBIPageUrl();
+    window.open(powerBIPageUrl, '_blank');
   };
 
   private renderView = (): React.ReactNode => {
-    const { currentView, selectedId } = this.state;
+    const { currentView } = this.state;
     const { spfxContext } = this.props;
 
     switch (currentView) {
-      case 'announcements':
-        return (
-          <AllAnnouncements 
-            onBackToHome={() => this.navigateTo('home')}
-            onAnnouncementClick={(id) => this.navigateTo('announcementDetail', id)}
-            context={spfxContext}
-          />
-        );
-        
-      case 'announcementDetail':
-        return (
-          <AnnouncementDetail 
-            id={selectedId || ''}
-            onBack={() => this.navigateTo('announcements')}
-            context={spfxContext}
-          />
-        );
-        
-      case 'events':
-        return (
-          <AllEvents 
-            onBackToHome={() => this.navigateTo('home')}
-            onEventClick={(id) => this.navigateTo('eventDetail', id)}
-            context={spfxContext}
-          />
-        );
-        
-      case 'eventDetail':
-        return (
-          <EventDetail 
-            id={selectedId || ''}
-            onBack={() => this.navigateTo('events')}
-            context={spfxContext}
-          />
-        );
-        
       case 'contact':
-        return <Contact />;
-        
+        return <Contact context={spfxContext} />;
+
       default:
         return (
           <>
-            <HeroBanner />
+            <HeroBanner context={spfxContext} />
             <div className={styles.contentGrid}>
               <aside className={styles.sidebar}>
-                <MeetOurTeam />
+                <MeetOurTeam 
+                  context={spfxContext}
+                  maxHeight="400px"
+                  showSearch={true}
+                />
               </aside>
               <section className={styles.contentArea}>
-                <Announcements 
-                  title="ANNOUNCEMENTS"
-                  itemsToShow={3}
-                  onViewAll={() => this.navigateTo('announcements')}
-                  onReadMore={(id) => this.navigateTo('announcementDetail', id)}
-                />
-                <Events 
-                  onViewAll={() => this.navigateTo('events')}
-                  onEventClick={(id) => this.navigateTo('eventDetail', id)}
-                />
-                <Contact />
+                {/* Power BI Reports Section */}
+                <div className={styles.reportsSection}>
+                  <PowerBIReportsSection
+                    onNavigate={this.navigateToPowerBIPage}
+                    title="AO Incident Management Dashboard"
+                    description="Provides a consolidated view of AO incidents, status, trends, SLA performance, and resolution metrics to support effective monitoring and informed decision-making."
+                    icon="📊"
+                  />
+                </div>
+
+                {/* 👇 NEW: Anniversaries & Birthdays Section */}
+                <div className={styles.reportsSection}>
+                  <AnniversariesBirthday context={spfxContext} />
+                </div>
+
+                {/* Employee Leave + Contact Section */}
+                <div className={styles.reportsSection}>
+                  <Contact context={spfxContext} />
+                </div>
               </section>
             </div>
           </>
@@ -276,10 +336,17 @@ export default class ApplicationOperationsPortal extends React.Component<IApplic
   };
 
   public render(): React.ReactElement<IApplicationOperationsPortalProps> {
-    if (!this.state.isPnPjsReady) {
+    if (!this.state.isPnPjsReady || !this.state.isUserLoaded) {
       return (
         <div className={styles.applicationOperationsPortal}>
-          <div style={{ textAlign: 'center', padding: '50px' }}>Loading portal...</div>
+          <div className={styles.loadingContainer}>
+            <div className={styles.spinner} />
+            <p>
+              {!this.state.isPnPjsReady
+                ? 'Initializing application...'
+                : 'Loading user information...'}
+            </p>
+          </div>
         </div>
       );
     }

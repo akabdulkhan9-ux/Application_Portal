@@ -1,0 +1,699 @@
+// // src/webparts/applicationOperationsPortal/components/PowerBI/PowerBIReportsSection.module.scss
+
+// // ===== Consistent Theme Variables =====
+// $color-maroon: #8B0000;
+// $color-maroon-dark: #6B0000;
+// $color-maroon-light: rgba(139, 0, 0, 0.08);
+// $color-maroon-hover: rgba(139, 0, 0, 0.12);
+// $color-border: #e0e0e0;
+// $color-text: #333333;
+// $color-text-muted: #666666;
+// $radius-md: 9px;
+
+// .powerBIReportsSection {
+//   width: 100%;
+//   padding: 0;
+//   margin: 0;
+// }
+
+// // ===== Section Header =====
+// .sectionHeader {
+//   margin-bottom: 20px;
+//   padding-bottom: 12px;
+//   border-bottom: 2px solid $color-border;
+// }
+
+// .sectionTitle {
+//   font-size: 14px;
+//   font-weight: 700;
+//   letter-spacing: 1px;
+//   color: $color-text;
+//   margin: 0 0 4px 0;
+//   padding: 0;
+//   position: relative;
+//   display: inline-block;
+  
+//   /* Maroon underline animation - MATCHES MEET OUR TEAM & CONTACT */
+//   &::after {
+//     content: '';
+//     position: absolute;
+//     bottom: -4px;
+//     left: 0;
+//     width: 0;
+//     height: 2px;
+//     background: $color-maroon;
+//     transition: width 0.3s ease;
+//   }
+  
+//   &:hover::after {
+//     width: 100%;
+//   }
+// }
+
+// .sectionSubtitle {
+//   font-size: 13px;
+//   color: $color-text-muted;
+//   margin: 4px 0 0 0;
+//   padding: 0;
+// }
+
+// // ===== Reports Grid =====
+// .reportsGrid {
+//   display: grid;
+//   grid-template-columns: 1fr;
+//   gap: 16px;
+// }
+
+// // ===== Report Card =====
+// .reportCard {
+//   display: flex;
+//   align-items: center;
+//   gap: 20px;
+//   padding: 20px 24px;
+//   background: #fafafa;  /* MATCHES Meet Our Team background */
+//   border: 1px solid $color-border;
+//   border-radius: $radius-md;
+//   cursor: pointer;
+//   transition: all 0.25s ease;
+//   position: relative;
+//   overflow: hidden;
+
+//   /* Hover effect - MAROON theme */
+//   &:hover {
+//     transform: translateY(-2px);
+//     box-shadow: 0 6px 20px rgba($color-maroon, 0.12);
+//     border-color: $color-maroon;
+//     background: #ffffff;
+
+//     .viewLink {
+//       color: $color-maroon;
+//     }
+
+//     .arrowIcon {
+//       transform: translateX(4px);
+//     }
+
+//     .reportIconWrapper {
+//       background: $color-maroon-light;
+//       transform: scale(1.05);
+//     }
+//   }
+
+//   &:active {
+//     transform: scale(0.98);
+//   }
+
+//   &:focus-visible {
+//     outline: 2px solid $color-maroon;
+//     outline-offset: 2px;
+//   }
+// }
+
+// // ===== Report Icon =====
+// .reportIconWrapper {
+//   flex-shrink: 0;
+//   width: 56px;
+//   height: 56px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   background: $color-maroon-light;  /* MATCHES iconBubble in Contact */
+//   border-radius: 4px;  /* MATCHES Contact iconBubble */
+//   transition: all 0.25s ease;
+// }
+
+// .reportIcon {
+//   font-size: 28px;
+//   line-height: 1;
+// }
+
+// // ===== Report Content =====
+// .reportContent {
+//   flex: 1;
+//   min-width: 0;
+// }
+
+// .reportTitle {
+//   font-size: 14px;
+//   font-weight: 600;
+//   color: $color-text;
+//   margin: 0 0 4px 0;
+//   padding: 0;
+// }
+
+// .reportDescription {
+//   font-size: 12.5px;
+//   color: $color-text-muted;
+//   margin: 0 0 8px 0;
+//   padding: 0;
+//   line-height: 1.4;
+// }
+
+// // ===== Report Action =====
+// .reportAction {
+//   display: flex;
+//   align-items: center;
+// }
+
+// .viewLink {
+//   font-size: 13px;
+//   font-weight: 600;
+//   color: $color-maroon;  /* MAROON color - MATCHES Contact role text */
+//   display: inline-flex;
+//   align-items: center;
+//   transition: color 0.2s ease;
+//   gap: 4px;
+// }
+
+// .arrowIcon {
+//   display: inline-block;
+//   transition: transform 0.25s ease;
+//   font-size: 16px;
+// }
+
+// // ===== Loading State =====
+// .loadingContainer {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   padding: 44px 22px;
+//   background: #fafafa;
+//   border: 1px solid $color-border;
+//   border-radius: $radius-md;
+//   min-height: 160px;
+// }
+
+// .spinner {
+//   width: 36px;
+//   height: 36px;
+//   border: 3px solid $color-border;
+//   border-top-color: $color-maroon;  /* MAROON spinner */
+//   border-radius: 50%;
+//   animation: spin 0.8s linear infinite;
+// }
+
+// .loadingText {
+//   margin-top: 14px;
+//   color: $color-text-muted;
+//   font-size: 14px;
+// }
+
+// @keyframes spin {
+//   to {
+//     transform: rotate(360deg);
+//   }
+// }
+
+// // ===== Error State =====
+// .errorContainer {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   padding: 40px 20px;
+//   background: #fef9f9;
+//   border: 1px solid #fde8e8;
+//   border-radius: $radius-md;
+//   min-height: 160px;
+// }
+
+// .errorIcon {
+//   font-size: 36px;
+//   margin-bottom: 8px;
+// }
+
+// .errorTitle {
+//   color: $color-maroon;  /* MAROON error title */
+//   margin: 4px 0 8px 0;
+//   font-size: 16px;
+//   font-weight: 600;
+// }
+
+// .errorMessage {
+//   color: $color-text-muted;
+//   font-size: 14px;
+//   margin: 0 0 16px 0;
+//   text-align: center;
+//   max-width: 400px;
+// }
+
+// .retryButton {
+//   background: $color-maroon;  /* MAROON button - MATCHES Contact submit */
+//   color: #ffffff;
+//   border: none;
+//   padding: 8px 28px;
+//   border-radius: 4px;
+//   font-size: 13px;
+//   font-weight: 600;
+//   cursor: pointer;
+//   transition: all 0.25s ease;
+
+//   &:hover {
+//     background: $color-maroon-dark;
+//     transform: translateY(-2px);
+//     box-shadow: 0 4px 12px rgba($color-maroon, 0.3);
+//   }
+
+//   &:active {
+//     transform: translateY(0);
+//   }
+// }
+
+// // ===== No Data State =====
+// .noDataContainer {
+//   padding: 40px 20px;
+//   text-align: center;
+//   background: #fafafa;
+//   border: 1px dashed $color-border;
+//   border-radius: $radius-md;
+// }
+
+// .noDataText {
+//   font-size: 15px;
+//   font-weight: 500;
+//   color: $color-text;
+//   margin: 0 0 4px 0;
+// }
+
+// .noDataSubText {
+//   font-size: 13px;
+//   color: #999;
+//   margin: 0;
+// }
+
+// // ===== Responsive Design =====
+// @media (max-width: 768px) {
+//   .sectionTitle {
+//     font-size: 13px;
+//   }
+
+//   .reportCard {
+//     padding: 16px 18px;
+//     flex-direction: row;
+//     align-items: center;
+//     gap: 14px;
+//   }
+
+//   .reportIconWrapper {
+//     width: 44px;
+//     height: 44px;
+//   }
+
+//   .reportIcon {
+//     font-size: 22px;
+//   }
+
+//   .reportTitle {
+//     font-size: 13px;
+//   }
+
+//   .reportDescription {
+//     font-size: 12px;
+//   }
+// }
+
+// @media (max-width: 480px) {
+//   .reportCard {
+//     padding: 14px 16px;
+//     flex-direction: column;
+//     align-items: flex-start;
+//     gap: 12px;
+//   }
+
+//   .reportIconWrapper {
+//     width: 40px;
+//     height: 40px;
+//   }
+
+//   .reportIcon {
+//     font-size: 20px;
+//   }
+
+//   .sectionTitle {
+//     font-size: 12px;
+//   }
+
+//   .sectionSubtitle {
+//     font-size: 12px;
+//   }
+
+//   .errorContainer {
+//     padding: 30px 16px;
+//   }
+// }
+
+
+
+
+// src/webparts/applicationOperationsPortal/components/PowerBI/PowerBIReportsSection.module.scss
+
+// ===== Consistent Theme Variables =====
+$color-maroon: #8B0000;
+$color-maroon-dark: #6B0000;
+$color-maroon-light: rgba(139, 0, 0, 0.08);
+$color-maroon-hover: rgba(139, 0, 0, 0.12);
+$color-border: #e0e0e0;
+$color-text: #333333;
+$color-text-muted: #666666;
+$radius-md: 9px;
+
+.powerBIReportsSection {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+// ===== Section Header =====
+.sectionHeader {
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid $color-border;
+}
+
+.sectionTitle {
+  font-size: 18px;  // ✅ Increased from 14px
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: $color-maroon;  // ✅ Changed from $color-text to $color-maroon
+  margin: 0 0 4px 0;
+  padding: 0;
+  position: relative;
+  display: inline-block;
+  
+  /* Maroon underline animation - MATCHES MEET OUR TEAM & CONTACT */
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: $color-maroon;
+    transition: width 0.3s ease;
+  }
+  
+  &:hover::after {
+    width: 100%;
+  }
+}
+
+.sectionSubtitle {
+  font-size: 14px;  // ✅ Increased from 13px
+  color: $color-text-muted;
+  margin: 4px 0 0 0;
+  padding: 0;
+}
+
+// ===== Reports Grid =====
+.reportsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+// ===== Report Card =====
+.reportCard {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 24px;
+  background: #fafafa;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba($color-maroon, 0.12);
+    border-color: $color-maroon;
+    background: #ffffff;
+
+    .viewLink {
+      color: $color-maroon;
+    }
+
+    .arrowIcon {
+      transform: translateX(4px);
+    }
+
+    .reportIconWrapper {
+      background: $color-maroon-light;
+      transform: scale(1.05);
+    }
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-maroon;
+    outline-offset: 2px;
+  }
+}
+
+// ===== Report Icon =====
+.reportIconWrapper {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $color-maroon-light;
+  border-radius: 4px;
+  transition: all 0.25s ease;
+}
+
+.reportIcon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+// ===== Report Content =====
+.reportContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.reportTitle {
+  font-size: 16px;  // ✅ Increased from 14px
+  font-weight: 600;
+  color: $color-text;
+  margin: 0 0 4px 0;
+  padding: 0;
+}
+
+.reportDescription {
+  font-size: 13px;  // ✅ Increased from 12.5px
+  color: $color-text-muted;
+  margin: 0 0 8px 0;
+  padding: 0;
+  line-height: 1.4;
+}
+
+// ===== Report Action =====
+.reportAction {
+  display: flex;
+  align-items: center;
+}
+
+.viewLink {
+  font-size: 14px;  // ✅ Increased from 13px
+  font-weight: 600;
+  color: $color-maroon;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.2s ease;
+  gap: 4px;
+}
+
+.arrowIcon {
+  display: inline-block;
+  transition: transform 0.25s ease;
+  font-size: 18px;  // ✅ Increased from 16px
+}
+
+// ===== Loading State =====
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 44px 22px;
+  background: #fafafa;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  min-height: 160px;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid $color-border;
+  border-top-color: $color-maroon;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.loadingText {
+  margin-top: 14px;
+  color: $color-text-muted;
+  font-size: 14px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// ===== Error State =====
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: #fef9f9;
+  border: 1px solid #fde8e8;
+  border-radius: $radius-md;
+  min-height: 160px;
+}
+
+.errorIcon {
+  font-size: 36px;
+  margin-bottom: 8px;
+}
+
+.errorTitle {
+  color: $color-maroon;
+  margin: 4px 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.errorMessage {
+  color: $color-text-muted;
+  font-size: 14px;
+  margin: 0 0 16px 0;
+  text-align: center;
+  max-width: 400px;
+}
+
+.retryButton {
+  background: $color-maroon;
+  color: #ffffff;
+  border: none;
+  padding: 8px 28px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+  &:hover {
+    background: $color-maroon-dark;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba($color-maroon, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// ===== No Data State =====
+.noDataContainer {
+  padding: 40px 20px;
+  text-align: center;
+  background: #fafafa;
+  border: 1px dashed $color-border;
+  border-radius: $radius-md;
+}
+
+.noDataText {
+  font-size: 15px;
+  font-weight: 500;
+  color: $color-text;
+  margin: 0 0 4px 0;
+}
+
+.noDataSubText {
+  font-size: 13px;
+  color: #999;
+  margin: 0;
+}
+
+// ===== Responsive Design =====
+@media (max-width: 768px) {
+  .sectionTitle {
+    font-size: 16px;  // ✅ Increased from 13px
+  }
+
+  .sectionSubtitle {
+    font-size: 13px;  // ✅ Increased
+  }
+
+  .reportCard {
+    padding: 16px 18px;
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .reportIconWrapper {
+    width: 44px;
+    height: 44px;
+  }
+
+  .reportIcon {
+    font-size: 22px;
+  }
+
+  .reportTitle {
+    font-size: 14px;  // ✅ Increased from 13px
+  }
+
+  .reportDescription {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .reportCard {
+    padding: 14px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .reportIconWrapper {
+    width: 40px;
+    height: 40px;
+  }
+
+  .reportIcon {
+    font-size: 20px;
+  }
+
+  .sectionTitle {
+    font-size: 14px;  // ✅ Increased from 12px
+  }
+
+  .sectionSubtitle {
+    font-size: 12px;
+  }
+
+  .reportTitle {
+    font-size: 13px;  // ✅ Increased
+  }
+
+  .errorContainer {
+    padding: 30px 16px;
+  }
+}

@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
-  "id": "97741995-b395-4ef1-8174-bfa1df8b592e",
-  "alias": "ApplicationOperationsPortalWebPart",
+  "id": "97741995-b395-4ef1-8174-bfa1df8b592e",  
+  "alias": "AppOpsPortalWebPart",  
   "componentType": "WebPart",
 
   "version": "*",
@@ -20,12 +20,12 @@
   "preconfiguredEntries": [
     {
       "groupId": "5c03119e-3074-46fd-976b-c60198311f70",
-      "group": { "default": "Advanced" },
-      "title": { "default": "ApplicationOperationsPortal" },
-      "description": { "default": "ApplicationOperationsPortal description" },
-      "officeFabricIconFontName": "Page",
+      "group": { "default": "CIBC Portal" },  
+      "title": { "default": "CIBC Bank Portal" },  
+      "description": { "default": "Corporate Banking Portal for CIBC/ALUBAF Bank" }, 
+      "officeFabricIconFontName": "Bank",  
       "properties": {
-        "description": "ApplicationOperationsPortal"
+        "description": "CIBC Bank Portal"
       }
     }
   ]

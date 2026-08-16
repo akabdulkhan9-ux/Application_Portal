@@ -1,411 +1,1508 @@
-// // Variables defined directly
-// $color-border: #e0e0e0;
+
+
+// // src/webparts/applicationOperationsPortal/components/Contact/Contact.module.scss
+
 // $color-maroon: #8B0000;
 // $color-maroon-dark: #6B0000;
+// $color-maroon-light: rgba(139, 0, 0, 0.08);
+// $color-maroon-lighter: rgba(139, 0, 0, 0.04);
+// $color-border: #e0e0e0;
 // $color-text: #333333;
 // $color-text-muted: #666666;
 // $radius-md: 8px;
+// $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
 
-// .section {
-//   background: #fff;
-//   border: 1px solid $color-border;
-//   border-radius: $radius-md;
-//   padding: 20px;
-// }
-
-// .title {
-//   font-size: 14px;
-//   font-weight: 700;
-//   letter-spacing: 1px;
-//   margin: 0 0 16px;
-// }
-
-// .subTitle {
-//   font-size: 14px;
-//   font-weight: 700;
-//   margin: 0 0 14px;
-// }
-
-// .grid {
-//   display: grid;
-//   grid-template-columns: 1fr 1.4fr;
-//   gap: 24px;
-// }
-
-// .left,
-// .right {
-//   background: #fff;
-//   border: 1px solid $color-border;
-//   border-radius: $radius-md;
-//   padding: 18px;
-// }
-
-// .infoList {
-//   list-style: none;
-//   margin: 0;
-//   padding: 0;
+// .contactSection {
+//   font-family: $font-family;
+//   width: 100%;
 //   display: flex;
 //   flex-direction: column;
-//   gap: 14px;
+//   background: #ffffff;
+//   border-radius: $radius-md;
+//   padding: 20px;
+//   border: 1px solid $color-border;
+//   overflow: hidden;
+//   box-sizing: border-box;
+// }
 
-//   li {
-//     display: flex;
-//     align-items: flex-start;
-//     gap: 12px;
+// // ===== 2-COLUMN GRID =====
+// .grid {
+//   display: grid;
+//   grid-template-columns: 1.6fr 1fr;
+//   gap: 24px;
+//   flex: 1;
+//   overflow: hidden;
+//   width: 100%;
+//   box-sizing: border-box;
+
+//   @media (max-width: 960px) {
+//     grid-template-columns: 1fr;
+//     gap: 20px;
 //   }
 // }
 
-// .iconBubble {
-//   width: 32px;
-//   height: 32px;
-//   border-radius: 4px;
-//   background: rgba($color-maroon, 0.08);
+// // ===== LEFT COLUMN =====
+// .leaveColumn {
+//   display: flex;
+//   flex-direction: column;
+//   min-height: 300px;
+//   overflow: hidden;
+//   width: 100%;
+//   box-sizing: border-box;
+// }
+
+// .leaveHeader {
+//   display: flex;
+//   align-items: flex-start;
+//   justify-content: space-between;
+//   margin-bottom: 14px;
+//   padding-bottom: 12px;
+//   border-bottom: 1px solid $color-border;
+//   flex-wrap: wrap;
+//   gap: 10px;
+// }
+
+// .leaveTitleWrap {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 4px;
+//   flex: 1;
+// }
+
+// .title {
+//   font-size: 20px;
+//   font-weight: 700;
 //   color: $color-maroon;
-//   display: inline-flex;
+//   margin: 0;
+//   padding: 0;
+// }
+
+// .subtitle {
+//   font-size: 14px;
+//   color: $color-text-muted;
+//   margin: 0;
+//   padding: 0;
+// }
+
+// // ===== MONTH SELECTOR DROPDOWN =====
+// .monthSelectorWrap {
+//   position: relative;
+//   display: flex;
+//   align-items: center;
+//   border: 1px solid $color-maroon;
+//   border-radius: 8px;
+//   padding: 8px 32px 8px 12px;
+//   background: #ffffff;
+//   flex-shrink: 0;
+//   min-width: 150px;
+// }
+
+// .monthSelectorIcon {
+//   width: 18px;
+//   height: 18px;
+//   min-width: 18px;
+//   color: $color-maroon;
+//   margin-right: 8px;
+//   pointer-events: none;
+// }
+
+// .monthSelectorChevron {
+//   width: 16px;
+//   height: 16px;
+//   color: $color-maroon;
+//   position: absolute;
+//   right: 10px;
+//   top: 50%;
+//   transform: translateY(-50%);
+//   pointer-events: none;
+// }
+
+// .monthSelect {
+//   appearance: none;
+//   -webkit-appearance: none;
+//   -moz-appearance: none;
+//   border: none;
+//   background: transparent;
+//   outline: none;
+//   font-size: 15px;
+//   font-weight: 600;
+//   color: $color-maroon;
+//   font-family: $font-family;
+//   cursor: pointer;
+//   padding-right: 4px;
+//   width: 100%;
+
+//   &:focus {
+//     outline: none;
+//   }
+// }
+
+// // ===== SUMMARY BANNER =====
+// .summaryBanner {
+//   display: flex;
+//   align-items: center;
+//   gap: 14px;
+//   padding: 12px 16px;
+//   background: $color-maroon-lighter;
+//   border-radius: $radius-md;
+//   margin-bottom: 14px;
+// }
+
+// .calendarIcon {
+//   width: 46px;
+//   height: 46px;
+//   border-radius: 50%;
+//   background: $color-maroon;
+//   color: #fff;
+//   display: flex;
 //   align-items: center;
 //   justify-content: center;
+//   flex-shrink: 0;
+
+//   svg {
+//     width: 24px;
+//     height: 24px;
+//     stroke: #ffffff;
+//   }
+// }
+
+// .summaryText {
+//   display: flex;
+//   flex-direction: column;
+// }
+
+// .summaryMonth {
 //   font-size: 16px;
+//   font-weight: 700;
+//   color: $color-text;
 // }
 
-// .label {
-//   font-size: 13px;
-//   font-weight: 600;
-// }
-
-// .value {
-//   font-size: 12.5px;
+// .summaryLabel {
+//   font-size: 14px;
 //   color: $color-text-muted;
 // }
 
-// .right {
+// .summaryCount {
+//   font-size: 26px;
+//   font-weight: 700;
+//   color: $color-maroon;
+//   line-height: 1;
+
+//   span {
+//     font-size: 15px;
+//     font-weight: 600;
+//     color: $color-text;
+//     margin-left: 4px;
+//   }
+// }
+
+// // ===== CAROUSEL =====
+// .carouselWrap {
+//   position: relative;
+//   display: flex;
+//   align-items: center;
+//   gap: 8px;
+//   flex: 1;
+//   min-height: 0;
+//   width: 100%;
+// }
+
+// .carouselViewport {
+//   flex: 1;
+//   overflow: hidden;
+//   border-radius: $radius-md;
+//   width: 100%;
+// }
+
+// .carouselTrack {
+//   display: grid;
+//   grid-template-columns: repeat(3, 1fr);
+//   gap: 12px;
+//   width: 100%;
+//   box-sizing: border-box;
+// }
+
+// .leaveCard {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   text-align: center;
+//   padding: 14px 10px;
+//   background: #ffffff;
+//   border: 1px solid $color-border;
+//   border-radius: $radius-md;
+//   transition: all 0.25s ease;
+//   min-height: 170px;
+//   box-sizing: border-box;
+
+//   &:hover {
+//     border-color: $color-maroon;
+//     box-shadow: 0 2px 8px rgba($color-maroon, 0.08);
+//     transform: translateY(-2px);
+//   }
+// }
+
+// .employeeName {
+//   font-size: 15px;
+//   font-weight: 700;
+//   color: $color-text;
+//   margin: 0 0 4px 0;
+//   padding: 0;
+//   line-height: 1.3;
+// }
+
+// .employeeTitle {
+//   font-size: 13px;
+//   color: $color-text-muted;
+//   display: block;
+//   margin-bottom: 10px;
+// }
+
+// .leaveType {
+//   font-size: 12px;
+//   font-weight: 700;
+//   padding: 4px 12px;
+//   border-radius: 4px;
+//   text-transform: uppercase;
+//   letter-spacing: 0.5px;
+//   margin-bottom: 10px;
+//   display: inline-block;
+// }
+
+// .annualLeave {
+//   background: #e6f4ea;
+//   color: #137333;
+// }
+
+// .personalLeave {
+//   background: #f3e8fd;
+//   color: #7c3aed;
+// }
+
+// .sickLeave {
+//   background: #fff4e5;
+//   color: #b76e00;
+// }
+
+// .dateRange {
+//   font-size: 13px;
+//   color: $color-text-muted;
+//   display: flex;
+//   align-items: center;
+//   gap: 4px;
+//   margin-bottom: 4px;
+//   flex-wrap: wrap;
+//   justify-content: center;
+
+//   svg {
+//     width: 14px;
+//     height: 14px;
+//     stroke: $color-text-muted;
+//   }
+// }
+
+// .days {
+//   font-size: 15px;
+//   font-weight: 700;
+//   color: $color-maroon;
+// }
+
+// // ===== CAROUSEL CONTROLS =====
+// .navButton {
+//   width: 32px;
+//   height: 32px;
+//   border-radius: 50%;
+//   border: 1px solid $color-border;
+//   background: #fff;
+//   color: $color-text;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   cursor: pointer;
+//   flex-shrink: 0;
+//   transition: all 0.2s ease;
+
+//   &:hover:not(:disabled) {
+//     border-color: $color-maroon;
+//     color: $color-maroon;
+//   }
+
+//   &:disabled {
+//     opacity: 0.4;
+//     cursor: not-allowed;
+//   }
+
+//   svg {
+//     width: 16px;
+//     height: 16px;
+//     stroke: currentColor;
+//   }
+// }
+
+// .dots {
+//   display: flex;
+//   justify-content: center;
+//   gap: 8px;
+//   margin-top: 12px;
+// }
+
+// .dot {
+//   width: 8px;
+//   height: 8px;
+//   border-radius: 50%;
+//   border: none;
+//   background: #d9d9d9;
+//   cursor: pointer;
+//   transition: all 0.2s ease;
+
+//   &.active {
+//     background: $color-maroon;
+//     width: 18px;
+//     border-radius: 4px;
+//   }
+// }
+
+// .footer {
+//   margin-top: 12px;
+//   padding: 8px 12px;
+//   background: $color-maroon-lighter;
+//   border-radius: 6px;
+//   font-size: 13px;
+//   color: $color-text-muted;
+//   display: flex;
+//   align-items: center;
+//   gap: 8px;
+//   flex-wrap: wrap;
+
+//   svg {
+//     width: 16px;
+//     height: 16px;
+//     stroke: $color-maroon;
+//     flex-shrink: 0;
+//   }
+// }
+
+// .memberCount {
+//   font-weight: 700;
+//   color: $color-maroon;
+// }
+
+// // ===== ERROR & EMPTY STATES =====
+// .errorBanner {
+//   background: #fce3e9;
+//   color: #7a1430;
+//   border-radius: 8px;
+//   padding: 12px 16px;
+//   font-size: 14px;
+//   margin-bottom: 12px;
+//   border: 1px solid #f5c6cb;
+// }
+
+// .emptyState {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   text-align: center;
+//   padding: 40px 16px;
+//   color: #8a7c82;
+//   font-size: 15px;
+//   background: #fdf1f4;
+//   border-radius: 10px;
+//   margin-bottom: 12px;
+// }
+
+// // ============================================================
+// // ===== RIGHT: FORM COLUMN =====
+// // ============================================================
+// .formColumn {
+//   display: flex;
+//   flex-direction: column;
+//   overflow: hidden;
+//   width: 100%;
+//   box-sizing: border-box;
+//   min-width: 0;
+// }
+
+// .formHeader {
+//   margin-bottom: 10px;
+// }
+
+// .formMonth {
+//   font-size: 15px;
+//   font-weight: 600;
+//   color: $color-maroon;
+//   display: block;
+//   margin-bottom: 2px;
+// }
+
+// .formTitle {
+//   font-size: 18px;
+//   font-weight: 700;
+//   margin: 0;
+//   color: $color-maroon; // ✅ Changed from $color-text to $color-maroon
+// }
+
+// .contactForm {
 //   display: flex;
 //   flex-direction: column;
 //   gap: 12px;
+//   flex: 1;
+//   padding: 0;
+//   background: transparent;
+//   border: none;
+//   border-radius: 0;
+//   width: 100%;
+//   box-sizing: border-box;
 // }
 
+// // ===== Inputs - Maroon Focus States =====
 // .row2 {
 //   display: grid;
 //   grid-template-columns: 1fr 1fr;
 //   gap: 12px;
+
+//   @media (max-width: 768px) {
+//     grid-template-columns: 1fr;
+//   }
 // }
 
 // .input {
 //   width: 100%;
-//   padding: 10px 12px;
+//   padding: 12px 14px;
 //   border: 1px solid $color-border;
 //   border-radius: 4px;
-//   font-size: 13px;
+//   font-size: 14px;
 //   box-sizing: border-box;
-  
+//   transition: all 0.25s ease;
+//   font-family: $font-family;
+//   background: #ffffff;
+//   color: $color-text; // ✅ Added text color
+
 //   &:focus {
 //     outline: none;
 //     border-color: $color-maroon;
+//     box-shadow: 0 0 0 3px rgba($color-maroon, 0.1);
 //   }
-// }
 
-// .textarea {
-//   width: 100%;
-//   padding: 10px 12px;
-//   border: 1px solid $color-border;
-//   border-radius: 4px;
-//   font-size: 13px;
-//   font-family: inherit;
-//   box-sizing: border-box;
-//   resize: vertical;
-  
-//   &:focus {
-//     outline: none;
-//     border-color: $color-maroon;
-//   }
-// }
-
-// .submitButton {
-//   background: $color-maroon;
-//   border: none;
-//   color: #fff;
-//   padding: 10px 20px;
-//   border-radius: 4px;
-//   font-size: 13px;
-//   font-weight: 600;
-//   cursor: pointer;
-//   align-self: flex-start;
-  
 //   &:hover {
-//     background: $color-maroon-dark;
+//     border-color: $color-maroon;
 //   }
-  
+
+//   &::placeholder {
+//     color: $color-text-muted;
+//   }
+
 //   &:disabled {
 //     opacity: 0.6;
 //     cursor: not-allowed;
 //   }
 // }
 
-// .successMessage {
-//   background: #d4edda;
-//   color: #155724;
-//   padding: 10px;
+// .inputFull {
+//   width: 100%;
+//   padding: 12px 14px;
+//   border: 1px solid $color-border;
 //   border-radius: 4px;
-//   font-size: 13px;
-//   margin-bottom: 12px;
-// }
+//   font-size: 14px;
+//   box-sizing: border-box;
+//   transition: all 0.25s ease;
+//   font-family: $font-family;
+//   background: #ffffff;
+//   color: $color-text; // ✅ Added text color
 
-// @media (max-width: 900px) {
-//   .grid,
-//   .row2 {
-//     grid-template-columns: 1fr;
+//   &:focus {
+//     outline: none;
+//     border-color: $color-maroon;
+//     box-shadow: 0 0 0 3px rgba($color-maroon, 0.1);
+//   }
+
+//   &:hover {
+//     border-color: $color-maroon;
+//   }
+
+//   &::placeholder {
+//     color: $color-text-muted;
+//   }
+
+//   &:disabled {
+//     opacity: 0.6;
+//     cursor: not-allowed;
 //   }
 // }
 
-$color-border: #e0e0e0;
+// // ===== Textarea =====
+// .textareaLarge {
+//   width: 100%;
+//   padding: 14px 16px;
+//   border: 1px solid $color-border;
+//   border-radius: 4px;
+//   font-size: 14px;
+//   font-family: $font-family;
+//   box-sizing: border-box;
+//   resize: vertical;
+//   transition: all 0.25s ease;
+//   min-height: 160px;
+//   max-height: 350px;
+//   background: #ffffff;
+//   color: $color-text; // ✅ Added text color
+
+//   &:focus {
+//     outline: none;
+//     border-color: $color-maroon;
+//     box-shadow: 0 0 0 3px rgba($color-maroon, 0.1);
+//   }
+
+//   &:hover {
+//     border-color: $color-maroon;
+//   }
+
+//   &::placeholder {
+//     color: $color-text-muted;
+//   }
+
+//   &:disabled {
+//     opacity: 0.6;
+//     cursor: not-allowed;
+//   }
+// }
+
+// // ===== Submit Button =====
+// .submitButton {
+//   background: $color-maroon;
+//   border: none;
+//   color: #fff;
+//   padding: 14px 24px;
+//   border-radius: 4px;
+//   font-size: 16px;
+//   font-weight: 700;
+//   cursor: pointer;
+//   transition: all 0.25s ease;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   gap: 10px;
+//   font-family: $font-family;
+//   width: 100%;
+//   box-sizing: border-box;
+//   margin-top: 4px;
+
+//   &:hover:not(:disabled) {
+//     background: $color-maroon-dark;
+//     transform: translateY(-2px);
+//     box-shadow: 0 4px 12px rgba($color-maroon, 0.3);
+//   }
+
+//   &:active:not(:disabled) {
+//     transform: translateY(0);
+//   }
+
+//   &:disabled {
+//     opacity: 0.6;
+//     cursor: not-allowed;
+//     transform: none;
+//   }
+
+//   svg {
+//     width: 18px;
+//     height: 18px;
+//     stroke: #ffffff;
+//   }
+// }
+
+// .successMessage {
+//   background: #d4edda;
+//   color: #155724;
+//   padding: 10px 14px;
+//   border-radius: 4px;
+//   font-size: 14px;
+//   margin-bottom: 8px;
+//   animation: fadeInUp 0.4s ease;
+// }
+
+// .loadingState {
+//   text-align: center;
+//   padding: 40px 20px;
+//   color: #666666;
+//   font-size: 16px;
+//   background: #fff;
+//   border-radius: 8px;
+//   flex: 1;
+// }
+
+// .noData {
+//   text-align: center;
+//   padding: 30px 20px;
+//   color: $color-text-muted;
+//   font-size: 15px;
+//   background: #fafafa;
+//   border-radius: $radius-md;
+//   border: 1px dashed $color-border;
+
+//   p {
+//     margin: 0;
+//   }
+// }
+
+// @keyframes fadeInUp {
+//   from {
+//     opacity: 0;
+//     transform: translateY(10px);
+//   }
+//   to {
+//     opacity: 1;
+//     transform: translateY(0);
+//   }
+// }
+
+// // ===== RESPONSIVE =====
+// @media (max-width: 960px) {
+//   .grid {
+//     grid-template-columns: 1fr;
+//     gap: 20px;
+//   }
+
+//   .carouselTrack {
+//     grid-template-columns: repeat(2, 1fr);
+//   }
+  
+//   .formColumn {
+//     max-width: 100%;
+//   }
+// }
+
+// @media (max-width: 768px) {
+//   .contactSection {
+//     padding: 16px;
+//   }
+
+//   .leaveHeader {
+//     flex-direction: column;
+//     gap: 10px;
+//   }
+
+//   .summaryBanner {
+//     flex-direction: column;
+//     text-align: center;
+//   }
+
+//   .row2 {
+//     grid-template-columns: 1fr;
+//   }
+
+//   .carouselTrack {
+//     grid-template-columns: repeat(2, 1fr);
+//     gap: 10px;
+//   }
+  
+//   .leaveCard {
+//     min-height: 140px;
+//     padding: 10px 6px;
+//   }
+
+//   .textareaLarge {
+//     min-height: 120px;
+//   }
+
+//   .title {
+//     font-size: 18px;
+//   }
+
+//   .formTitle {
+//     font-size: 16px;
+//   }
+// }
+
+// @media (max-width: 480px) {
+//   .contactSection {
+//     padding: 12px;
+//   }
+
+//   .carouselTrack {
+//     grid-template-columns: 1fr;
+//     gap: 10px;
+//   }
+
+//   .textareaLarge {
+//     min-height: 100px;
+//   }
+
+//   .title {
+//     font-size: 16px;
+//   }
+
+//   .summaryCount {
+//     font-size: 22px;
+//   }
+
+//   .calendarIcon {
+//     width: 38px;
+//     height: 38px;
+
+//     svg {
+//       width: 18px;
+//       height: 18px;
+//     }
+//   }
+  
+//   .leaveCard {
+//     min-height: 120px;
+//     padding: 8px 6px;
+//   }
+  
+//   .input,
+//   .inputFull {
+//     font-size: 13px;
+//     padding: 10px 12px;
+//   }
+  
+//   .textareaLarge {
+//     font-size: 13px;
+//     padding: 12px 14px;
+//   }
+
+//   .submitButton {
+//     padding: 12px 18px;
+//     font-size: 14px;
+//   }
+
+//   .formTitle {
+//     font-size: 15px;
+//   }
+
+//   .monthSelect {
+//     font-size: 13px;
+//   }
+
+//   .monthSelectorWrap {
+//     padding: 6px 28px 6px 10px;
+//     min-width: 120px;
+//   }
+// }
+
+
+
+// src/webparts/applicationOperationsPortal/components/Contact/Contact.module.scss
+
 $color-maroon: #8B0000;
 $color-maroon-dark: #6B0000;
-$color-text: #333333;
-$color-text-muted: #666666;
-$radius-md: 8px;
+$color-maroon-light: rgba(139, 0, 0, 0.08);
+$color-maroon-lighter: rgba(139, 0, 0, 0.04);
+$color-border: #e7e2e2;
+$color-text: #2a2027;
+$color-text-muted: #6b6066;
+$radius-md: 10px;
+$radius-sm: 6px;
+$font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
 
-.section {
-  background: #fff;
+.contactSection {
+  font-family: $font-family;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 22px;
   border: 1px solid $color-border;
-  border-radius: $radius-md;
-  padding: 20px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  box-sizing: border-box;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+// ===== 2-COLUMN GRID =====
+.grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 24px;
+  flex: 1;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+
+  @media (max-width: 960px) {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
+}
+
+// ===== LEFT COLUMN =====
+.leaveColumn {
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.leaveHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid $color-border;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.leaveTitleWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
 }
 
 .title {
-  font-size: 14px;
+  font-size: 19px;
   font-weight: 700;
-  letter-spacing: 1px;
-  margin: 0 0 16px;
+  color: $color-maroon;
+  margin: 0;
+  padding: 0;
+  letter-spacing: 0.2px;
+}
+
+.subtitle {
+  font-size: 13.5px;
+  color: $color-text-muted;
+  margin: 0;
+  padding: 0;
+  line-height: 1.4;
+}
+
+// ===== MONTH SELECTOR DROPDOWN =====
+.monthSelectorWrap {
   position: relative;
-  display: inline-block;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: $color-maroon;
-    transition: width 0.3s ease;
-  }
-  
-  &:hover::after {
-    width: 100%;
+  display: flex;
+  align-items: center;
+  border: 1px solid $color-maroon;
+  border-radius: 8px;
+  padding: 8px 32px 8px 12px;
+  background: #ffffff;
+  flex-shrink: 0;
+  min-width: 150px;
+  transition: box-shadow 0.2s ease;
+
+  &:focus-within {
+    box-shadow: 0 0 0 3px rgba($color-maroon, 0.12);
   }
 }
 
-.subTitle {
+.monthSelectorIcon {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  color: $color-maroon;
+  margin-right: 8px;
+  pointer-events: none;
+
+  svg,
+  & {
+    stroke: $color-maroon;
+  }
+}
+
+.monthSelectorChevron {
+  width: 15px;
+  height: 15px;
+  color: $color-maroon;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  stroke: $color-maroon;
+}
+
+.monthSelect {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: $color-maroon;
+  font-family: $font-family;
+  cursor: pointer;
+  padding-right: 4px;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+// ===== SUMMARY BANNER =====
+.summaryBanner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  background: $color-maroon-lighter;
+  border-radius: $radius-md;
+  margin-bottom: 14px;
+}
+
+.calendarIconWrap {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  border-radius: 50%;
+  background: $color-maroon;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    stroke: #ffffff;
+  }
+}
+
+.summaryText {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.summaryMonth {
+  font-size: 15px;
+  font-weight: 700;
+  color: $color-text;
+}
+
+.summaryLabel {
+  font-size: 12.5px;
+  color: $color-text-muted;
+}
+
+.summaryCount {
+  font-size: 24px;
+  font-weight: 800;
+  color: $color-maroon;
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+
+  span {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: $color-text-muted;
+  }
+}
+
+// ===== CAROUSEL =====
+.carouselWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+.carouselViewport {
+  flex: 1;
+  overflow: hidden;
+  border-radius: $radius-md;
+  width: 100%;
+}
+
+.carouselTrack {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.leaveCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 16px 12px 14px;
+  background: #ffffff;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  transition: all 0.25s ease;
+  min-height: 190px;
+  box-sizing: border-box;
+
+  &:hover {
+    border-color: $color-maroon;
+    box-shadow: 0 6px 16px rgba($color-maroon, 0.1);
+    transform: translateY(-3px);
+  }
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, $color-maroon, $color-maroon-dark);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 14px;
   font-weight: 700;
-  margin: 0 0 14px;
+  letter-spacing: 0.3px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 6px rgba($color-maroon, 0.3);
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 24px;
+.employeeName {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: $color-text;
+  margin: 0 0 2px 0;
+  padding: 0;
+  line-height: 1.3;
 }
 
-.left,
-.right {
+.employeeTitle {
+  font-size: 12px;
+  color: $color-text-muted;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.leaveType {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.leaveTypeIcon {
+  display: inline-flex;
+  width: 12px;
+  height: 12px;
+
+  svg {
+    width: 12px;
+    height: 12px;
+    stroke: currentColor;
+  }
+}
+
+.annualLeave {
+  background: #e6f4ea;
+  color: #137333;
+}
+
+.personalLeave {
+  background: #f3e8fd;
+  color: #7c3aed;
+}
+
+.sickLeave {
+  background: #fff4e5;
+  color: #b76e00;
+}
+
+.dateRange {
+  font-size: 12.5px;
+  color: $color-text-muted;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  svg {
+    width: 13px;
+    height: 13px;
+    min-width: 13px;
+    stroke: $color-text-muted;
+  }
+}
+
+.days {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  background: $color-maroon;
+  padding: 3px 12px;
+  border-radius: 20px;
+  margin-top: auto;
+}
+
+// ===== CAROUSEL CONTROLS =====
+.navButton {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 50%;
+  border: 1px solid $color-border;
   background: #fff;
+  color: $color-text;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+
+  &:hover:not(:disabled) {
+    border-color: $color-maroon;
+    color: $color-maroon;
+    background: $color-maroon-lighter;
+  }
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  svg {
+    width: 15px;
+    height: 15px;
+    stroke: currentColor;
+  }
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: none;
+  background: #e0d6d9;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s ease;
+
+  &.active {
+    background: $color-maroon;
+    width: 18px;
+    border-radius: 4px;
+  }
+}
+
+.footer {
+  margin-top: 12px;
+  padding: 9px 14px;
+  background: $color-maroon-lighter;
+  border-radius: $radius-sm;
+  font-size: 12.5px;
+  color: $color-text-muted;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+
+  svg {
+    width: 15px;
+    height: 15px;
+    min-width: 15px;
+    stroke: $color-maroon;
+    flex-shrink: 0;
+  }
+}
+
+.memberCount {
+  font-weight: 700;
+  color: $color-maroon;
+}
+
+// ===== ERROR & EMPTY STATES =====
+.errorBanner {
+  background: #fce3e9;
+  color: #7a1430;
+  border-radius: $radius-sm;
+  padding: 12px 16px;
+  font-size: 13.5px;
+  margin-bottom: 12px;
+  border: 1px solid #f5c6cb;
+}
+
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 16px;
+  color: #8a7c82;
+  font-size: 14px;
+  background: #fdf1f4;
+  border-radius: $radius-md;
+  margin-bottom: 12px;
+}
+
+// ============================================================
+// ===== RIGHT: FORM COLUMN =====
+// ============================================================
+.formColumn {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+  background: $color-maroon-lighter;
   border: 1px solid $color-border;
   border-radius: $radius-md;
   padding: 18px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-    border-color: $color-maroon;
+}
+
+.formHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid $color-border;
+}
+
+.formIconWrap {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border-radius: 50%;
+  background: $color-maroon;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    stroke: #ffffff;
   }
 }
 
-.infoList {
-  list-style: none;
+.formTitle {
+  font-size: 17px;
+  font-weight: 700;
   margin: 0;
-  padding: 0;
+  color: $color-maroon;
+}
+
+.formSubtitle {
+  font-size: 12px;
+  color: $color-text-muted;
+  margin: 2px 0 0;
+}
+
+.contactForm {
   display: flex;
   flex-direction: column;
   gap: 14px;
-
-  li {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    transition: transform 0.2s ease, background 0.2s ease;
-    padding: 8px;
-    margin: -8px;
-    border-radius: 8px;
-    
-    &:hover {
-      transform: translateX(5px);
-      background: rgba($color-maroon, 0.05);
-      
-      .iconBubble {
-        transform: scale(1.1);
-        background: rgba($color-maroon, 0.15);
-      }
-    }
-  }
-}
-
-.iconBubble {
-  width: 32px;
-  height: 32px;
-  border-radius: 4px;
-  background: rgba($color-maroon, 0.08);
-  color: $color-maroon;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  transition: transform 0.2s ease, background 0.2s ease;
-}
-
-.label {
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.value {
-  font-size: 12.5px;
-  color: $color-text-muted;
-  transition: color 0.2s ease;
-  
-  li:hover & {
-    color: $color-maroon;
-  }
-}
-
-.right {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  flex: 1;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .row2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.fieldWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.fieldLabel {
+  font-size: 12px;
+  font-weight: 700;
+  color: $color-text;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+// ===== Inputs with leading icon =====
+.inputIconWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  svg {
+    position: absolute;
+    left: 12px;
+    width: 15px;
+    height: 15px;
+    stroke: $color-text-muted;
+    pointer-events: none;
+  }
+
+  &:focus-within svg {
+    stroke: $color-maroon;
+  }
 }
 
 .input {
   width: 100%;
-  padding: 10px 12px;
+  padding: 11px 14px 11px 36px;
   border: 1px solid $color-border;
-  border-radius: 4px;
-  font-size: 13px;
+  border-radius: $radius-sm;
+  font-size: 14px;
   box-sizing: border-box;
-  transition: all 0.25s ease;
-  
+  transition: all 0.2s ease;
+  font-family: $font-family;
+  background: #ffffff;
+  color: $color-text;
+
   &:focus {
     outline: none;
     border-color: $color-maroon;
     box-shadow: 0 0 0 3px rgba($color-maroon, 0.1);
-    transform: translateY(-1px);
   }
-  
+
   &:hover {
     border-color: $color-maroon;
   }
+
+  &::placeholder {
+    color: $color-text-muted;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 }
 
-.textarea {
+// ===== Textarea =====
+.textareaLarge {
   width: 100%;
-  padding: 10px 12px;
+  padding: 13px 14px;
   border: 1px solid $color-border;
-  border-radius: 4px;
-  font-size: 13px;
-  font-family: inherit;
+  border-radius: $radius-sm;
+  font-size: 14px;
+  font-family: $font-family;
   box-sizing: border-box;
   resize: vertical;
-  transition: all 0.25s ease;
-  
+  transition: all 0.2s ease;
+  min-height: 150px;
+  max-height: 320px;
+  background: #ffffff;
+  color: $color-text;
+
   &:focus {
     outline: none;
     border-color: $color-maroon;
     box-shadow: 0 0 0 3px rgba($color-maroon, 0.1);
-    transform: translateY(-1px);
   }
-  
+
   &:hover {
     border-color: $color-maroon;
   }
+
+  &::placeholder {
+    color: $color-text-muted;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 }
 
+// ===== Submit Button =====
 .submitButton {
-  background: $color-maroon;
+  background: linear-gradient(135deg, $color-maroon, $color-maroon-dark);
   border: none;
   color: #fff;
-  padding: 10px 20px;
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: 600;
+  padding: 13px 24px;
+  border-radius: $radius-sm;
+  font-size: 15px;
+  font-weight: 700;
   cursor: pointer;
-  align-self: flex-start;
-  transition: all 0.25s ease;
-  position: relative;
-  overflow: hidden;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-    transform: translate(-50%, -50%);
-    transition: width 0.4s ease, height 0.4s ease;
-  }
-  
-  &:hover {
-    background: $color-maroon-dark;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  font-family: $font-family;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 2px;
+
+  &:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba($color-maroon, 0.3);
-    
-    &::before {
-      width: 200px;
-      height: 200px;
-    }
+    box-shadow: 0 6px 16px rgba($color-maroon, 0.32);
   }
-  
-  &:active {
+
+  &:active:not(:disabled) {
     transform: translateY(0);
   }
-  
+
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
     transform: none;
+    box-shadow: none;
+  }
+
+  svg {
+    width: 17px;
+    height: 17px;
+    stroke: #ffffff;
   }
 }
 
 .successMessage {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   background: #d4edda;
   color: #155724;
-  padding: 10px;
-  border-radius: 4px;
-  font-size: 13px;
-  margin-bottom: 12px;
+  padding: 10px 14px;
+  border-radius: $radius-sm;
+  font-size: 13.5px;
+  font-weight: 600;
   animation: fadeInUp 0.4s ease;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    stroke: #155724;
+    flex-shrink: 0;
+  }
 }
 
 .loadingState {
   text-align: center;
   padding: 40px 20px;
-  color: #666666;
-  font-size: 14px;
+  color: $color-text-muted;
+  font-size: 16px;
   background: #fff;
   border-radius: 8px;
+  flex: 1;
 }
 
 @keyframes fadeInUp {
@@ -419,9 +1516,128 @@ $radius-md: 8px;
   }
 }
 
-@media (max-width: 900px) {
-  .grid,
+// ===== RESPONSIVE =====
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .carouselTrack {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .formColumn {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .contactSection {
+    padding: 16px;
+  }
+
+  .leaveHeader {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .summaryBanner {
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: center;
+  }
+
   .row2 {
     grid-template-columns: 1fr;
+  }
+
+  .carouselTrack {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .leaveCard {
+    min-height: 160px;
+    padding: 12px 8px;
+  }
+
+  .textareaLarge {
+    min-height: 120px;
+  }
+
+  .title {
+    font-size: 17px;
+  }
+
+  .formTitle {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contactSection {
+    padding: 12px;
+  }
+
+  .carouselTrack {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .textareaLarge {
+    min-height: 100px;
+  }
+
+  .title {
+    font-size: 15.5px;
+  }
+
+  .summaryCount {
+    font-size: 20px;
+  }
+
+  .calendarIconWrap {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+
+    svg {
+      width: 17px;
+      height: 17px;
+    }
+  }
+
+  .leaveCard {
+    min-height: 150px;
+    padding: 10px 8px;
+  }
+
+  .input {
+    font-size: 13px;
+    padding: 10px 12px 10px 32px;
+  }
+
+  .textareaLarge {
+    font-size: 13px;
+    padding: 11px 12px;
+  }
+
+  .submitButton {
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+
+  .formTitle {
+    font-size: 15px;
+  }
+
+  .monthSelect {
+    font-size: 13px;
+  }
+
+  .monthSelectorWrap {
+    padding: 6px 28px 6px 10px;
+    min-width: 120px;
   }
 }

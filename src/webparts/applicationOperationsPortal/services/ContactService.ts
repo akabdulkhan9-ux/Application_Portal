@@ -1,3 +1,4 @@
+import { SPFI } from "@pnp/sp";
 import { getSP, isPnPjsInitialized } from "./pnpjsConfig";
 
 export interface IContactMessage {
@@ -9,7 +10,7 @@ export interface IContactMessage {
 
 export class ContactService {
   
-  private async getSP(): Promise<any> {
+  private async getSP(): Promise<SPFI | undefined> {
     let retries = 0;
     while (!isPnPjsInitialized() && retries < 15) {
       await new Promise(resolve => setTimeout(resolve, 500));

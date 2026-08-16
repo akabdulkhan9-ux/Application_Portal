@@ -1,0 +1,189 @@
+// src/webparts/applicationOperationsPortal/components/PowerBIReport/PowerBIReport.module.scss
+
+.powerBIReport {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.reportTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 8px 0;
+  padding: 0;
+}
+
+.reportDescription {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 16px 0;
+  padding: 0;
+}
+
+.reportContainer {
+  position: relative;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  min-height: 300px;
+}
+
+.iframe {
+  display: block;
+  background: #ffffff;
+  transition: opacity 0.3s ease;
+}
+
+// Loading State Styles
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 300px;
+  padding: 40px;
+  background: #f8f9fa;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #e0e0e0;
+  border-top-color: #0078d4;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.progressBar {
+  width: 200px;
+  height: 6px;
+  background: #e0e0e0;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.progressFill {
+  height: 100%;
+  background: #0078d4;
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+.loadingText {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  margin: 0 0 8px 0;
+}
+
+.loadingSubText {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+// Error State Styles
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 40px;
+  background: #fef9f9;
+  border: 2px solid #fde8e8;
+  border-radius: 8px;
+  min-height: 300px;
+}
+
+.errorIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.errorTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #d83b01;
+  margin: 0 0 12px 0;
+}
+
+.errorMessage {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  margin: 0 0 24px 0;
+  max-width: 500px;
+  line-height: 1.5;
+}
+
+.retryButton {
+  background: #0078d4;
+  color: white;
+  border: none;
+  padding: 10px 32px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background: #106ebe;
+  }
+  
+  &:active {
+    background: #005a9e;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .reportTitle {
+    font-size: 18px;
+  }
+  
+  .reportContainer {
+    min-height: 400px;
+  }
+  
+  .errorContainer {
+    padding: 40px 20px;
+    min-height: 250px;
+  }
+  
+  .loadingContainer {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .reportContainer {
+    min-height: 300px;
+  }
+  
+  .spinner {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .progressBar {
+    width: 150px;
+  }
+}

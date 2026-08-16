@@ -84,7 +84,7 @@ export const Header: React.FC<IHeaderProps> = (props) => {
   const [loading, setLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
-    const loadUser = async () => {
+    const loadUser = async (): Promise<void> => {
       try {
         // First, use props as immediate fallback (always works)
         const hour = new Date().getHours();
@@ -122,7 +122,7 @@ export const Header: React.FC<IHeaderProps> = (props) => {
       }
     };
 
-    loadUser();
+    loadUser().catch((): void => undefined);
   }, [props.userDisplayName]);
 
   const getInitial = (name: string): string => {
