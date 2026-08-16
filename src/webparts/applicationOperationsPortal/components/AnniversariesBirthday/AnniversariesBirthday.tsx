@@ -163,46 +163,36 @@ const leftLeaves: Array<{ x: number; y: number; r: number; s: number }> = [
   { x: 39, y: 7, r: 40, s: 0.84 }
 ];
 
-const LaurelWreathSvg: React.FC = () => {
-  const uid = React.useId().replace(/:/g, '');
-  const leafId = `laurelLeaf-${uid}`;
+const LAUREL_LEAF_PATH = 'M0 9 C 2.8 4.2 3.1 -2.2 0 -10 C -3.1 -2.2 -2.8 4.2 0 9 Z';
 
-  return (
-    <svg className={styles.laurelSvg} viewBox="0 0 120 90" aria-hidden="true">
-      <defs>
-        <path id={leafId} d="M0 9 C 2.8 4.2 3.1 -2.2 0 -10 C -3.1 -2.2 -2.8 4.2 0 9 Z" />
-      </defs>
-      <g fill="currentColor" stroke="currentColor" strokeWidth="0.35">
-        <path
-          d="M57 84 C 24 76 14 50 22 12"
-          fill="none"
-          strokeWidth="1.7"
-          strokeLinecap="round"
-        />
-        <path
-          d="M63 84 C 96 76 106 50 98 12"
-          fill="none"
-          strokeWidth="1.7"
-          strokeLinecap="round"
-        />
-        {leftLeaves.map((leaf, i) => (
-          <use
-            key={`l-${i}`}
-            href={`#${leafId}`}
-            transform={`translate(${leaf.x} ${leaf.y}) rotate(${leaf.r}) scale(${leaf.s})`}
-          />
-        ))}
-        {leftLeaves.map((leaf, i) => (
-          <use
-            key={`r-${i}`}
-            href={`#${leafId}`}
-            transform={`translate(${120 - leaf.x} ${leaf.y}) rotate(${-leaf.r}) scale(${leaf.s})`}
-          />
-        ))}
-      </g>
-    </svg>
-  );
-};
+const LaurelWreathSvg: React.FC = () => (
+  <svg className={styles.laurelSvg} viewBox="0 0 120 90" aria-hidden="true">
+    <g fill="currentColor" stroke="currentColor" strokeWidth="0.35">
+      <path
+        d="M57 84 C 24 76 14 50 22 12"
+        fill="none"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+      <path
+        d="M63 84 C 96 76 106 50 98 12"
+        fill="none"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+      {leftLeaves.map((leaf, i) => (
+        <g key={'l-' + i} transform={`translate(${leaf.x} ${leaf.y}) rotate(${leaf.r}) scale(${leaf.s})`}>
+          <path d={LAUREL_LEAF_PATH} />
+        </g>
+      ))}
+      {leftLeaves.map((leaf, i) => (
+        <g key={'r-' + i} transform={`translate(${120 - leaf.x} ${leaf.y}) rotate(${-leaf.r}) scale(${leaf.s})`}>
+          <path d={LAUREL_LEAF_PATH} />
+        </g>
+      ))}
+    </g>
+  </svg>
+);
 
 /** Years of service inside a rank-colored laurel wreath */
 const LaurelYearsBadge: React.FC<{ years: number | string; variant: RankVariant }> = ({ years, variant }) => {
