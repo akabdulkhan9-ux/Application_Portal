@@ -150,14 +150,50 @@ const MedalRibbonIcon: React.FC<{ rank: number; variant: RankVariant }> = ({ ran
   );
 };
 
-/** Years of service — text only, no badge images */
+const LaurelWreathSvg: React.FC = () => (
+  <svg className={styles.laurelSvg} viewBox="0 0 96 72" aria-hidden="true">
+    <g fill="currentColor">
+      <ellipse cx="30" cy="62" rx="8" ry="3.4" transform="rotate(-58 30 62)" />
+      <ellipse cx="21" cy="54" rx="8" ry="3.4" transform="rotate(-42 21 54)" />
+      <ellipse cx="15" cy="44" rx="7.6" ry="3.2" transform="rotate(-26 15 44)" />
+      <ellipse cx="13" cy="33" rx="7.2" ry="3" transform="rotate(-10 13 33)" />
+      <ellipse cx="16" cy="22" rx="6.6" ry="2.8" transform="rotate(10 16 22)" />
+      <ellipse cx="24" cy="14" rx="6" ry="2.6" transform="rotate(28 24 14)" />
+      <ellipse cx="66" cy="62" rx="8" ry="3.4" transform="rotate(58 66 62)" />
+      <ellipse cx="75" cy="54" rx="8" ry="3.4" transform="rotate(42 75 54)" />
+      <ellipse cx="81" cy="44" rx="7.6" ry="3.2" transform="rotate(26 81 44)" />
+      <ellipse cx="83" cy="33" rx="7.2" ry="3" transform="rotate(10 83 33)" />
+      <ellipse cx="80" cy="22" rx="6.6" ry="2.8" transform="rotate(-10 80 22)" />
+      <ellipse cx="72" cy="14" rx="6" ry="2.6" transform="rotate(-28 72 14)" />
+    </g>
+    <path
+      d="M44 66 C 20 60 12 40 16 18"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+    />
+    <path
+      d="M52 66 C 76 60 84 40 80 18"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+/** Years of service inside a rank-colored laurel wreath */
 const LaurelYearsBadge: React.FC<{ years: number | string; variant: RankVariant }> = ({ years, variant }) => {
   const yearsColor = yearsColorMap[variant] || yearsColorMap.default;
 
   return (
     <div className={styles.laurelWrap} style={{ color: yearsColor }}>
-      <span className={styles.yearsNumber}>{years}</span>
-      <span className={styles.yearsLabel}>Years</span>
+      <LaurelWreathSvg />
+      <div className={styles.yearsCenter}>
+        <span className={styles.yearsNumber}>{years}</span>
+        <span className={styles.yearsLabel}>Years</span>
+      </div>
     </div>
   );
 };

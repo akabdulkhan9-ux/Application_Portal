@@ -643,22 +643,41 @@ $bronze: #c67b3c;
 
 .laurelWrap {
   position: relative;
-  min-width: 64px;
+  width: 92px;
+  height: 70px;
+  min-width: 92px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
+.laurelSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.yearsCenter {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2px;
+}
+
 .yearsNumber {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 800;
   line-height: 1;
 }
 
 .yearsLabel {
-  font-size: 9px;
-  font-weight: 600;
+  font-size: 10px;
+  font-weight: 700;
   letter-spacing: 0.2px;
   margin-top: 1px;
 }
@@ -923,7 +942,9 @@ $bronze: #c67b3c;
   }
 
   .laurelWrap {
-    min-width: 52px;
+    width: 76px;
+    height: 58px;
+    min-width: 76px;
   }
 
   .yearsNumber {
