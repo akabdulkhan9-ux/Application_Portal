@@ -213,9 +213,10 @@ $bronze: #c67b3c;
   }
 
   .footer {
-    background: transparent;
+    background: $cibc-red-footer;
     color: $text-muted;
-    padding: 4px 0 0;
+    padding: 10px 14px;
+    margin-top: 12px;
   }
 
   .footerIcon {
@@ -242,10 +243,11 @@ $bronze: #c67b3c;
   }
 
   .summaryBanner {
-    background: transparent;
+    background: $cibc-red-soft;
     border: none;
-    padding: 4px 8px 12px;
-    margin-bottom: 4px;
+    border-radius: 12px;
+    padding: 16px 18px;
+    flex-wrap: nowrap;
   }
 
   .summaryIcon {
@@ -258,9 +260,10 @@ $bronze: #c67b3c;
   }
 
   .summaryText {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2px;
+    flex-direction: row;
+    align-items: baseline;
+    flex-wrap: nowrap;
+    gap: 10px;
   }
 
   .summaryMonth {
@@ -706,9 +709,9 @@ $bronze: #c67b3c;
 // Birthday cards — 3 cards per page, matching design mock
 // ============================================================
 .birthdayCarousel {
-  background: $cibc-red-soft;
+  background: transparent;
   border-radius: 14px;
-  padding: 16px 12px 14px;
+  padding: 4px 0 8px;
 }
 
 .birthdayGrid {

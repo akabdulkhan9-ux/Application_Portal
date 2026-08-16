@@ -459,6 +459,17 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
             {renderMonthSelector()}
           </div>
 
+          <div className={styles.summaryBanner}>
+            <div className={styles.summaryIcon}>
+              <CakeIconSmall />
+            </div>
+            <div className={styles.summaryText}>
+              <span className={styles.summaryMonth}>{selectedMonthLabel}</span>
+              <span className={styles.summaryLabel}>Birthdays This Month</span>
+              <span className={styles.summaryCount}>{birthdays.length}<span> employees</span></span>
+            </div>
+          </div>
+
           {birthdayError && <div className={styles.errorBanner}>{birthdayError}</div>}
           {!birthdayError && birthdays.length === 0 && (
             <div className={styles.emptyState}>
@@ -470,17 +481,6 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
           {birthdays.length > 0 && (
             <div className={styles.panelBody}>
               <div className={styles.birthdayCarousel}>
-                <div className={styles.summaryBanner}>
-                  <div className={styles.summaryIcon}>
-                    <CakeIconSmall />
-                  </div>
-                  <div className={styles.summaryText}>
-                    <span className={styles.summaryMonth}>{selectedMonthLabel}</span>
-                    <span className={styles.summaryLabel}>Birthdays This Month</span>
-                    <span className={styles.summaryCount}>{birthdays.length}<span> employees</span></span>
-                  </div>
-                </div>
-
                 <div className={styles.contentRow}>
                   <div className={styles.carouselWrap}>
                     <button
