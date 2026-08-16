@@ -372,10 +372,10 @@ $radius-md: 9px;
 }
 
 .sectionTitle {
-  font-size: 18px;  // ✅ Increased from 14px
+  font-size: 22px;
   font-weight: 700;
-  letter-spacing: 1px;
-  color: $color-maroon;  // ✅ Changed from $color-text to $color-maroon
+  letter-spacing: -0.02em;
+  color: $color-maroon;
   margin: 0 0 4px 0;
   padding: 0;
   position: relative;
@@ -481,9 +481,9 @@ $radius-md: 9px;
 }
 
 .reportTitle {
-  font-size: 16px;  // ✅ Increased from 14px
-  font-weight: 600;
-  color: $color-text;
+  font-size: 16px;
+  font-weight: 700;
+  color: $color-maroon;
   margin: 0 0 4px 0;
   padding: 0;
 }

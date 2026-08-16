@@ -4,13 +4,6 @@ import styles from './AnniversariesBirthday.module.scss';
 import { employeeService, IEmployeeAnniversaryItem, IEmployeeBirthdayItem } from '../../services/EmployeeService';
 import { isPnPjsInitialized } from '../../services/pnpjsConfig';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const badgeGold: string = require('../../assets/badge-gold.png');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const badgeSilver: string = require('../../assets/badge-silver.png');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const badgeBronze: string = require('../../assets/badge-bronze.png');
-
 export interface IAnniversariesBirthdayProps {
   isDarkTheme?: boolean;
   hasTeamsContext?: boolean;
@@ -82,13 +75,6 @@ const yearsColorMap: Record<RankVariant, string> = {
   silver: '#9AA3B2',
   bronze: '#C67B3C',
   default: '#b3a5ac',
-};
-
-const badgeImageMap: Record<RankVariant, string> = {
-  gold: badgeGold,
-  silver: badgeSilver,
-  bronze: badgeBronze,
-  default: badgeBronze,
 };
 
 const BriefcaseIcon: React.FC = () => (
@@ -164,18 +150,14 @@ const MedalRibbonIcon: React.FC<{ rank: number; variant: RankVariant }> = ({ ran
   );
 };
 
-/** Years of service displayed inside rank-colored laurel badge images */
+/** Years of service — text only, no badge images */
 const LaurelYearsBadge: React.FC<{ years: number | string; variant: RankVariant }> = ({ years, variant }) => {
   const yearsColor = yearsColorMap[variant] || yearsColorMap.default;
-  const badgeSrc = badgeImageMap[variant] || badgeImageMap.default;
 
   return (
-    <div className={styles.laurelWrap}>
-      <img className={styles.laurelImage} src={badgeSrc} alt="" aria-hidden="true" />
-      <div className={styles.yearsCenter} style={{ color: yearsColor }}>
-        <span className={styles.yearsNumber}>{years}</span>
-        <span className={styles.yearsLabel}>Years</span>
-      </div>
+    <div className={styles.laurelWrap} style={{ color: yearsColor }}>
+      <span className={styles.yearsNumber}>{years}</span>
+      <span className={styles.yearsLabel}>Years</span>
     </div>
   );
 };

@@ -643,31 +643,11 @@ $bronze: #c67b3c;
 
 .laurelWrap {
   position: relative;
-  width: 88px;
-  height: 64px;
-  min-width: 88px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.laurelImage {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  user-select: none;
-  pointer-events: none;
-}
-
-.yearsCenter {
-  position: relative;
+  min-width: 64px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 1;
-  padding-top: 2px;
+  justify-content: center;
 }
 
 .yearsNumber {
@@ -943,9 +923,7 @@ $bronze: #c67b3c;
   }
 
   .laurelWrap {
-    width: 72px;
-    height: 52px;
-    min-width: 72px;
+    min-width: 52px;
   }
 
   .yearsNumber {

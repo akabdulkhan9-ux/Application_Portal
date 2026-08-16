@@ -829,7 +829,7 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   display: flex;
   flex-direction: column;
   min-height: 300px;
-  overflow: hidden;
+  overflow: visible;
   width: 100%;
   box-sizing: border-box;
 }
@@ -1022,7 +1022,7 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
 
 .carouselViewport {
   flex: 1;
-  overflow: hidden;
+  overflow: visible;
   border-radius: $radius-md;
   width: 100%;
 }
@@ -1033,6 +1033,7 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   gap: 12px;
   width: 100%;
   box-sizing: border-box;
+  padding: 4px 2px 6px;
 }
 
 .leaveCard {
@@ -1300,9 +1301,10 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
 }
 
 .formTitle {
-  font-size: 17px;
+  font-size: 22px;
   font-weight: 700;
   margin: 0;
+  letter-spacing: -0.02em;
   color: $color-maroon;
 }
 
