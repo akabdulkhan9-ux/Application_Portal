@@ -1,1380 +1,38 @@
-
-
-// // // src/webparts/applicationOperationsPortal/components/AnniversariesBirthday/AnniversariesBirthday.module.scss
-
-// // // ===== Color tokens =====
-// // $maroon-900: #6b0f24;
-// // $maroon-800: #7a1430;
-// // $maroon-700: #8b1538;
-// // $maroon-600: #a11d42;
-// // $maroon-050: #fdf1f4;
-// // $maroon-100: #fce3e9;
-// // $cream-bg: #fdf9f7;
-// // $card-bg: #ffffff;
-// // $border-light: #f0e2e6;
-// // $text-dark: #2a2027;
-// // $text-muted: #8a7c82;
-// // $text-light: #b3a5ac;
-
-// // $gold: #e8b64a;
-// // $silver: #a8adb3;
-// // $bronze: #c8793f;
-
-// // $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
-
-// // // ===== Main Section =====
-// // .anniversariesBirthdaySection {
-// //   background: $cream-bg;
-// //   padding: 0;
-// //   font-family: $font-family;
-// //   color: $text-dark;
-// //   width: 100%;
-// //   box-sizing: border-box;
-// // }
-
-// // .loadingState {
-// //   display: flex;
-// //   align-items: center;
-// //   justify-content: center;
-// //   padding: 60px 0;
-// //   color: $text-muted;
-// //   font-size: 16px;
-// // }
-
-// // // ✅ Reduced gap between the two panel containers
-// // .grid {
-// //   display: grid;
-// //   grid-template-columns: 1fr 1fr;
-// //   align-items: stretch;
-// //   gap: 10px;
-// //   width: 100%;
-// //   box-sizing: border-box;
-
-// //   @media (max-width: 1024px) {
-// //     grid-template-columns: 1fr;
-// //   }
-// // }
-
-// // .panelCard {
-// //   background: $card-bg;
-// //   border: 1px solid $border-light;
-// //   border-radius: 12px;
-// //   padding: 20px;
-// //   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-// //   display: flex;
-// //   flex-direction: column;
-// //   width: 100%;
-// //   box-sizing: border-box;
-// //   transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-// //   &:hover {
-// //     transform: translateY(-2px);
-// //     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-// //   }
-// // }
-
-// // .panelBody {
-// //   flex: 1;
-// //   display: flex;
-// //   flex-direction: column;
-// //   min-height: 0;
-// // }
-
-// // // ===== Header =====
-// // .panelHeader {
-// //   display: flex;
-// //   align-items: flex-start;
-// //   justify-content: space-between;
-// //   gap: 12px;
-// //   margin-bottom: 14px;
-// //   padding-bottom: 12px;
-// //   border-bottom: 1px solid $border-light;
-// //   flex-wrap: wrap;
-// // }
-
-// // .panelTitleWrap {
-// //   flex: 1;
-// //   min-width: 160px;
-// // }
-
-// // .title {
-// //   margin: 0 0 4px;
-// //   font-size: 18px;
-// //   font-weight: 700;
-// //   color: $maroon-800;
-// //   letter-spacing: 1px;
-// // }
-
-// // .subtitle {
-// //   margin: 0;
-// //   font-size: 13px;
-// //   color: $text-muted;
-// //   line-height: 1.4;
-// // }
-
-// // .monthSelectorWrap {
-// //   position: relative;
-// //   display: flex;
-// //   align-items: center;
-// //   border: 1px solid $maroon-700;
-// //   border-radius: 8px;
-// //   padding: 6px 30px 6px 10px;
-// //   background: #ffffff;
-// //   flex-shrink: 0;
-// //   min-width: 130px;
-
-// //   svg {
-// //     width: 14px;
-// //     height: 14px;
-// //     min-width: 14px;
-// //     stroke: $maroon-700;
-// //     margin-right: 6px;
-// //     pointer-events: none;
-// //   }
-// // }
-
-// // .monthSelectorChevron {
-// //   width: 13px;
-// //   height: 13px;
-// //   color: $maroon-700;
-// //   position: absolute;
-// //   right: 8px;
-// //   top: 50%;
-// //   transform: translateY(-50%);
-// //   pointer-events: none;
-
-// //   svg {
-// //     stroke: $maroon-700;
-// //   }
-// // }
-
-// // .monthSelect {
-// //   appearance: none;
-// //   -webkit-appearance: none;
-// //   -moz-appearance: none;
-// //   border: none;
-// //   background: transparent;
-// //   outline: none;
-// //   font-size: 13px;
-// //   font-weight: 600;
-// //   color: $maroon-700;
-// //   font-family: $font-family;
-// //   cursor: pointer;
-// //   padding-right: 4px;
-// //   width: 100%;
-
-// //   &:focus {
-// //     outline: none;
-// //   }
-// // }
-
-// // // ===== Summary banner =====
-// // .summaryBanner {
-// //   display: flex;
-// //   align-items: center;
-// //   gap: 14px;
-// //   background: $maroon-050;
-// //   border-radius: 8px;
-// //   padding: 12px 16px;
-// //   margin-bottom: 14px;
-// //   flex-wrap: wrap;
-// // }
-
-// // .summaryIcon {
-// //   width: 40px;
-// //   height: 40px;
-// //   min-width: 40px;
-// //   border-radius: 50%;
-// //   background: $maroon-700;
-// //   display: flex;
-// //   align-items: center;
-// //   justify-content: center;
-// //   flex-shrink: 0;
-
-// //   svg {
-// //     width: 20px;
-// //     height: 20px;
-// //     stroke: #ffffff;
-// //   }
-// // }
-
-// // .summaryText {
-// //   display: flex;
-// //   align-items: baseline;
-// //   gap: 8px;
-// //   flex-wrap: wrap;
-// // }
-
-// // .summaryMonth {
-// //   font-size: 14px;
-// //   font-weight: 700;
-// //   color: $maroon-800;
-// // }
-
-// // .summaryLabel {
-// //   font-size: 13px;
-// //   color: $text-muted;
-// // }
-
-// // .summaryCount {
-// //   font-size: 18px;
-// //   font-weight: 700;
-// //   color: $maroon-800;
-// //   display: flex;
-// //   align-items: baseline;
-// //   gap: 4px;
-
-// //   span {
-// //     font-size: 13px;
-// //     font-weight: 500;
-// //     color: $text-muted;
-// //   }
-// // }
-
-// // // ===== Content row =====
-// // .contentRow {
-// //   display: grid;
-// //   grid-template-columns: 1fr;
-// //   gap: 14px;
-// //   align-items: start;
-// //   width: 100%;
-// //   box-sizing: border-box;
-// // }
-
-// // .carouselWrap {
-// //   display: flex;
-// //   align-items: center;
-// //   gap: 6px;
-// //   width: 100%;
-// // }
-
-// // .navButton {
-// //   width: 32px;
-// //   height: 32px;
-// //   min-width: 32px;
-// //   border-radius: 50%;
-// //   border: 1px solid $border-light;
-// //   background: $card-bg;
-// //   color: $maroon-700;
-// //   display: flex;
-// //   align-items: center;
-// //   justify-content: center;
-// //   cursor: pointer;
-// //   flex-shrink: 0;
-// //   transition: background 0.15s ease;
-
-// //   svg {
-// //     width: 14px;
-// //     height: 14px;
-// //     stroke: $maroon-700;
-// //   }
-
-// //   &:hover:not(:disabled) {
-// //     background: $maroon-050;
-// //   }
-
-// //   &:disabled {
-// //     opacity: 0.35;
-// //     cursor: not-allowed;
-// //   }
-// // }
-
-// // // ===== Small inline row icon (job title / department) =====
-// // .rowIcon {
-// //   width: 13px;
-// //   height: 13px;
-// //   min-width: 13px;
-// //   stroke: $maroon-700;
-// //   margin-right: 5px;
-// //   flex-shrink: 0;
-// //   vertical-align: middle;
-// // }
-
-// // .infoRow {
-// //   display: flex;
-// //   align-items: center;
-// //   justify-content: center;
-// //   font-size: 11.5px;
-// //   color: $text-muted;
-// //   margin-top: 3px;
-// // }
-
-// // // ============================================================
-// // // ===== ANNIVERSARY CARDS - 3 per row =====
-// // // ============================================================
-// // .anniversaryGrid {
-// //   display: grid;
-// //   grid-template-columns: repeat(3, 1fr);
-// //   gap: 12px;
-// //   width: 100%;
-// //   flex: 1;
-// //   padding: 4px 0;
-
-// //   @media (max-width: 768px) {
-// //     grid-template-columns: repeat(2, 1fr);
-// //   }
-
-// //   @media (max-width: 480px) {
-// //     grid-template-columns: 1fr;
-// //   }
-// // }
-
-// // .anniversaryCard {
-// //   display: flex;
-// //   flex-direction: column;
-// //   background: $card-bg;
-// //   border: 1px solid $border-light;
-// //   border-radius: 10px;
-// //   transition: all 0.25s ease;
-// //   overflow: hidden;
-// //   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-
-// //   &:hover {
-// //     border-color: $maroon-700;
-// //     box-shadow: 0 4px 12px rgba($maroon-700, 0.12);
-// //     transform: translateY(-3px);
-// //   }
-// // }
-
-// // .annCardTop {
-// //   display: flex;
-// //   align-items: center;
-// //   justify-content: space-between;
-// //   padding: 12px 10px 6px 10px;
-// //   background: $maroon-050;
-// //   border-bottom: 1px solid $border-light;
-// // }
-
-// // // ---- Ribbon medal icon (rank 1 / 2 / 3) ----
-// // .medalIcon {
-// //   width: 38px;
-// //   height: 48px;
-// //   min-width: 38px;
-// //   flex-shrink: 0;
-// // }
-
-// // // ---- Laurel wreath wrapping the years number ----
-// // .laurelWrap {
-// //   position: relative;
-// //   width: 60px;
-// //   height: 40px;
-// //   min-width: 60px;
-// //   display: flex;
-// //   align-items: center;
-// //   justify-content: center;
-// // }
-
-// // .laurelSvg {
-// //   position: absolute;
-// //   inset: 0;
-// //   width: 100%;
-// //   height: 100%;
-// // }
-
-// // .yearsCenter {
-// //   position: relative;
-// //   display: flex;
-// //   flex-direction: column;
-// //   align-items: center;
-// //   z-index: 1;
-// // }
-
-// // .yearsNumber {
-// //   font-size: 17px;
-// //   font-weight: 800;
-// //   color: $bronze;
-// //   line-height: 1;
-// // }
-
-// // .yearsLabel {
-// //   font-size: 8px;
-// //   font-weight: 600;
-// //   color: $text-muted;
-// //   text-transform: uppercase;
-// //   letter-spacing: 0.3px;
-// // }
-
-// // .cardBody {
-// //   padding: 12px;
-// //   flex: 1;
-// //   display: flex;
-// //   flex-direction: column;
-// //   align-items: center;
-// //   text-align: center;
-// // }
-
-// // .cardFooter {
-// //   padding: 8px 12px;
-// //   background: $maroon-050;
-// //   border-top: 1px solid $border-light;
-// //   text-align: center;
-// // }
-
-// // .employeeName {
-// //   font-size: 14px;
-// //   font-weight: 700;
-// //   color: $text-dark;
-// //   margin: 0 0 2px 0;
-// // }
-
-// // .joinedOn {
-// //   font-size: 11px;
-// //   color: $text-muted;
-// // }
-
-// // // ============================================================
-// // // ===== BIRTHDAY CARDS - 3 per row =====
-// // // ============================================================
-// // .birthdayGrid {
-// //   display: grid;
-// //   grid-template-columns: repeat(3, 1fr);
-// //   gap: 12px;
-// //   width: 100%;
-// //   flex: 1;
-// //   padding: 4px 0;
-
-// //   @media (max-width: 768px) {
-// //     grid-template-columns: repeat(2, 1fr);
-// //   }
-
-// //   @media (max-width: 480px) {
-// //     grid-template-columns: 1fr;
-// //   }
-// // }
-
-// // .birthdayCard {
-// //   display: flex;
-// //   flex-direction: column;
-// //   align-items: center;
-// //   background: $card-bg;
-// //   border: 1px solid $border-light;
-// //   border-radius: 10px;
-// //   transition: all 0.25s ease;
-// //   overflow: hidden;
-// //   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-// //   padding-top: 10px;
-
-// //   &:hover {
-// //     border-color: $maroon-700;
-// //     box-shadow: 0 4px 12px rgba($maroon-700, 0.12);
-// //     transform: translateY(-3px);
-// //   }
-// // }
-
-// // .cakeHeader {
-// //   display: flex;
-// //   align-items: center;
-// //   justify-content: center;
-// //   margin-bottom: 4px;
-// // }
-
-// // .cakeCandlesIcon {
-// //   width: 46px;
-// //   height: 40px;
-// //   color: $maroon-700;
-// // }
-
-// // .dateCenter {
-// //   display: flex;
-// //   flex-direction: column;
-// //   align-items: center;
-// //   margin-bottom: 8px;
-// // }
-
-// // .dateDay {
-// //   font-size: 14px;
-// //   font-weight: 700;
-// //   color: $maroon-700;
-// // }
-
-// // .dateWeekday {
-// //   font-size: 10px;
-// //   color: $text-muted;
-// // }
-
-// // .cardDivider {
-// //   width: 85%;
-// //   height: 1px;
-// //   background: $border-light;
-// // }
-
-// // .happyBirthdayTag {
-// //   font-size: 11px;
-// //   font-weight: 700;
-// //   color: $maroon-700;
-// // }
-
-// // // ===== Error Banner =====
-// // .errorBanner {
-// //   background: #fce3e9;
-// //   color: #7a1430;
-// //   border-radius: 8px;
-// //   padding: 12px 14px;
-// //   font-size: 12.5px;
-// //   margin-bottom: 12px;
-// //   border: 1px solid #f5c6cb;
-// // }
-
-// // .emptyState {
-// //   display: flex;
-// //   align-items: center;
-// //   justify-content: center;
-// //   text-align: center;
-// //   padding: 40px 16px;
-// //   color: #8a7c82;
-// //   font-size: 13px;
-// //   background: #fdf1f4;
-// //   border-radius: 10px;
-// //   margin-bottom: 12px;
-// // }
-
-// // // ===== Bottom stack =====
-// // .bottomStack {
-// //   margin-top: auto;
-// //   padding-top: 10px;
-// //   display: flex;
-// //   flex-direction: column;
-// // }
-
-// // .dots {
-// //   display: flex;
-// //   align-items: center;
-// //   justify-content: center;
-// //   gap: 6px;
-// //   margin-bottom: 8px;
-// // }
-
-// // .dot {
-// //   width: 7px;
-// //   height: 7px;
-// //   border-radius: 50%;
-// //   background: $border-light;
-// //   border: none;
-// //   cursor: pointer;
-// //   padding: 0;
-// //   transition: all 0.2s ease;
-
-// //   &.active {
-// //     background: $maroon-700;
-// //     width: 18px;
-// //     border-radius: 3px;
-// //   }
-// // }
-
-// // .footer {
-// //   display: flex;
-// //   align-items: center;
-// //   gap: 6px;
-// //   background: $maroon-050;
-// //   border-radius: 6px;
-// //   padding: 8px 12px;
-// //   font-size: 12px;
-// //   color: $maroon-800;
-// //   width: 100%;
-// //   box-sizing: border-box;
-
-// //   svg {
-// //     width: 13px;
-// //     height: 13px;
-// //     min-width: 13px;
-// //     stroke: $maroon-700;
-// //   }
-// // }
-
-// // // ============================================================
-// // // ===== RESPONSIVE =====
-// // // ============================================================
-
-// // @media (max-width: 1024px) {
-// //   .grid {
-// //     grid-template-columns: 1fr;
-// //     gap: 14px;
-// //   }
-// // }
-
-// // @media (max-width: 768px) {
-// //   .panelCard {
-// //     padding: 16px;
-// //   }
-
-// //   .panelHeader {
-// //     flex-direction: column;
-// //     align-items: stretch;
-// //   }
-
-// //   .summaryBanner {
-// //     flex-wrap: wrap;
-// //     justify-content: center;
-// //     text-align: center;
-// //   }
-
-// //   .summaryText {
-// //     justify-content: center;
-// //   }
-
-// //   .title {
-// //     font-size: 16px;
-// //   }
-
-// //   .anniversaryGrid,
-// //   .birthdayGrid {
-// //     grid-template-columns: repeat(2, 1fr);
-// //   }
-// // }
-
-// // @media (max-width: 480px) {
-// //   .panelCard {
-// //     padding: 12px;
-// //   }
-
-// //   .title {
-// //     font-size: 14px;
-// //   }
-
-// //   .anniversaryGrid,
-// //   .birthdayGrid {
-// //     grid-template-columns: 1fr;
-// //   }
-
-// //   .employeeName {
-// //     font-size: 13px;
-// //   }
-
-// //   .infoRow {
-// //     font-size: 10.5px;
-// //   }
-
-// //   .dateDay {
-// //     font-size: 12px;
-// //   }
-
-// //   .dateWeekday {
-// //     font-size: 9px;
-// //   }
-
-// //   .cakeCandlesIcon {
-// //     width: 38px;
-// //     height: 34px;
-// //   }
-
-// //   .medalIcon {
-// //     width: 32px;
-// //     height: 42px;
-// //   }
-
-// //   .laurelWrap {
-// //     width: 50px;
-// //     height: 34px;
-// //     min-width: 50px;
-// //   }
-// // }
-
-
-
-// // src/webparts/applicationOperationsPortal/components/AnniversariesBirthday/AnniversariesBirthday.module.scss
-
-// // ===== Color tokens =====
-// $maroon-900: #6b0f24;
-// $maroon-800: #7a1430;
-// $maroon-700: #8b1538;
-// $maroon-600: #a11d42;
-// $maroon-050: #fdf1f4;
-// $maroon-100: #fce3e9;
-// $cream-bg: #fdf9f7;
-// $card-bg: #ffffff;
-// $border-light: #f0e2e6;
-// $text-dark: #2a2027;
-// $text-muted: #8a7c82;
-// $text-light: #b3a5ac;
-
-// $gold: #e8b64a;
-// $silver: #a8adb3;
-// $bronze: #c8793f;
-
-// $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
-
-// // ===== Main Section =====
-// .anniversariesBirthdaySection {
-//   background: $cream-bg;
-//   padding: 0;
-//   font-family: $font-family;
-//   color: $text-dark;
-//   width: 100%;
-//   box-sizing: border-box;
-// }
-
-// .loadingState {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   padding: 60px 0;
-//   color: $text-muted;
-//   font-size: 16px;
-// }
-
-// .grid {
-//   display: grid;
-//   grid-template-columns: 1fr 1fr;
-//   align-items: stretch;
-//   gap: 10px;
-//   width: 100%;
-//   box-sizing: border-box;
-
-//   @media (max-width: 1024px) {
-//     grid-template-columns: 1fr;
-//   }
-// }
-
-// .panelCard {
-//   background: $card-bg;
-//   border: 1px solid $border-light;
-//   border-radius: 12px;
-//   padding: 20px;
-//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-//   display: flex;
-//   flex-direction: column;
-//   width: 100%;
-//   box-sizing: border-box;
-//   transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-//   &:hover {
-//     transform: translateY(-2px);
-//     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-//   }
-// }
-
-// .panelBody {
-//   flex: 1;
-//   display: flex;
-//   flex-direction: column;
-//   min-height: 0;
-// }
-
-// // ===== Header =====
-// .panelHeader {
-//   display: flex;
-//   align-items: flex-start;
-//   justify-content: space-between;
-//   gap: 12px;
-//   margin-bottom: 14px;
-//   padding-bottom: 12px;
-//   border-bottom: 1px solid $border-light;
-//   flex-wrap: wrap;
-// }
-
-// .panelTitleWrap {
-//   flex: 1;
-//   min-width: 160px;
-// }
-
-// .title {
-//   margin: 0 0 4px;
-//   font-size: 18px;
-//   font-weight: 700;
-//   color: $maroon-800;
-//   letter-spacing: 1px;
-// }
-
-// .subtitle {
-//   margin: 0;
-//   font-size: 13px;
-//   color: $text-muted;
-//   line-height: 1.4;
-// }
-
-// .monthSelectorWrap {
-//   position: relative;
-//   display: flex;
-//   align-items: center;
-//   border: 1px solid $maroon-700;
-//   border-radius: 8px;
-//   padding: 6px 30px 6px 10px;
-//   background: #ffffff;
-//   flex-shrink: 0;
-//   min-width: 130px;
-
-//   svg {
-//     width: 14px;
-//     height: 14px;
-//     min-width: 14px;
-//     stroke: $maroon-700;
-//     margin-right: 6px;
-//     pointer-events: none;
-//   }
-// }
-
-// .monthSelectorChevron {
-//   width: 13px;
-//   height: 13px;
-//   color: $maroon-700;
-//   position: absolute;
-//   right: 8px;
-//   top: 50%;
-//   transform: translateY(-50%);
-//   pointer-events: none;
-
-//   svg {
-//     stroke: $maroon-700;
-//   }
-// }
-
-// .monthSelect {
-//   appearance: none;
-//   -webkit-appearance: none;
-//   -moz-appearance: none;
-//   border: none;
-//   background: transparent;
-//   outline: none;
-//   font-size: 13px;
-//   font-weight: 600;
-//   color: $maroon-700;
-//   font-family: $font-family;
-//   cursor: pointer;
-//   padding-right: 4px;
-//   width: 100%;
-
-//   &:focus {
-//     outline: none;
-//   }
-// }
-
-// // ===== Summary banner =====
-// .summaryBanner {
-//   display: flex;
-//   align-items: center;
-//   gap: 14px;
-//   background: $maroon-050;
-//   border-radius: 8px;
-//   padding: 12px 16px;
-//   margin-bottom: 14px;
-//   flex-wrap: wrap;
-// }
-
-// .summaryIcon {
-//   width: 40px;
-//   height: 40px;
-//   min-width: 40px;
-//   border-radius: 50%;
-//   background: $maroon-700;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   flex-shrink: 0;
-
-//   svg {
-//     width: 20px;
-//     height: 20px;
-//     stroke: #ffffff;
-//   }
-// }
-
-// .summaryText {
-//   display: flex;
-//   align-items: baseline;
-//   gap: 8px;
-//   flex-wrap: wrap;
-// }
-
-// .summaryMonth {
-//   font-size: 14px;
-//   font-weight: 700;
-//   color: $maroon-800;
-// }
-
-// .summaryLabel {
-//   font-size: 13px;
-//   color: $text-muted;
-// }
-
-// .summaryCount {
-//   font-size: 18px;
-//   font-weight: 700;
-//   color: $maroon-800;
-//   display: flex;
-//   align-items: baseline;
-//   gap: 4px;
-
-//   span {
-//     font-size: 13px;
-//     font-weight: 500;
-//     color: $text-muted;
-//   }
-// }
-
-// // ===== Content row =====
-// .contentRow {
-//   display: grid;
-//   grid-template-columns: 1fr;
-//   gap: 14px;
-//   align-items: start;
-//   width: 100%;
-//   box-sizing: border-box;
-// }
-
-// .carouselWrap {
-//   display: flex;
-//   align-items: center;
-//   gap: 6px;
-//   width: 100%;
-// }
-
-// .navButton {
-//   width: 32px;
-//   height: 32px;
-//   min-width: 32px;
-//   border-radius: 50%;
-//   border: 1px solid $border-light;
-//   background: $card-bg;
-//   color: $maroon-700;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   cursor: pointer;
-//   flex-shrink: 0;
-//   transition: background 0.15s ease;
-
-//   svg {
-//     width: 14px;
-//     height: 14px;
-//     stroke: $maroon-700;
-//   }
-
-//   &:hover:not(:disabled) {
-//     background: $maroon-050;
-//   }
-
-//   &:disabled {
-//     opacity: 0.35;
-//     cursor: not-allowed;
-//   }
-// }
-
-// // ===== Small inline row icon =====
-// .rowIcon {
-//   width: 13px;
-//   height: 13px;
-//   min-width: 13px;
-//   stroke: $maroon-700;
-//   margin-right: 5px;
-//   flex-shrink: 0;
-//   vertical-align: middle;
-// }
-
-// .infoRow {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   font-size: 11.5px;
-//   color: $text-muted;
-//   margin-top: 3px;
-// }
-
-// // ============================================================
-// // ===== ANNIVERSARY CARDS - 3 per row =====
-// // ============================================================
-// .anniversaryGrid {
-//   display: grid;
-//   grid-template-columns: repeat(3, 1fr);
-//   gap: 12px;
-//   width: 100%;
-//   flex: 1;
-//   padding: 4px 0;
-
-//   @media (max-width: 768px) {
-//     grid-template-columns: repeat(2, 1fr);
-//   }
-
-//   @media (max-width: 480px) {
-//     grid-template-columns: 1fr;
-//   }
-// }
-
-// .anniversaryCard {
-//   display: flex;
-//   flex-direction: column;
-//   background: $card-bg;
-//   border: 1px solid $border-light;
-//   border-radius: 10px;
-//   transition: all 0.25s ease;
-//   overflow: hidden;
-//   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-
-//   &:hover {
-//     border-color: $maroon-700;
-//     box-shadow: 0 4px 12px rgba($maroon-700, 0.12);
-//     transform: translateY(-3px);
-//   }
-// }
-
-// .annCardTop {
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-//   padding: 12px 10px 6px 10px;
-//   background: $maroon-050;
-//   border-bottom: 1px solid $border-light;
-// }
-
-// .medalIcon {
-//   width: 38px;
-//   height: 48px;
-//   min-width: 38px;
-//   flex-shrink: 0;
-// }
-
-// // ===== Laurel wreath =====
-// .laurelWrap {
-//   position: relative;
-//   width: 60px;
-//   height: 40px;
-//   min-width: 60px;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-// }
-
-// .laurelSvg {
-//   position: absolute;
-//   inset: 0;
-//   width: 100%;
-//   height: 100%;
-// }
-
-// .yearsCenter {
-//   position: relative;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   z-index: 1;
-// }
-
-// // ✅ yearsNumber now gets dynamic color via inline style
-// .yearsNumber {
-//   font-size: 17px;
-//   font-weight: 800;
-//   line-height: 1;
-// }
-
-// .yearsLabel {
-//   font-size: 8px;
-//   font-weight: 600;
-//   color: $text-muted;
-//   text-transform: uppercase;
-//   letter-spacing: 0.3px;
-// }
-
-// .cardBody {
-//   padding: 12px;
-//   flex: 1;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   text-align: center;
-// }
-
-// .cardFooter {
-//   padding: 8px 12px;
-//   background: $maroon-050;
-//   border-top: 1px solid $border-light;
-//   text-align: center;
-// }
-
-// .employeeName {
-//   font-size: 14px;
-//   font-weight: 700;
-//   color: $text-dark;
-//   margin: 0 0 2px 0;
-// }
-
-// .joinedOn {
-//   font-size: 11px;
-//   color: $text-muted;
-// }
-
-// // ============================================================
-// // ===== BIRTHDAY CARDS - 3 per row =====
-// // ============================================================
-// .birthdayGrid {
-//   display: grid;
-//   grid-template-columns: repeat(3, 1fr);
-//   gap: 12px;
-//   width: 100%;
-//   flex: 1;
-//   padding: 4px 0;
-
-//   @media (max-width: 768px) {
-//     grid-template-columns: repeat(2, 1fr);
-//   }
-
-//   @media (max-width: 480px) {
-//     grid-template-columns: 1fr;
-//   }
-// }
-
-// .birthdayCard {
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   background: $card-bg;
-//   border: 1px solid $border-light;
-//   border-radius: 10px;
-//   transition: all 0.25s ease;
-//   overflow: hidden;
-//   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-//   padding-top: 10px;
-
-//   &:hover {
-//     border-color: $maroon-700;
-//     box-shadow: 0 4px 12px rgba($maroon-700, 0.12);
-//     transform: translateY(-3px);
-//   }
-// }
-
-// .cakeHeader {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   margin-bottom: 4px;
-// }
-
-// .cakeCandlesIcon {
-//   width: 46px;
-//   height: 40px;
-//   color: $maroon-700;
-// }
-
-// .dateCenter {
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   margin-bottom: 8px;
-// }
-
-// .dateDay {
-//   font-size: 14px;
-//   font-weight: 700;
-//   color: $maroon-700;
-// }
-
-// .dateWeekday {
-//   font-size: 10px;
-//   color: $text-muted;
-// }
-
-// .cardDivider {
-//   width: 85%;
-//   height: 1px;
-//   background: $border-light;
-// }
-
-// .happyBirthdayTag {
-//   font-size: 11px;
-//   font-weight: 700;
-//   color: $maroon-700;
-// }
-
-// // ===== Error Banner =====
-// .errorBanner {
-//   background: #fce3e9;
-//   color: #7a1430;
-//   border-radius: 8px;
-//   padding: 12px 14px;
-//   font-size: 12.5px;
-//   margin-bottom: 12px;
-//   border: 1px solid #f5c6cb;
-// }
-
-// .emptyState {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   text-align: center;
-//   padding: 40px 16px;
-//   color: #8a7c82;
-//   font-size: 13px;
-//   background: #fdf1f4;
-//   border-radius: 10px;
-//   margin-bottom: 12px;
-// }
-
-// // ===== Bottom stack =====
-// .bottomStack {
-//   margin-top: auto;
-//   padding-top: 10px;
-//   display: flex;
-//   flex-direction: column;
-// }
-
-// .dots {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   gap: 6px;
-//   margin-bottom: 8px;
-// }
-
-// .dot {
-//   width: 7px;
-//   height: 7px;
-//   border-radius: 50%;
-//   background: $border-light;
-//   border: none;
-//   cursor: pointer;
-//   padding: 0;
-//   transition: all 0.2s ease;
-
-//   &.active {
-//     background: $maroon-700;
-//     width: 18px;
-//     border-radius: 3px;
-//   }
-// }
-
-// .footer {
-//   display: flex;
-//   align-items: center;
-//   gap: 6px;
-//   background: $maroon-050;
-//   border-radius: 6px;
-//   padding: 8px 12px;
-//   font-size: 12px;
-//   color: $maroon-800;
-//   width: 100%;
-//   box-sizing: border-box;
-
-//   svg {
-//     width: 13px;
-//     height: 13px;
-//     min-width: 13px;
-//     stroke: $maroon-700;
-//   }
-// }
-
-// // ============================================================
-// // ===== RESPONSIVE =====
-// // ============================================================
-
-// @media (max-width: 1024px) {
-//   .grid {
-//     grid-template-columns: 1fr;
-//     gap: 14px;
-//   }
-// }
-
-// @media (max-width: 768px) {
-//   .panelCard {
-//     padding: 16px;
-//   }
-
-//   .panelHeader {
-//     flex-direction: column;
-//     align-items: stretch;
-//   }
-
-//   .summaryBanner {
-//     flex-wrap: wrap;
-//     justify-content: center;
-//     text-align: center;
-//   }
-
-//   .summaryText {
-//     justify-content: center;
-//   }
-
-//   .title {
-//     font-size: 16px;
-//   }
-
-//   .anniversaryGrid,
-//   .birthdayGrid {
-//     grid-template-columns: repeat(2, 1fr);
-//   }
-// }
-
-// @media (max-width: 480px) {
-//   .panelCard {
-//     padding: 12px;
-//   }
-
-//   .title {
-//     font-size: 14px;
-//   }
-
-//   .anniversaryGrid,
-//   .birthdayGrid {
-//     grid-template-columns: 1fr;
-//   }
-
-//   .employeeName {
-//     font-size: 13px;
-//   }
-
-//   .infoRow {
-//     font-size: 10.5px;
-//   }
-
-//   .dateDay {
-//     font-size: 12px;
-//   }
-
-//   .dateWeekday {
-//     font-size: 9px;
-//   }
-
-//   .cakeCandlesIcon {
-//     width: 38px;
-//     height: 34px;
-//   }
-
-//   .medalIcon {
-//     width: 32px;
-//     height: 42px;
-//   }
-
-//   .laurelWrap {
-//     width: 50px;
-//     height: 34px;
-//     min-width: 50px;
-//   }
-// }
-
-
-
-// src/webparts/applicationOperationsPortal/components/AnniversariesBirthday/AnniversariesBirthday.module.scss
-
-// ===== Color tokens =====
+// AnniversariesBirthday.module.scss — anniversary list layout matches design mock
+
+// ===== Shared tokens =====
+$font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+
+// Anniversary panel (purple / lavender — matches design)
+$purple-700: #6b5ce7;
+$purple-600: #7b6cf0;
+$purple-500: #8b7cf6;
+$purple-050: #f5f4ff;
+$purple-100: #ebe9fe;
+$text-navy: #1a2744;
+$text-muted: #6b7280;
+$text-light: #9ca3af;
+$card-bg: #ffffff;
+$border-light: #e8eaf0;
+$page-bg: #f8f9ff;
+
+// Birthday panel keeps maroon brand
 $maroon-900: #5c0d1f;
 $maroon-800: #7a1430;
 $maroon-700: #8b1538;
 $maroon-600: #a11d42;
-$maroon-500: #b8305a;
 $maroon-050: #fdf1f4;
-$maroon-100: #fce3e9;
-$cream-bg: #fdf9f7;
-$card-bg: #ffffff;
-$border-light: #f0e2e6;
-$text-dark: #2a2027;
-$text-muted: #8a7c82;
-$text-light: #b3a5ac;
+$maroon-border: #f0e2e6;
 
 $gold: #d4a017;
 $silver: #9aa3b2;
 $bronze: #c67b3c;
 
-$font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
-
-// Reusable maroon-tinted shadow instead of flat black — reads as
-// intentional brand depth rather than a generic drop-shadow.
-@function maroon-shadow($opacity-1, $opacity-2) {
-  @return 0 1px 2px rgba($maroon-900, $opacity-1), 0 14px 32px -8px rgba($maroon-900, $opacity-2);
-}
-
-// ===== Main Section =====
 .anniversariesBirthdaySection {
-  background: $cream-bg;
+  background: $page-bg;
   padding: 0;
   font-family: $font-family;
-  color: $text-dark;
+  color: $text-navy;
   width: 100%;
   box-sizing: border-box;
 }
@@ -1394,7 +52,7 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, 
   height: 16px;
   border-radius: 50%;
   border: 2px solid $border-light;
-  border-top-color: $maroon-700;
+  border-top-color: $purple-600;
   animation: spin 0.7s linear infinite;
 
   @media (prefers-reduced-motion: reduce) {
@@ -1414,7 +72,7 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, 
   width: 100%;
   box-sizing: border-box;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1100px) {
     grid-template-columns: 1fr;
   }
 }
@@ -1423,24 +81,217 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, 
   position: relative;
   background: $card-bg;
   border: 1px solid $border-light;
-  border-radius: 18px;
-  padding: 22px 22px 20px;
-  box-shadow: maroon-shadow(0.03, 0.05);
+  border-radius: 16px;
+  padding: 24px 24px 18px;
+  box-shadow: 0 2px 8px rgba(26, 39, 68, 0.04);
   display: flex;
   flex-direction: column;
   width: 100%;
   box-sizing: border-box;
   overflow: hidden;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
 
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: maroon-shadow(0.05, 0.09);
+.anniversaryPanel {
+  background: $card-bg;
+  border-color: $border-light;
+
+  .title {
+    color: $text-navy;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-    &:hover { transform: none; }
+  .subtitle {
+    color: $text-muted;
+    font-size: 13.5px;
+    max-width: 520px;
+  }
+
+  .summaryBanner {
+    background: $purple-050;
+    border: none;
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+
+  .summaryIcon {
+    background: $purple-600;
+    box-shadow: 0 6px 16px rgba($purple-600, 0.35);
+
+    svg {
+      stroke: #ffffff;
+    }
+  }
+
+  .summaryMonth {
+    color: $text-navy;
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  .summaryLabel {
+    color: $text-navy;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .summaryCount {
+    color: $purple-600;
+    font-size: 28px;
+    font-weight: 800;
+
+    span {
+      color: $text-muted;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+
+  .monthSelectorWrap {
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    padding: 8px 32px 8px 12px;
+
+    &:hover {
+      box-shadow: 0 2px 8px rgba(26, 39, 68, 0.08);
+    }
+
+    &:focus-within {
+      border-color: $purple-500;
+      box-shadow: 0 0 0 3px rgba($purple-600, 0.15);
+    }
+  }
+
+  .monthSelectorIcon {
+    stroke: #3b82f6 !important;
+    color: #3b82f6;
+  }
+
+  .monthSelect {
+    color: $text-navy;
+    font-weight: 600;
+  }
+
+  .monthSelectorChevron {
+    color: $text-muted;
+  }
+
+  .navButton {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border: 1px solid $border-light;
+    box-shadow: 0 2px 6px rgba(26, 39, 68, 0.06);
+
+    svg {
+      stroke: $text-navy;
+      width: 16px;
+      height: 16px;
+    }
+
+    &:hover:not(:disabled) {
+      background: $purple-050;
+      box-shadow: 0 4px 12px rgba($purple-600, 0.15);
+    }
+  }
+
+  .infoRow {
+    justify-content: flex-start;
+    color: $text-muted;
+  }
+
+  .rowIcon {
+    stroke: $text-muted;
+  }
+
+  .employeeName {
+    color: $text-navy;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: left;
+  }
+
+  .dot.active {
+    background: $purple-600;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    box-shadow: none;
+  }
+
+  .footer {
+    background: transparent;
+    color: $text-muted;
+    padding: 4px 0 0;
+  }
+
+  .footerIcon {
+    background: transparent;
+
+    svg {
+      stroke: #3b82f6;
+    }
+  }
+}
+
+.birthdayPanel {
+  .title {
+    color: $maroon-800;
+  }
+
+  .summaryBanner {
+    background: linear-gradient(135deg, $maroon-050, #fffaf9);
+    border: 1px solid rgba($maroon-700, 0.06);
+  }
+
+  .summaryIcon {
+    background: linear-gradient(135deg, $maroon-600, $maroon-800);
+    box-shadow: 0 6px 16px rgba($maroon-700, 0.32);
+  }
+
+  .summaryMonth,
+  .summaryCount {
+    color: $maroon-800;
+  }
+
+  .monthSelectorWrap {
+    border-color: $maroon-700;
+
+    svg {
+      stroke: $maroon-700;
+    }
+  }
+
+  .monthSelect {
+    color: $maroon-700;
+  }
+
+  .navButton svg {
+    stroke: $maroon-700;
+  }
+
+  .rowIcon {
+    stroke: $maroon-700;
+  }
+
+  .dot.active {
+    background: $maroon-700;
+    width: 18px;
+    border-radius: 3px;
+  }
+
+  .footer {
+    background: $maroon-050;
+    color: $maroon-800;
+  }
+
+  .footerIcon {
+    background: rgba($maroon-700, 0.1);
+
+    svg {
+      stroke: $maroon-700;
+    }
   }
 }
 
@@ -1451,30 +302,24 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, 
   min-height: 0;
 }
 
-// ===== Header =====
 .panelHeader {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 14px;
-  padding-bottom: 12px;
-  padding-top: 4px;
-  border-bottom: 1px solid $border-light;
+  gap: 16px;
+  margin-bottom: 16px;
   flex-wrap: wrap;
 }
 
 .panelTitleWrap {
   flex: 1;
-  min-width: 160px;
+  min-width: 200px;
 }
 
 .title {
-  margin: 0 0 4px;
+  margin: 0 0 6px;
   font-size: 18.5px;
-  font-weight: 750;
-  color: $maroon-800;
-  letter-spacing: -0.01em;
+  font-weight: 700;
 }
 
 .subtitle {
@@ -1488,46 +333,27 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, 
   position: relative;
   display: flex;
   align-items: center;
-  border: 1px solid $maroon-700;
-  border-radius: 9px;
-  padding: 6px 30px 6px 10px;
   background: #ffffff;
   flex-shrink: 0;
-  min-width: 130px;
-  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+  min-width: 150px;
+}
 
-  svg {
-    width: 14px;
-    height: 14px;
-    min-width: 14px;
-    stroke: $maroon-700;
-    margin-right: 6px;
-    pointer-events: none;
-  }
-
-  &:hover {
-    box-shadow: 0 2px 8px rgba($maroon-700, 0.14);
-  }
-
-  &:focus-within {
-    border-color: $maroon-600;
-    box-shadow: 0 0 0 3px rgba($maroon-700, 0.14);
-  }
+.monthSelectorIcon {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  margin-right: 8px;
+  pointer-events: none;
 }
 
 .monthSelectorChevron {
-  width: 13px;
-  height: 13px;
-  color: $maroon-700;
+  width: 14px;
+  height: 14px;
   position: absolute;
-  right: 8px;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
-
-  svg {
-    stroke: $maroon-700;
-  }
 }
 
 .monthSelect {
@@ -1538,61 +364,45 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, 
   background: transparent;
   outline: none;
   font-size: 13px;
-  font-weight: 600;
-  color: $maroon-700;
   font-family: $font-family;
   cursor: pointer;
-  padding-right: 4px;
   width: 100%;
-
-  &:focus {
-    outline: none;
-  }
+  padding-right: 4px;
 }
 
-// ===== Summary banner =====
 .summaryBanner {
   display: flex;
   align-items: center;
   gap: 14px;
-  background: linear-gradient(135deg, $maroon-050, #fffaf9);
-  border: 1px solid rgba($maroon-700, 0.06);
-  border-radius: 12px;
-  padding: 14px 18px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   flex-wrap: wrap;
 }
 
 .summaryIcon {
-  width: 42px;
-  height: 42px;
-  min-width: 42px;
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
   border-radius: 50%;
-  background: linear-gradient(135deg, $maroon-600, $maroon-800);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 6px 16px rgba($maroon-700, 0.32);
 
   svg {
-    width: 20px;
-    height: 20px;
-    stroke: #ffffff;
+    width: 22px;
+    height: 22px;
   }
 }
 
 .summaryText {
   display: flex;
   align-items: baseline;
-  gap: 8px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
 .summaryMonth {
   font-size: 14px;
-  font-weight: 700;
-  color: $maroon-800;
 }
 
 .summaryLabel {
@@ -1601,27 +411,14 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, 
 }
 
 .summaryCount {
-  font-size: 20px;
-  font-weight: 800;
-  color: $maroon-800;
-  letter-spacing: -0.01em;
   display: flex;
   align-items: baseline;
-  gap: 4px;
-
-  span {
-    font-size: 13px;
-    font-weight: 500;
-    color: $text-muted;
-  }
+  gap: 6px;
 }
 
-// ===== Content row =====
 .contentRow {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 14px;
-  align-items: start;
   width: 100%;
   box-sizing: border-box;
 }
@@ -1629,7 +426,7 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, 
 .carouselWrap {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   width: 100%;
 }
 
@@ -1640,149 +437,143 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, 
   border-radius: 50%;
   border: 1px solid $border-light;
   background: $card-bg;
-  color: $maroon-700;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   flex-shrink: 0;
-  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
 
   svg {
     width: 14px;
     height: 14px;
-    stroke: $maroon-700;
-  }
-
-  &:hover:not(:disabled) {
-    background: $maroon-050;
-    box-shadow: 0 3px 10px rgba($maroon-700, 0.14);
-  }
-
-  &:active:not(:disabled) {
-    transform: scale(0.94);
-  }
-
-  &:focus-visible {
-    outline: 2px solid $maroon-600;
-    outline-offset: 2px;
   }
 
   &:disabled {
     opacity: 0.35;
     cursor: not-allowed;
   }
+
+  &:focus-visible {
+    outline: 2px solid $purple-500;
+    outline-offset: 2px;
+  }
 }
 
-// ===== Small inline row icon =====
 .rowIcon {
-  width: 13px;
-  height: 13px;
-  min-width: 13px;
-  stroke: $maroon-700;
-  margin-right: 5px;
+  width: 14px;
+  height: 14px;
+  min-width: 14px;
+  margin-right: 6px;
   flex-shrink: 0;
-  vertical-align: middle;
 }
 
 .infoRow {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 11.5px;
-  color: $text-muted;
+  font-size: 12.5px;
   margin-top: 3px;
 }
 
 // ============================================================
-// ===== ANNIVERSARY CARDS - 3 per row =====
+// Anniversary list rows (design mock)
 // ============================================================
-.anniversaryGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  width: 100%;
-  flex: 1;
-  padding: 4px 0;
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 480px) {
-    grid-template-columns: 1fr;
-  }
-}
-
-.anniversaryCard {
-  position: relative;
+.anniversaryList {
   display: flex;
   flex-direction: column;
-  background: $card-bg;
-  border: 1px solid $border-light;
-  border-radius: 12px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-  overflow: hidden;
-  box-shadow: 0 1px 3px rgba($maroon-900, 0.04);
+  width: 100%;
+  flex: 1;
+  min-width: 0;
+}
 
-  &:hover {
-    border-color: var(--accent, #{$maroon-700});
-    box-shadow: 0 10px 24px -6px rgba($maroon-900, 0.16);
-    transform: translateY(-4px);
+.anniversaryRow {
+  display: grid;
+  grid-template-columns: 52px minmax(140px, 1.2fr) 100px minmax(120px, 0.9fr);
+  align-items: center;
+  gap: 12px 16px;
+  padding: 16px 8px;
+  border-bottom: 1px solid #eef0f5;
+
+  &:last-child {
+    border-bottom: none;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-    &:hover { transform: none; }
+  @media (max-width: 700px) {
+    grid-template-columns: 44px 1fr;
+    grid-template-areas:
+      "medal employee"
+      "years years"
+      "joined joined";
+    gap: 10px;
   }
 }
 
-.annCardTop {
+.rowMedal {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
-  padding: 16px 10px 12px;
-  background: linear-gradient(180deg, $maroon-050, #ffffff);
-  border-bottom: 1px solid $border-light;
+
+  @media (max-width: 700px) {
+    grid-area: medal;
+  }
+}
+
+.rowEmployee {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+
+  @media (max-width: 700px) {
+    grid-area: employee;
+  }
+}
+
+.rowYears {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 700px) {
+    grid-area: years;
+    justify-content: flex-start;
+  }
+}
+
+.rowJoined {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  @media (max-width: 700px) {
+    grid-area: joined;
+    justify-content: flex-start;
+  }
 }
 
 .medalIcon {
-  width: 38px;
-  height: 48px;
-  min-width: 38px;
-  flex-shrink: 0;
-  transition: transform 0.2s ease;
-
-  .anniversaryCard:hover & {
-    transform: scale(1.06) rotate(-2deg);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-    .anniversaryCard:hover & { transform: none; }
-  }
+  width: 42px;
+  height: 52px;
+  min-width: 42px;
+  display: block;
 }
 
-// ===== Laurel wreath =====
-// Sized close to the SVG's natural ~1.5:1 ratio (96x64 viewBox)
-// so the two branches never look squashed.
 .laurelWrap {
   position: relative;
-  width: 72px;
-  height: 48px;
-  min-width: 72px;
+  width: 88px;
+  height: 64px;
+  min-width: 88px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.laurelSvg {
+.laurelImage {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  display: block;
+  object-fit: contain;
   user-select: none;
   pointer-events: none;
 }
@@ -1793,67 +584,46 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, 
   flex-direction: column;
   align-items: center;
   z-index: 1;
+  padding-top: 2px;
 }
 
-// ✅ yearsNumber gets dynamic rank color via inline style
 .yearsNumber {
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 800;
   line-height: 1;
 }
 
 .yearsLabel {
-  font-size: 8px;
+  font-size: 9px;
   font-weight: 600;
-  color: $text-muted;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-}
-
-.cardBody {
-  padding: 12px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.cardFooter {
-  padding: 8px 12px;
-  background: $maroon-050;
-  border-top: 1px solid $border-light;
-  text-align: center;
+  letter-spacing: 0.2px;
+  margin-top: 1px;
 }
 
 .employeeName {
-  font-size: 14px;
-  font-weight: 700;
-  color: $text-dark;
-  margin: 0 0 2px 0;
+  margin: 0 0 4px;
+  line-height: 1.25;
 }
 
-// ✅ Icon + text row instead of emoji, matching the reference
-// HTML's icon-based "Joined on" meta row.
 .joinedOn {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 5px;
-  font-size: 11px;
+  gap: 6px;
+  font-size: 12.5px;
   color: $text-muted;
+  white-space: nowrap;
 
   svg {
-    width: 12px;
-    height: 12px;
-    min-width: 12px;
-    stroke: $maroon-700;
+    width: 14px;
+    height: 14px;
+    min-width: 14px;
+    stroke: $text-muted;
     margin-right: 0;
   }
 }
 
 // ============================================================
-// ===== BIRTHDAY CARDS - 3 per row =====
+// Birthday cards (unchanged layout)
 // ============================================================
 .birthdayGrid {
   display: grid;
@@ -1873,27 +643,30 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, 
 }
 
 .birthdayCard {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   background: $card-bg;
-  border: 1px solid $border-light;
+  border: 1px solid $maroon-border;
   border-radius: 12px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
   overflow: hidden;
   box-shadow: 0 1px 3px rgba($maroon-900, 0.04);
   padding-top: 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 
   &:hover {
     border-color: $maroon-700;
     box-shadow: 0 10px 24px -6px rgba($maroon-900, 0.16);
-    transform: translateY(-4px);
+    transform: translateY(-3px);
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-    &:hover { transform: none; }
+  .employeeName {
+    text-align: center;
+    color: #2a2027;
+  }
+
+  .infoRow {
+    justify-content: center;
   }
 }
 
@@ -1902,16 +675,6 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, 
   align-items: center;
   justify-content: center;
   margin-bottom: 4px;
-  transition: transform 0.2s ease;
-
-  .birthdayCard:hover & {
-    transform: scale(1.06);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-    .birthdayCard:hover & { transform: none; }
-  }
 }
 
 .cakeCandlesIcon {
@@ -1941,7 +704,25 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, 
 .cardDivider {
   width: 85%;
   height: 1px;
-  background: $border-light;
+  background: $maroon-border;
+}
+
+.cardBody {
+  padding: 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.cardFooter {
+  padding: 8px 12px;
+  background: $maroon-050;
+  border-top: 1px solid $maroon-border;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .happyBirthdayTag {
@@ -1950,7 +731,6 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, 
   color: $maroon-700;
 }
 
-// ===== Error Banner =====
 .errorBanner {
   background: #fce3e9;
   color: #7a1430;
@@ -1971,7 +751,7 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, 
   padding: 44px 16px;
   color: $text-muted;
   font-size: 13px;
-  background: $maroon-050;
+  background: $purple-050;
   border-radius: 12px;
   margin-bottom: 12px;
 }
@@ -1982,10 +762,9 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, 
   color: $text-light;
 }
 
-// ===== Bottom stack =====
 .bottomStack {
   margin-top: auto;
-  padding-top: 10px;
+  padding-top: 12px;
   display: flex;
   flex-direction: column;
 }
@@ -1994,34 +773,27 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, 
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  margin-bottom: 8px;
+  gap: 8px;
+  margin-bottom: 10px;
 }
 
 .dot {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: $border-light;
+  background: #d1d5db;
   border: none;
   cursor: pointer;
   padding: 0;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease;
 
   &:hover {
-    background: rgba($maroon-700, 0.35);
+    background: #9ca3af;
   }
 
   &:focus-visible {
-    outline: 2px solid $maroon-600;
+    outline: 2px solid $purple-500;
     outline-offset: 2px;
-  }
-
-  &.active {
-    background: $maroon-700;
-    width: 18px;
-    border-radius: 3px;
-    box-shadow: 0 2px 6px rgba($maroon-700, 0.35);
   }
 }
 
@@ -2029,11 +801,9 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, 
   display: flex;
   align-items: center;
   gap: 8px;
-  background: $maroon-050;
   border-radius: 8px;
   padding: 8px 12px;
-  font-size: 12px;
-  color: $maroon-800;
+  font-size: 12.5px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -2043,26 +813,13 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, 
   height: 18px;
   min-width: 18px;
   border-radius: 50%;
-  background: rgba($maroon-700, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
 
   svg {
-    width: 11px;
-    height: 11px;
-    stroke: $maroon-700;
-  }
-}
-
-// ============================================================
-// ===== RESPONSIVE =====
-// ============================================================
-
-@media (max-width: 1024px) {
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    width: 14px;
+    height: 14px;
   }
 }
 
@@ -2076,23 +833,12 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, 
     align-items: stretch;
   }
 
+  .anniversaryPanel .title {
+    font-size: 18px;
+  }
+
   .summaryBanner {
-    flex-wrap: wrap;
-    justify-content: center;
-    text-align: center;
-  }
-
-  .summaryText {
-    justify-content: center;
-  }
-
-  .title {
-    font-size: 16px;
-  }
-
-  .anniversaryGrid,
-  .birthdayGrid {
-    grid-template-columns: repeat(2, 1fr);
+    justify-content: flex-start;
   }
 }
 
@@ -2101,44 +847,19 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, 
     padding: 14px 12px;
   }
 
-  .title {
-    font-size: 14.5px;
+  .laurelWrap {
+    width: 72px;
+    height: 52px;
+    min-width: 72px;
   }
 
-  .anniversaryGrid,
-  .birthdayGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .employeeName {
-    font-size: 13px;
-  }
-
-  .infoRow {
-    font-size: 10.5px;
-  }
-
-  .dateDay {
-    font-size: 12px;
-  }
-
-  .dateWeekday {
-    font-size: 9px;
-  }
-
-  .cakeCandlesIcon {
-    width: 38px;
-    height: 34px;
+  .yearsNumber {
+    font-size: 16px;
   }
 
   .medalIcon {
-    width: 32px;
-    height: 42px;
-  }
-
-  .laurelWrap {
-    width: 60px;
-    height: 40px;
-    min-width: 60px;
+    width: 36px;
+    height: 44px;
+    min-width: 36px;
   }
 }
