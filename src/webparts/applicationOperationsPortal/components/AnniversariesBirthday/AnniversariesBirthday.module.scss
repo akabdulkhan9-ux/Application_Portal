@@ -3,12 +3,6 @@
 // ===== Shared tokens =====
 $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
 
-// Anniversary panel (purple / lavender — matches design)
-$purple-700: #6b5ce7;
-$purple-600: #7b6cf0;
-$purple-500: #8b7cf6;
-$purple-050: #f5f4ff;
-$purple-100: #ebe9fe;
 $text-navy: #1a2744;
 $text-muted: #6b7280;
 $text-light: #9ca3af;
@@ -16,15 +10,11 @@ $card-bg: #ffffff;
 $border-light: #e8eaf0;
 $page-bg: #f8f9ff;
 
-// CIBC brand red (used for birthday heading)
+// CIBC brand red — headings, icons, and accent elements
 $cibc-red: #8B0000;
-
-// Birthday panel accents (matches attached design)
-$birthday-accent: #6b5ce7;
-$birthday-accent-soft: #f4f3ff;
-$birthday-card-border: #eceaf6;
-$birthday-footer-bg: #eef4ff;
-$info-blue: #3b82f6;
+$cibc-red-soft: #fdf2f4;
+$cibc-red-border: #f0e2e6;
+$cibc-red-footer: #fdecee;
 
 $gold: #d4a017;
 $silver: #9aa3b2;
@@ -54,7 +44,7 @@ $bronze: #c67b3c;
   height: 16px;
   border-radius: 50%;
   border: 2px solid $border-light;
-  border-top-color: $purple-600;
+  border-top-color: $cibc-red;
   animation: spin 0.7s linear infinite;
 
   @media (prefers-reduced-motion: reduce) {
@@ -98,7 +88,7 @@ $bronze: #c67b3c;
   border-color: $border-light;
 
   .title {
-    color: $text-navy;
+    color: $cibc-red;
     font-size: 22px;
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -111,15 +101,15 @@ $bronze: #c67b3c;
   }
 
   .summaryBanner {
-    background: $purple-050;
+    background: $cibc-red-soft;
     border: none;
     border-radius: 12px;
     padding: 16px 18px;
   }
 
   .summaryIcon {
-    background: $purple-600;
-    box-shadow: 0 6px 16px rgba($purple-600, 0.35);
+    background: $cibc-red;
+    box-shadow: 0 6px 16px rgba($cibc-red, 0.35);
 
     svg {
       stroke: #ffffff;
@@ -133,13 +123,13 @@ $bronze: #c67b3c;
   }
 
   .summaryLabel {
-    color: $text-navy;
+    color: $cibc-red;
     font-weight: 700;
     font-size: 15px;
   }
 
   .summaryCount {
-    color: $purple-600;
+    color: $cibc-red;
     font-size: 28px;
     font-weight: 800;
 
@@ -160,14 +150,14 @@ $bronze: #c67b3c;
     }
 
     &:focus-within {
-      border-color: $purple-500;
-      box-shadow: 0 0 0 3px rgba($purple-600, 0.15);
+      border-color: $cibc-red;
+      box-shadow: 0 0 0 3px rgba($cibc-red, 0.15);
     }
   }
 
   .monthSelectorIcon {
-    stroke: #3b82f6 !important;
-    color: #3b82f6;
+    stroke: $cibc-red !important;
+    color: $cibc-red;
   }
 
   .monthSelect {
@@ -193,8 +183,8 @@ $bronze: #c67b3c;
     }
 
     &:hover:not(:disabled) {
-      background: $purple-050;
-      box-shadow: 0 4px 12px rgba($purple-600, 0.15);
+      background: $cibc-red-soft;
+      box-shadow: 0 4px 12px rgba($cibc-red, 0.15);
     }
   }
 
@@ -215,7 +205,7 @@ $bronze: #c67b3c;
   }
 
   .dot.active {
-    background: $purple-600;
+    background: $cibc-red;
     width: 8px;
     height: 8px;
     border-radius: 50%;
@@ -232,7 +222,7 @@ $bronze: #c67b3c;
     background: transparent;
 
     svg {
-      stroke: #3b82f6;
+      stroke: $cibc-red;
     }
   }
 }
@@ -259,8 +249,8 @@ $bronze: #c67b3c;
   }
 
   .summaryIcon {
-    background: $birthday-accent;
-    box-shadow: 0 6px 16px rgba($birthday-accent, 0.35);
+    background: $cibc-red;
+    box-shadow: 0 6px 16px rgba($cibc-red, 0.35);
 
     svg {
       stroke: #ffffff;
@@ -280,13 +270,13 @@ $bronze: #c67b3c;
   }
 
   .summaryLabel {
-    color: $text-navy;
+    color: $cibc-red;
     font-weight: 700;
     font-size: 15px;
   }
 
   .summaryCount {
-    color: $birthday-accent;
+    color: $cibc-red;
     font-size: 28px;
     font-weight: 800;
 
@@ -307,14 +297,14 @@ $bronze: #c67b3c;
     }
 
     &:focus-within {
-      border-color: $birthday-accent;
-      box-shadow: 0 0 0 3px rgba($birthday-accent, 0.15);
+      border-color: $cibc-red;
+      box-shadow: 0 0 0 3px rgba($cibc-red, 0.15);
     }
   }
 
   .monthSelectorIcon {
-    stroke: $info-blue !important;
-    color: $info-blue;
+    stroke: $cibc-red !important;
+    color: $cibc-red;
   }
 
   .monthSelect {
@@ -340,8 +330,8 @@ $bronze: #c67b3c;
     }
 
     &:hover:not(:disabled) {
-      background: $birthday-accent-soft;
-      box-shadow: 0 4px 12px rgba($birthday-accent, 0.15);
+      background: $cibc-red-soft;
+      box-shadow: 0 4px 12px rgba($cibc-red, 0.15);
     }
   }
 
@@ -362,7 +352,7 @@ $bronze: #c67b3c;
   }
 
   .dot.active {
-    background: $birthday-accent;
+    background: $cibc-red;
     width: 8px;
     height: 8px;
     border-radius: 50%;
@@ -370,7 +360,7 @@ $bronze: #c67b3c;
   }
 
   .footer {
-    background: $birthday-footer-bg;
+    background: $cibc-red-footer;
     color: $text-muted;
     padding: 10px 14px;
     margin-top: 12px;
@@ -380,7 +370,7 @@ $bronze: #c67b3c;
     background: transparent;
 
     svg {
-      stroke: $info-blue;
+      stroke: $cibc-red;
     }
   }
 }
@@ -545,7 +535,7 @@ $bronze: #c67b3c;
   }
 
   &:focus-visible {
-    outline: 2px solid $purple-500;
+    outline: 2px solid $cibc-red;
     outline-offset: 2px;
   }
 }
@@ -716,26 +706,19 @@ $bronze: #c67b3c;
 // Birthday cards — 3 cards per page, matching design mock
 // ============================================================
 .birthdayCarousel {
-  background: $birthday-accent-soft;
+  background: $cibc-red-soft;
   border-radius: 14px;
   padding: 16px 12px 14px;
 }
 
 .birthdayGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
   width: 100%;
   flex: 1;
+  min-width: 0;
   padding: 4px 0;
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 480px) {
-    grid-template-columns: 1fr;
-  }
 }
 
 .birthdayCard {
@@ -743,7 +726,7 @@ $bronze: #c67b3c;
   flex-direction: column;
   align-items: center;
   background: $card-bg;
-  border: 1px solid $birthday-card-border;
+  border: 1px solid $cibc-red-border;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 1px 4px rgba(26, 39, 68, 0.04);
@@ -751,8 +734,8 @@ $bronze: #c67b3c;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 
   &:hover {
-    border-color: $birthday-accent;
-    box-shadow: 0 10px 24px -6px rgba($birthday-accent, 0.22);
+    border-color: $cibc-red;
+    box-shadow: 0 10px 24px -6px rgba($cibc-red, 0.22);
     transform: translateY(-3px);
   }
 
@@ -777,8 +760,8 @@ $bronze: #c67b3c;
 .cardCakeIcon {
   width: 22px;
   height: 22px;
-  color: $birthday-accent;
-  stroke: $birthday-accent;
+  color: $cibc-red;
+  stroke: $cibc-red;
 }
 
 .dateCenter {
@@ -791,7 +774,7 @@ $bronze: #c67b3c;
 .dateDay {
   font-size: 20px;
   font-weight: 800;
-  color: $birthday-accent;
+  color: $cibc-red;
   line-height: 1.15;
 }
 
@@ -832,7 +815,7 @@ $bronze: #c67b3c;
   gap: 6px;
   font-size: 12px;
   font-weight: 700;
-  color: $birthday-accent;
+  color: $cibc-red;
 }
 
 .errorBanner {
@@ -855,13 +838,13 @@ $bronze: #c67b3c;
   padding: 44px 16px;
   color: $text-muted;
   font-size: 13px;
-  background: $purple-050;
+  background: $cibc-red-soft;
   border-radius: 12px;
   margin-bottom: 12px;
 }
 
 .birthdayPanel .emptyState {
-  background: $birthday-accent-soft;
+  background: $cibc-red-soft;
 }
 
 .emptyStateIcon {
@@ -900,7 +883,7 @@ $bronze: #c67b3c;
   }
 
   &:focus-visible {
-    outline: 2px solid $purple-500;
+    outline: 2px solid $cibc-red;
     outline-offset: 2px;
   }
 }

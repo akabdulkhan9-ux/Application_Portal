@@ -20,7 +20,7 @@ export interface IAnniversariesBirthdayProps {
 
 const ANNIVERSARY_ITEMS_PER_PAGE = 3;
 const BIRTHDAY_ITEMS_PER_PAGE = 3;
-const AUTO_ROTATE_MS = 10000;
+const AUTO_ROTATE_MS = 15000;
 const FUTURE_MONTHS_RANGE = 5;
 
 interface IMonthOption {
@@ -263,6 +263,14 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
 
   const anniversaryTotalPages = Math.ceil(anniversaries.length / ANNIVERSARY_ITEMS_PER_PAGE);
   const birthdayTotalPages = Math.ceil(birthdays.length / BIRTHDAY_ITEMS_PER_PAGE);
+
+  React.useEffect(() => {
+    if (anniversaryTotalPages <= 1) return;
+    const interval = setInterval(() => {
+      setAnniversaryPage((prev) => (prev + 1) % anniversaryTotalPages);
+    }, AUTO_ROTATE_MS);
+    return () => clearInterval(interval);
+  }, [anniversaryTotalPages]);
 
   React.useEffect(() => {
     if (birthdayTotalPages <= 1) return;
