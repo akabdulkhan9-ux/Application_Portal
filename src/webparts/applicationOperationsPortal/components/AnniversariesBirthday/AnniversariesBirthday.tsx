@@ -4,6 +4,13 @@ import styles from './AnniversariesBirthday.module.scss';
 import { employeeService, IEmployeeAnniversaryItem, IEmployeeBirthdayItem } from '../../services/EmployeeService';
 import { isPnPjsInitialized } from '../../services/pnpjsConfig';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const badgeGold: string = require('../../assets/badge-gold.png');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const badgeSilver: string = require('../../assets/badge-silver.png');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const badgeBronze: string = require('../../assets/badge-bronze.png');
+
 export interface IAnniversariesBirthdayProps {
   isDarkTheme?: boolean;
   hasTeamsContext?: boolean;
@@ -75,6 +82,13 @@ const yearsColorMap: Record<RankVariant, string> = {
   silver: '#A0A6B0',
   bronze: '#C4783A',
   default: '#b3a5ac',
+};
+
+const badgeImageMap: Record<RankVariant, string> = {
+  gold: badgeGold,
+  silver: badgeSilver,
+  bronze: badgeBronze,
+  default: badgeBronze
 };
 
 const BriefcaseIcon: React.FC = () => (
@@ -150,57 +164,14 @@ const MedalRibbonIcon: React.FC<{ rank: number; variant: RankVariant }> = ({ ran
   );
 };
 
-const leftLeaves: Array<{ x: number; y: number; r: number; s: number }> = [
-  { x: 52, y: 80, r: -72, s: 1.05 },
-  { x: 41, y: 74, r: -60, s: 1.08 },
-  { x: 32, y: 66, r: -48, s: 1.08 },
-  { x: 25, y: 57, r: -38, s: 1.06 },
-  { x: 20, y: 47, r: -26, s: 1.04 },
-  { x: 18, y: 37, r: -14, s: 1.02 },
-  { x: 19, y: 27, r: -2, s: 1.0 },
-  { x: 23, y: 18, r: 12, s: 0.96 },
-  { x: 30, y: 11, r: 26, s: 0.9 },
-  { x: 39, y: 7, r: 40, s: 0.84 }
-];
-
-const LAUREL_LEAF_PATH = 'M0 9 C 2.8 4.2 3.1 -2.2 0 -10 C -3.1 -2.2 -2.8 4.2 0 9 Z';
-
-const LaurelWreathSvg: React.FC = () => (
-  <svg className={styles.laurelSvg} viewBox="0 0 120 90" aria-hidden="true">
-    <g fill="currentColor" stroke="currentColor" strokeWidth="0.35">
-      <path
-        d="M57 84 C 24 76 14 50 22 12"
-        fill="none"
-        strokeWidth="1.7"
-        strokeLinecap="round"
-      />
-      <path
-        d="M63 84 C 96 76 106 50 98 12"
-        fill="none"
-        strokeWidth="1.7"
-        strokeLinecap="round"
-      />
-      {leftLeaves.map((leaf, i) => (
-        <g key={'l-' + i} transform={`translate(${leaf.x} ${leaf.y}) rotate(${leaf.r}) scale(${leaf.s})`}>
-          <path d={LAUREL_LEAF_PATH} />
-        </g>
-      ))}
-      {leftLeaves.map((leaf, i) => (
-        <g key={'r-' + i} transform={`translate(${120 - leaf.x} ${leaf.y}) rotate(${-leaf.r}) scale(${leaf.s})`}>
-          <path d={LAUREL_LEAF_PATH} />
-        </g>
-      ))}
-    </g>
-  </svg>
-);
-
-/** Years of service inside a rank-colored laurel wreath */
+/** Years of service inside the uploaded gold / silver / bronze wreath images */
 const LaurelYearsBadge: React.FC<{ years: number | string; variant: RankVariant }> = ({ years, variant }) => {
   const yearsColor = yearsColorMap[variant] || yearsColorMap.default;
+  const badgeSrc = badgeImageMap[variant] || badgeImageMap.default;
 
   return (
     <div className={styles.laurelWrap} style={{ color: yearsColor }}>
-      <LaurelWreathSvg />
+      <img className={styles.laurelImage} src={badgeSrc} alt="" aria-hidden="true" />
       <div className={styles.yearsCenter}>
         <span className={styles.yearsNumber}>{years}</span>
         <span className={styles.yearsLabel}>Years</span>

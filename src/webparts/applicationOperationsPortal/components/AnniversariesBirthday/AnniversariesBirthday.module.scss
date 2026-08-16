@@ -643,20 +643,25 @@ $bronze: #c67b3c;
 
 .laurelWrap {
   position: relative;
-  width: 108px;
-  height: 82px;
-  min-width: 108px;
+  width: 96px;
+  height: 72px;
+  min-width: 96px;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
-.laurelSvg {
+.laurelImage {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  object-fit: contain;
+  object-position: center;
+  mix-blend-mode: multiply;
   pointer-events: none;
+  user-select: none;
 }
 
 .yearsCenter {
@@ -666,11 +671,11 @@ $bronze: #c67b3c;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 4px;
+  padding-top: 2px;
 }
 
 .yearsNumber {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 800;
   line-height: 1;
 }
@@ -942,9 +947,9 @@ $bronze: #c67b3c;
   }
 
   .laurelWrap {
-    width: 88px;
-    height: 68px;
-    min-width: 88px;
+    width: 80px;
+    height: 60px;
+    min-width: 80px;
   }
 
   .yearsNumber {
