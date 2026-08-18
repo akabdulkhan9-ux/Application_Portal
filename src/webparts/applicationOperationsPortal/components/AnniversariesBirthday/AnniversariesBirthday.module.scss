@@ -26,7 +26,11 @@ $bronze: #c67b3c;
   font-family: $font-family;
   color: $text-navy;
   width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
+  overflow-x: hidden;
+  container-type: inline-size;
+  container-name: anniversary-section;
 }
 
 .loadingState {
@@ -62,9 +66,11 @@ $bronze: #c67b3c;
   align-items: stretch;
   gap: 16px;
   width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
+  min-width: 0;
 
-  @media (max-width: 1100px) {
+  @media (max-width: 1200px) {
     grid-template-columns: 1fr;
   }
 }
@@ -79,8 +85,11 @@ $bronze: #c67b3c;
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
   overflow: hidden;
+  min-width: 0;
+  container-type: inline-size;
 }
 
 .anniversaryPanel {
@@ -247,7 +256,7 @@ $bronze: #c67b3c;
     border: none;
     border-radius: 12px;
     padding: 16px 18px;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
   }
 
   .summaryIcon {
@@ -262,8 +271,9 @@ $bronze: #c67b3c;
   .summaryText {
     flex-direction: row;
     align-items: baseline;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 10px;
+    min-width: 0;
   }
 
   .summaryMonth {
@@ -403,6 +413,8 @@ $bronze: #c67b3c;
   margin: 0 0 6px;
   font-size: 18.5px;
   font-weight: 700;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .subtitle {
@@ -511,6 +523,7 @@ $bronze: #c67b3c;
   align-items: center;
   gap: 8px;
   width: 100%;
+  min-width: 0;
 }
 
 .navButton {
@@ -543,6 +556,11 @@ $bronze: #c67b3c;
   }
 }
 
+.navPrev,
+.navNext {
+  z-index: 1;
+}
+
 .rowIcon {
   width: 14px;
   height: 14px;
@@ -556,6 +574,9 @@ $bronze: #c67b3c;
   align-items: center;
   font-size: 12.5px;
   margin-top: 3px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 // ============================================================
@@ -571,23 +592,33 @@ $bronze: #c67b3c;
 
 .anniversaryRow {
   display: grid;
-  grid-template-columns: 52px minmax(140px, 1.2fr) 110px minmax(120px, 0.9fr);
+  grid-template-columns: 52px minmax(0, 1.2fr) 110px minmax(0, 0.9fr);
   align-items: center;
   gap: 12px 16px;
   padding: 16px 8px;
   border-bottom: 1px solid #eef0f5;
+  min-width: 0;
 
   &:last-child {
     border-bottom: none;
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 1600px) and (min-width: 769px) {
+    grid-template-columns: 48px minmax(0, 1fr) 100px;
+    grid-template-areas:
+      "medal employee years"
+      "medal joined years";
+    gap: 6px 10px;
+  }
+
+  @media (max-width: 768px) {
     grid-template-columns: 44px 1fr;
     grid-template-areas:
       "medal employee"
       "years years"
       "joined joined";
     gap: 10px;
+    padding: 14px 4px;
   }
 }
 
@@ -596,7 +627,7 @@ $bronze: #c67b3c;
   align-items: center;
   justify-content: center;
 
-  @media (max-width: 700px) {
+  @media (max-width: 1600px) {
     grid-area: medal;
   }
 }
@@ -607,7 +638,7 @@ $bronze: #c67b3c;
   align-items: flex-start;
   min-width: 0;
 
-  @media (max-width: 700px) {
+  @media (max-width: 1600px) {
     grid-area: employee;
   }
 }
@@ -617,8 +648,11 @@ $bronze: #c67b3c;
   align-items: center;
   justify-content: center;
 
-  @media (max-width: 700px) {
+  @media (max-width: 1600px) {
     grid-area: years;
+  }
+
+  @media (max-width: 768px) {
     justify-content: flex-start;
   }
 }
@@ -628,8 +662,11 @@ $bronze: #c67b3c;
   align-items: center;
   justify-content: flex-end;
 
-  @media (max-width: 700px) {
+  @media (max-width: 1600px) {
     grid-area: joined;
+  }
+
+  @media (max-width: 768px) {
     justify-content: flex-start;
   }
 }
@@ -691,6 +728,8 @@ $bronze: #c67b3c;
 .employeeName {
   margin: 0 0 4px;
   line-height: 1.25;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .joinedOn {
@@ -700,6 +739,10 @@ $bronze: #c67b3c;
   font-size: 12.5px;
   color: $text-muted;
   white-space: nowrap;
+
+  @media (max-width: 768px) {
+    white-space: normal;
+  }
 
   svg {
     width: 14px;
@@ -727,6 +770,24 @@ $bronze: #c67b3c;
   flex: 1;
   min-width: 0;
   padding: 4px 0;
+}
+
+.cols1 {
+  grid-template-columns: minmax(0, 1fr);
+
+  .birthdayCard {
+    max-width: 360px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+.cols2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.cols3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .birthdayCard {
@@ -905,6 +966,10 @@ $bronze: #c67b3c;
   font-size: 12.5px;
   width: 100%;
   box-sizing: border-box;
+
+  > span:last-child {
+    min-width: 0;
+  }
 }
 
 .footerIcon {
@@ -922,6 +987,54 @@ $bronze: #c67b3c;
   }
 }
 
+// Desktop / wide browser: side-by-side when the section itself is wide
+@container anniversary-section (max-width: 980px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@container (max-width: 620px) {
+  .anniversaryRow {
+    grid-template-columns: 44px 1fr;
+    grid-template-areas:
+      "medal employee"
+      "years years"
+      "joined joined";
+    gap: 10px;
+  }
+
+  .rowMedal { grid-area: medal; }
+  .rowEmployee { grid-area: employee; }
+  .rowYears { grid-area: years; justify-content: flex-start; }
+  .rowJoined { grid-area: joined; justify-content: flex-start; }
+}
+
+@media (hover: none) {
+  .birthdayCard:hover {
+    transform: none;
+    box-shadow: 0 1px 4px rgba(26, 39, 68, 0.04);
+  }
+}
+
+// iPad portrait / tablet
+@media (max-width: 1024px) {
+  .panelCard {
+    padding: 20px 18px 16px;
+  }
+
+  .anniversaryPanel .title,
+  .birthdayPanel .title {
+    font-size: 20px;
+  }
+
+  .navButton {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+  }
+}
+
 @media (max-width: 768px) {
   .panelCard {
     padding: 18px 16px 16px;
@@ -932,6 +1045,12 @@ $bronze: #c67b3c;
     align-items: stretch;
   }
 
+  .monthSelectorWrap {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
   .anniversaryPanel .title,
   .birthdayPanel .title {
     font-size: 18px;
@@ -939,12 +1058,79 @@ $bronze: #c67b3c;
 
   .summaryBanner {
     justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .summaryText {
+    flex-wrap: wrap;
+  }
+
+  .summaryCount {
+    font-size: 24px;
+  }
+
+  .anniversaryPanel .summaryCount,
+  .birthdayPanel .summaryCount {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .carouselWrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "content content"
+      "prev next";
+    align-items: center;
+    gap: 10px 8px;
+  }
+
+  .anniversaryList,
+  .birthdayGrid {
+    grid-area: content;
+  }
+
+  .navPrev {
+    grid-area: prev;
+    justify-self: start;
+  }
+
+  .navNext {
+    grid-area: next;
+    justify-self: end;
   }
 }
 
 @media (max-width: 480px) {
   .panelCard {
     padding: 14px 12px;
+  }
+
+  .anniversaryPanel .title,
+  .birthdayPanel .title {
+    font-size: 16.5px;
+  }
+
+  .subtitle {
+    font-size: 12.5px;
+  }
+
+  .summaryIcon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .anniversaryPanel .summaryCount,
+  .birthdayPanel .summaryCount {
+    font-size: 22px;
   }
 
   .laurelWrap {
@@ -960,6 +1146,21 @@ $bronze: #c67b3c;
   .medalIcon {
     width: 36px;
     height: 44px;
+    min-width: 36px;
+  }
+
+  .birthdayCard {
+    padding: 14px 12px 12px;
+  }
+
+  .footer {
+    align-items: flex-start;
+    font-size: 12px;
+  }
+
+  .navButton {
+    width: 36px;
+    height: 36px;
     min-width: 36px;
   }
 }

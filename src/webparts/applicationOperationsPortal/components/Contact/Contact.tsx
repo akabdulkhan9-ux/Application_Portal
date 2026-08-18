@@ -550,6 +550,7 @@ import { contactService, IContactMessage } from '../../services/ContactService';
 import { isPnPjsInitialized } from '../../services/pnpjsConfig';
 import { userService, IUserInfo } from '../../services/UserService';
 import { leaveService, IEmployeeLeaveItem } from '../../services/LeaveService';
+import { useResponsiveCardCount } from '../../hooks/useResponsiveCardCount';
 
 export interface IContactProps {
   isDarkTheme?: boolean;
@@ -558,7 +559,6 @@ export interface IContactProps {
   context?: WebPartContext;
 }
 
-const ITEMS_PER_PAGE = 3;
 const AUTO_ROTATE_MS = 15000;
 const PAST_MONTHS_RANGE = 3;
 const FUTURE_MONTHS_RANGE = 9;
@@ -720,6 +720,8 @@ export const Contact: React.FC<IContactProps> = (props) => {
   const [isLeaveLoading, setIsLeaveLoading] = React.useState(true);
   const [leaveError, setLeaveError] = React.useState<string>('');
   const [currentPage, setCurrentPage] = React.useState(0);
+  const [leaveTrackEl, setLeaveTrackEl] = React.useState<HTMLDivElement | null>(null);
+  const itemsPerPage = useResponsiveCardCount(leaveTrackEl, 3);
 
   const [form, setForm] = React.useState<IContactMessage>(initialMessage);
   const [sending, setSending] = React.useState(false);
@@ -799,7 +801,17 @@ export const Contact: React.FC<IContactProps> = (props) => {
     return () => { cancelled = true; };
   }, [selectedMonth, props.context]);
 
-  const totalPages = Math.ceil(leaves.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(leaves.length / itemsPerPage);
+
+  React.useEffect(() => {
+    setCurrentPage(0);
+  }, [itemsPerPage]);
+
+  React.useEffect(() => {
+    if (totalPages > 0 && currentPage > totalPages - 1) {
+      setCurrentPage(totalPages - 1);
+    }
+  }, [currentPage, totalPages]);
 
   // ===== Auto-rotate =====
   React.useEffect(() => {
@@ -867,7 +879,10 @@ export const Contact: React.FC<IContactProps> = (props) => {
     );
   }
 
-  const currentItems = leaves.slice(currentPage * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE + ITEMS_PER_PAGE);
+  const currentItems = leaves.slice(currentPage * itemsPerPage, currentPage * itemsPerPage + itemsPerPage);
+  const leaveTrackClass = `${styles.carouselTrack} ${
+    itemsPerPage === 1 ? styles.cols1 : itemsPerPage === 2 ? styles.cols2 : styles.cols3
+  }`;
   const selectedMonthLabel = getMonthLabel(selectedMonth);
   const isCurrentMonth = selectedMonthValue === currentMonthValue;
   const leaveTitleMonth = isCurrentMonth ? 'Current Month' : selectedMonthLabel;
@@ -919,12 +934,12 @@ export const Contact: React.FC<IContactProps> = (props) => {
           {leaves.length > 0 && (
             <React.Fragment>
               <div className={styles.carouselWrap}>
-                <button className={styles.navButton} onClick={handlePrev} disabled={currentPage === 0} aria-label="Previous">
+                <button className={`${styles.navButton} ${styles.navPrev}`} onClick={handlePrev} disabled={currentPage === 0} aria-label="Previous">
                   <ArrowLeftIcon />
                 </button>
 
                 <div className={styles.carouselViewport}>
-                  <div className={styles.carouselTrack}>
+                  <div className={leaveTrackClass} ref={setLeaveTrackEl}>
                     {currentItems.map((leave) => (
                       <div key={leave.id} className={styles.leaveCard}>
                         <h3 className={styles.employeeName}>{leave.fullName}</h3>
@@ -944,7 +959,7 @@ export const Contact: React.FC<IContactProps> = (props) => {
                 </div>
 
                 <button
-                  className={styles.navButton}
+                  className={`${styles.navButton} ${styles.navNext}`}
                   onClick={handleNext}
                   disabled={currentPage >= totalPages - 1}
                   aria-label="Next"

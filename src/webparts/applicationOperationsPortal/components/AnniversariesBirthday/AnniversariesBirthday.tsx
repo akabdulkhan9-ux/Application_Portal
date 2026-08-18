@@ -3,6 +3,7 @@ import { WebPartContext } from '@microsoft/sp-webpart-base';
 import styles from './AnniversariesBirthday.module.scss';
 import { employeeService, IEmployeeAnniversaryItem, IEmployeeBirthdayItem } from '../../services/EmployeeService';
 import { isPnPjsInitialized } from '../../services/pnpjsConfig';
+import { useResponsiveCardCount } from '../../hooks/useResponsiveCardCount';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const badgeGold: string = require('../../assets/badge-gold.png');
@@ -19,7 +20,6 @@ export interface IAnniversariesBirthdayProps {
 }
 
 const ANNIVERSARY_ITEMS_PER_PAGE = 3;
-const BIRTHDAY_ITEMS_PER_PAGE = 3;
 const AUTO_ROTATE_MS = 15000;
 const FUTURE_MONTHS_RANGE = 5;
 
@@ -195,6 +195,8 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
   const [isBirthdayLoading, setIsBirthdayLoading] = React.useState(true);
   const [birthdayError, setBirthdayError] = React.useState('');
   const [birthdayPage, setBirthdayPage] = React.useState(0);
+  const [birthdayGridEl, setBirthdayGridEl] = React.useState<HTMLDivElement | null>(null);
+  const birthdayItemsPerPage = useResponsiveCardCount(birthdayGridEl, 3);
 
   const selectedMonth = React.useMemo(() => {
     const found = monthOptions.filter((m) => m.value === selectedMonthValue)[0];
@@ -262,7 +264,17 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
   }, [selectedMonth, props.context]);
 
   const anniversaryTotalPages = Math.ceil(anniversaries.length / ANNIVERSARY_ITEMS_PER_PAGE);
-  const birthdayTotalPages = Math.ceil(birthdays.length / BIRTHDAY_ITEMS_PER_PAGE);
+  const birthdayTotalPages = Math.ceil(birthdays.length / birthdayItemsPerPage);
+
+  React.useEffect(() => {
+    setBirthdayPage(0);
+  }, [birthdayItemsPerPage]);
+
+  React.useEffect(() => {
+    if (birthdayTotalPages > 0 && birthdayPage > birthdayTotalPages - 1) {
+      setBirthdayPage(birthdayTotalPages - 1);
+    }
+  }, [birthdayPage, birthdayTotalPages]);
 
   React.useEffect(() => {
     if (anniversaryTotalPages <= 1) return;
@@ -302,9 +314,13 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
     anniversaryPage * ANNIVERSARY_ITEMS_PER_PAGE + ANNIVERSARY_ITEMS_PER_PAGE
   );
   const currentBirthdayItems = birthdays.slice(
-    birthdayPage * BIRTHDAY_ITEMS_PER_PAGE,
-    birthdayPage * BIRTHDAY_ITEMS_PER_PAGE + BIRTHDAY_ITEMS_PER_PAGE
+    birthdayPage * birthdayItemsPerPage,
+    birthdayPage * birthdayItemsPerPage + birthdayItemsPerPage
   );
+
+  const birthdayGridClass = `${styles.birthdayGrid} ${
+    birthdayItemsPerPage === 1 ? styles.cols1 : birthdayItemsPerPage === 2 ? styles.cols2 : styles.cols3
+  }`;
 
   const isLoading = isAnniversaryLoading || isBirthdayLoading;
   const selectedMonthLabel = getMonthLabel(selectedMonth);
@@ -377,7 +393,7 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
               <div className={styles.contentRow}>
                 <div className={styles.carouselWrap}>
                   <button
-                    className={styles.navButton}
+                    className={`${styles.navButton} ${styles.navPrev}`}
                     onClick={handleAnniversaryPrev}
                     disabled={anniversaryPage === 0}
                     aria-label="Previous"
@@ -415,7 +431,7 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
                   </div>
 
                   <button
-                    className={styles.navButton}
+                    className={`${styles.navButton} ${styles.navNext}`}
                     onClick={handleAnniversaryNext}
                     disabled={anniversaryPage >= anniversaryTotalPages - 1}
                     aria-label="Next"
@@ -484,7 +500,7 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
                 <div className={styles.contentRow}>
                   <div className={styles.carouselWrap}>
                     <button
-                      className={styles.navButton}
+                      className={`${styles.navButton} ${styles.navPrev}`}
                       onClick={handleBirthdayPrev}
                       disabled={birthdayPage === 0}
                       aria-label="Previous"
@@ -494,7 +510,7 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
                       </svg>
                     </button>
 
-                    <div className={styles.birthdayGrid}>
+                    <div className={birthdayGridClass} ref={setBirthdayGridEl}>
                       {currentBirthdayItems.map((item) => (
                         <div key={item.employeeId} className={styles.birthdayCard}>
                           <div className={styles.cakeHeader}>
@@ -521,7 +537,7 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
                     </div>
 
                     <button
-                      className={styles.navButton}
+                      className={`${styles.navButton} ${styles.navNext}`}
                       onClick={handleBirthdayNext}
                       disabled={birthdayPage >= birthdayTotalPages - 1}
                       aria-label="Next"

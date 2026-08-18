@@ -215,8 +215,10 @@ $color-maroon: #8B0000;
 
 .main {
   width: 100%;
+  max-width: 100%;
   padding: 16px 32px 32px 32px;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .contentGrid {
@@ -225,7 +227,9 @@ $color-maroon: #8B0000;
   gap: 32px;
   margin-top: 24px;
   width: 100%;
+  max-width: 100%;
   align-items: stretch;
+  min-width: 0;
 }
 
 .sidebar {
@@ -247,16 +251,26 @@ $color-maroon: #8B0000;
 
 .reportsSection {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   background: #ffffff;
   border-radius: 8px;
   padding: 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
   box-sizing: border-box;
+  overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  }
+
+  @media (hover: none) {
+    &:hover {
+      transform: none;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    }
   }
 }
 
@@ -291,10 +305,11 @@ $color-maroon: #8B0000;
   }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1024px) {
   .contentGrid {
     grid-template-columns: 1fr;
     align-items: start;
+    gap: 20px;
   }
   
   .sidebar {
@@ -310,6 +325,10 @@ $color-maroon: #8B0000;
 
 @media (max-width: 640px) {
   .main {
-    padding: 16px;
+    padding: 12px;
+  }
+
+  .contentArea {
+    gap: 16px;
   }
 }

@@ -797,6 +797,7 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
 .contactSection {
   font-family: $font-family;
   width: 100%;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   background: #ffffff;
@@ -806,6 +807,8 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   overflow: hidden;
   box-sizing: border-box;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  container-type: inline-size;
+  container-name: contact-section;
 }
 
 // ===== 2-COLUMN GRID =====
@@ -816,9 +819,11 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   flex: 1;
   overflow: hidden;
   width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
+  min-width: 0;
 
-  @media (max-width: 960px) {
+  @media (max-width: 1200px) {
     grid-template-columns: 1fr;
     gap: 20px;
   }
@@ -831,7 +836,9 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   min-height: 300px;
   overflow: visible;
   width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
+  min-width: 0;
 }
 
 .leaveHeader {
@@ -858,6 +865,8 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   margin: 0;
   padding: 0;
   letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .subtitle {
@@ -946,7 +955,7 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   background: $color-maroon-lighter;
   border-radius: 12px;
   margin-bottom: 14px;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
 
 .calendarIconWrap {
@@ -973,7 +982,7 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   display: flex;
   flex-direction: row;
   align-items: baseline;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   gap: 10px;
   flex: 1;
   min-width: 0;
@@ -1018,6 +1027,7 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   flex: 1;
   min-height: 0;
   width: 100%;
+  min-width: 0;
 }
 
 .carouselViewport {
@@ -1029,11 +1039,30 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
 
 .carouselTrack {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
   width: 100%;
   box-sizing: border-box;
   padding: 4px 2px 6px;
+  min-width: 0;
+}
+
+.cols1 {
+  grid-template-columns: minmax(0, 1fr);
+
+  .leaveCard {
+    max-width: 360px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+.cols2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.cols3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .leaveCard {
@@ -1064,6 +1093,8 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   margin: 0 0 4px 0;
   padding: 0;
   line-height: 1.3;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .employeeTitle {
@@ -1176,6 +1207,11 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   }
 }
 
+.navPrev,
+.navNext {
+  z-index: 1;
+}
+
 .dots {
   display: flex;
   justify-content: center;
@@ -1265,6 +1301,7 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   flex-direction: column;
   overflow: hidden;
   width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
   min-width: 0;
   background: $color-maroon-lighter;
@@ -1524,14 +1561,33 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
 }
 
 // ===== RESPONSIVE =====
-@media (max-width: 960px) {
+@container contact-section (max-width: 800px) {
   .grid {
     grid-template-columns: 1fr;
     gap: 20px;
   }
+}
 
-  .carouselTrack {
-    grid-template-columns: repeat(2, 1fr);
+@media (hover: none) {
+  .leaveCard:hover {
+    transform: none;
+    box-shadow: 0 1px 4px rgba(26, 39, 68, 0.04);
+  }
+}
+
+@media (max-width: 1024px) {
+  .title {
+    font-size: 20px;
+  }
+
+  .formTitle {
+    font-size: 20px;
+  }
+
+  .navButton {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
   }
 
   .formColumn {
@@ -1546,22 +1602,23 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
 
   .leaveHeader {
     flex-direction: column;
+    align-items: stretch;
     gap: 10px;
+  }
+
+  .monthSelectorWrap {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
   }
 
   .summaryBanner {
     flex-wrap: wrap;
-    text-align: center;
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .row2 {
     grid-template-columns: 1fr;
-  }
-
-  .carouselTrack {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
   }
 
   .leaveCard {
@@ -1580,6 +1637,36 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   .formTitle {
     font-size: 16px;
   }
+
+  .summaryCount {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .carouselWrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "content content"
+      "prev next";
+    align-items: center;
+    gap: 10px 8px;
+  }
+
+  .carouselViewport {
+    grid-area: content;
+  }
+
+  .navPrev {
+    grid-area: prev;
+    justify-self: start;
+  }
+
+  .navNext {
+    grid-area: next;
+    justify-self: end;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1587,9 +1674,8 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
     padding: 12px;
   }
 
-  .carouselTrack {
-    grid-template-columns: 1fr;
-    gap: 10px;
+  .formColumn {
+    padding: 14px;
   }
 
   .textareaLarge {
@@ -1598,6 +1684,10 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
 
   .title {
     font-size: 15.5px;
+  }
+
+  .subtitle {
+    font-size: 12.5px;
   }
 
   .summaryCount {
@@ -1645,6 +1735,16 @@ $font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
 
   .monthSelectorWrap {
     padding: 6px 28px 6px 10px;
-    min-width: 120px;
+  }
+
+  .footer {
+    align-items: flex-start;
+    font-size: 12px;
+  }
+
+  .navButton {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
   }
 }
