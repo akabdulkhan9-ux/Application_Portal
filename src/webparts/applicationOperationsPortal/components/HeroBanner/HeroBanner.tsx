@@ -41,9 +41,9 @@ const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1500648767791-00dcc994a
 const getMockActions = (context?: WebPartContext): Promise<IHeroAction[]> => {
   const webUrl = context?.pageContext.web.absoluteUrl.replace(/\/$/, '') || '';
   return Promise.resolve([
-    { id: "1", label: "Core Banking", url: `${webUrl}/SitePages/CoreBanking.aspx` },
-    { id: "2", label: "Corporate Center", url: `${webUrl}/SitePages/CorporateCenter.aspx` },
-    { id: "3", label: "Contact Center", url: `${webUrl}/SitePages/ContactCenter.aspx` }
+    { id: "1", label: "Core Banking", url: `${webUrl}/sites/CBSS` },
+    { id: "2", label: "Corporate Center", url: `${webUrl}/sites/WCCT` },
+    { id: "3", label: "Contact Center", url: `${webUrl}/sites/CCT` }
   ]);
 };
 
