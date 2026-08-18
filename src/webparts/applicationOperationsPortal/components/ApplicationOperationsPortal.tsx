@@ -116,7 +116,7 @@ export default class ApplicationOperationsPortal extends React.Component<
                   />
                 </div>
 
-                <div className={`${styles.reportsSection} ${styles.hideAnniversariesBirthday}`}>
+                <div className={styles.reportsSection}>
                   <AnniversariesBirthday context={spfxContext} />
                 </div>
 
