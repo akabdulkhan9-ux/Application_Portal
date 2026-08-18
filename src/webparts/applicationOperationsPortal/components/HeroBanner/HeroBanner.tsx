@@ -38,12 +38,24 @@ Alubaf Bank`;
 
 const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&q=80";
 
+const getTenantOrigin = (context?: WebPartContext): string => {
+  const absoluteUrl = context?.pageContext.web.absoluteUrl || '';
+  if (!absoluteUrl) {
+    return '';
+  }
+  try {
+    return new URL(absoluteUrl).origin;
+  } catch {
+    return absoluteUrl.replace(/^(https?:\/\/[^/]+).*$/, '$1');
+  }
+};
+
 const getMockActions = (context?: WebPartContext): Promise<IHeroAction[]> => {
-  const webUrl = context?.pageContext.web.absoluteUrl.replace(/\/$/, '') || '';
+  const tenantUrl = getTenantOrigin(context);
   return Promise.resolve([
-    { id: "1", label: "Core Banking", url: `${webUrl}/sites/CBSS` },
-    { id: "2", label: "Corporate Center", url: `${webUrl}/sites/WCCT` },
-    { id: "3", label: "Contact Center", url: `${webUrl}/sites/CCT` }
+    { id: "1", label: "Core Banking", url: `${tenantUrl}/sites/CBSS` },
+    { id: "2", label: "Corporate Center", url: `${tenantUrl}/sites/WCCT` },
+    { id: "3", label: "Contact Center", url: `${tenantUrl}/sites/CCT` }
   ]);
 };
 

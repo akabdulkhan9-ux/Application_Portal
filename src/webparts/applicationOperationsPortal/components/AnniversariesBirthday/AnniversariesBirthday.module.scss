@@ -591,32 +591,22 @@ $bronze: #c67b3c;
 }
 
 .anniversaryRow {
-  display: grid;
-  grid-template-columns: 52px minmax(0, 1.2fr) 110px minmax(0, 0.9fr);
+  display: flex;
+  flex-wrap: nowrap;
   align-items: center;
   gap: 12px 16px;
   padding: 16px 8px;
   border-bottom: 1px solid #eef0f5;
   min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
 
   &:last-child {
     border-bottom: none;
   }
 
-  @media (max-width: 1600px) and (min-width: 769px) {
-    grid-template-columns: 48px minmax(0, 1fr) 100px;
-    grid-template-areas:
-      "medal employee years"
-      "medal joined years";
-    gap: 6px 10px;
-  }
-
   @media (max-width: 768px) {
-    grid-template-columns: 44px 1fr;
-    grid-template-areas:
-      "medal employee"
-      "years years"
-      "joined joined";
+    flex-wrap: wrap;
     gap: 10px;
     padding: 14px 4px;
   }
@@ -626,48 +616,37 @@ $bronze: #c67b3c;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  @media (max-width: 1600px) {
-    grid-area: medal;
-  }
+  flex: 0 0 52px;
+  width: 52px;
 }
 
 .rowEmployee {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  flex: 1 1 auto;
   min-width: 0;
-
-  @media (max-width: 1600px) {
-    grid-area: employee;
-  }
 }
 
 .rowYears {
   display: flex;
   align-items: center;
   justify-content: center;
-
-  @media (max-width: 1600px) {
-    grid-area: years;
-  }
-
-  @media (max-width: 768px) {
-    justify-content: flex-start;
-  }
+  flex: 0 0 auto;
 }
 
 .rowJoined {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-
-  @media (max-width: 1600px) {
-    grid-area: joined;
-  }
+  flex: 0 0 auto;
+  margin-left: auto;
 
   @media (max-width: 768px) {
     justify-content: flex-start;
+    margin-left: 0;
+    width: 100%;
+    padding-left: 52px;
   }
 }
 
@@ -994,22 +973,6 @@ $bronze: #c67b3c;
   }
 }
 
-@container (max-width: 620px) {
-  .anniversaryRow {
-    grid-template-columns: 44px 1fr;
-    grid-template-areas:
-      "medal employee"
-      "years years"
-      "joined joined";
-    gap: 10px;
-  }
-
-  .rowMedal { grid-area: medal; }
-  .rowEmployee { grid-area: employee; }
-  .rowYears { grid-area: years; justify-content: flex-start; }
-  .rowJoined { grid-area: joined; justify-content: flex-start; }
-}
-
 @media (hover: none) {
   .birthdayCard:hover {
     transform: none;
@@ -1073,6 +1036,12 @@ $bronze: #c67b3c;
   .anniversaryPanel .summaryCount,
   .birthdayPanel .summaryCount {
     font-size: 24px;
+  }
+
+  .rowYears {
+    justify-content: flex-start;
+    width: 100%;
+    padding-left: 52px;
   }
 }
 
