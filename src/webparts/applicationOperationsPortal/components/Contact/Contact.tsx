@@ -174,7 +174,7 @@ export const Contact: React.FC<IContactProps> = (props) => {
   const [isLeaveLoading, setIsLeaveLoading] = React.useState(true);
   const [leaveError, setLeaveError] = React.useState<string>('');
   const [currentPage, setCurrentPage] = React.useState(0);
-  const [leaveTrackEl, setLeaveTrackEl] = React.useState<HTMLDivElement | null>(null);
+  const [leaveTrackEl, setLeaveTrackEl] = React.useState<HTMLDivElement | undefined>(undefined);
   const itemsPerPage = useResponsiveCardCount(leaveTrackEl, 3);
 
   const [form, setForm] = React.useState<IContactMessage>(initialMessage);
@@ -389,7 +389,7 @@ export const Contact: React.FC<IContactProps> = (props) => {
                 </button>
 
                 <div className={styles.carouselViewport}>
-                  <div className={leaveTrackClass} ref={setLeaveTrackEl}>
+                  <div className={leaveTrackClass} ref={(node): void => setLeaveTrackEl(node || undefined)}>
                     {currentItems.map((leave) => (
                       <div key={leave.id} className={styles.leaveCard}>
                         <h3 className={styles.employeeName}>{leave.fullName}</h3>

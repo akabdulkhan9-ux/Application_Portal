@@ -66,6 +66,7 @@ const openInNewTab = (url: string): void => {
     try {
       (newTab as Window & { opener: unknown }).opener = null;
     } catch {
+      /* opener may be non-configurable */
     }
     newTab.location.href = url;
     return;

@@ -194,7 +194,7 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
   const [isBirthdayLoading, setIsBirthdayLoading] = React.useState(true);
   const [birthdayError, setBirthdayError] = React.useState('');
   const [birthdayPage, setBirthdayPage] = React.useState(0);
-  const [birthdayGridEl, setBirthdayGridEl] = React.useState<HTMLDivElement | null>(null);
+  const [birthdayGridEl, setBirthdayGridEl] = React.useState<HTMLDivElement | undefined>(undefined);
   const birthdayItemsPerPage = useResponsiveCardCount(birthdayGridEl, 3);
 
   const selectedMonth = React.useMemo(() => {
@@ -507,7 +507,7 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
                       </svg>
                     </button>
 
-                    <div className={birthdayGridClass} ref={setBirthdayGridEl}>
+                    <div className={birthdayGridClass} ref={(node): void => setBirthdayGridEl(node || undefined)}>
                       {currentBirthdayItems.map((item) => (
                         <div key={item.employeeId} className={styles.birthdayCard}>
                           <div className={styles.cakeHeader}>

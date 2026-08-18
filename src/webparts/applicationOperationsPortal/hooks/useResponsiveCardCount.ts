@@ -24,7 +24,7 @@ export const resolveCardCount = (containerWidth: number, viewportWidth: number):
 };
 
 export const useResponsiveCardCount = (
-  element: HTMLElement | null,
+  element: HTMLElement | undefined,
   fallback: number = 3
 ): number => {
   const [count, setCount] = useState<number>(fallback);
