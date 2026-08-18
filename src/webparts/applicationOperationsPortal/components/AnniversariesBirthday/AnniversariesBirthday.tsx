@@ -164,7 +164,6 @@ const MedalRibbonIcon: React.FC<{ rank: number; variant: RankVariant }> = ({ ran
   );
 };
 
-/** Years of service inside the uploaded gold / silver / bronze wreath images */
 const LaurelYearsBadge: React.FC<{ years: number | string; variant: RankVariant }> = ({ years, variant }) => {
   const yearsColor = yearsColorMap[variant] || yearsColorMap.default;
   const badgeSrc = badgeImageMap[variant] || badgeImageMap.default;
@@ -357,7 +356,6 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
     <section className={styles.anniversariesBirthdaySection}>
       <div className={styles.grid}>
 
-        {/* ===== ANNIVERSARIES PANEL ===== */}
         <div className={`${styles.panelCard} ${styles.anniversaryPanel}`}>
           <div className={styles.panelHeader}>
             <div className={styles.panelTitleWrap}>
@@ -463,7 +461,6 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
           )}
         </div>
 
-        {/* ===== BIRTHDAYS PANEL ===== */}
         <div className={`${styles.panelCard} ${styles.birthdayPanel}`}>
           <div className={styles.panelHeader}>
             <div className={styles.panelTitleWrap}>

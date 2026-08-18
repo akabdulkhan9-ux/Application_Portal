@@ -1,7 +1,4 @@
 
-
-// src/webparts/applicationOperationsPortal/components/PowerBI/PowerBIReport.tsx
-
 import * as React from 'react';
 import styles from './PowerBIReport.module.scss';
 
@@ -13,7 +10,6 @@ export interface IPowerBIReportProps {
   width?: string;
   className?: string;
   userName?: string;
-  userEmail?: string;
   onError?: (error: Error) => void;
   onLoad?: () => void;
   autoRefresh?: boolean;
@@ -121,10 +117,6 @@ export class PowerBIReport extends React.Component<IPowerBIReportProps, IPowerBI
     }
   };
 
-  /**
-   * Refresh the report - ES5 Compatible
-   * Uses indexOf instead of includes
-   */
   private refreshReport = (): void => {
     const iframe = this.iframeRef.current;
     if (iframe) {
@@ -134,7 +126,6 @@ export class PowerBIReport extends React.Component<IPowerBIReportProps, IPowerBI
         url.searchParams.set('_t', Date.now().toString());
         iframe.src = url.toString();
       } catch {
-        // ES5 compatible: use indexOf instead of includes
         const separator = currentUrl.indexOf('?') !== -1 ? '&' : '?';
         iframe.src = currentUrl + separator + '_t=' + Date.now();
       }
@@ -240,10 +231,6 @@ export class PowerBIReport extends React.Component<IPowerBIReportProps, IPowerBI
     );
   };
 
-  /**
-   * Build iframe URL - ES5 Compatible
-   * Uses indexOf instead of includes
-   */
   private buildIframeUrl(url: string): string {
     try {
       const urlObj = new URL(url);

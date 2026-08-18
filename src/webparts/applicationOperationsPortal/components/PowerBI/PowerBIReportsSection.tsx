@@ -1,34 +1,15 @@
-
-
-// src/webparts/applicationOperationsPortal/components/PowerBI/PowerBIReportsSection.tsx
-
 import * as React from 'react';
 import styles from './PowerBIReportsSection.module.scss';
 
 export interface IPowerBIReportsSectionProps {
-  /** Navigation callback to handle report click */
   onNavigate?: () => void;
-  /** Optional custom report title */
   title?: string;
-  /** Optional report description */
   description?: string;
-  /** Optional report icon */
   icon?: string;
 }
 
-/**
- * Power BI Reports Section - Navigates to SharePoint Power BI Page
- * 
- * Features:
- * - Single report card with maroon theme
- * - Click navigates to SharePoint Power BI page
- * - Consistent with Meet Our Team and Contact sections
- */
 export class PowerBIReportsSection extends React.Component<IPowerBIReportsSectionProps> {
 
-  /**
-   * Handle report click - trigger navigation callback
-   */
   private handleReportClick = (): void => {
     const { onNavigate } = this.props;
     
@@ -38,9 +19,6 @@ export class PowerBIReportsSection extends React.Component<IPowerBIReportsSectio
     }
   };
 
-  /**
-   * Get report data from props or defaults
-   */
   private getReportData = (): { title: string; description: string; icon: string } => {
     const { title, description, icon } = this.props;
     
@@ -56,7 +34,6 @@ export class PowerBIReportsSection extends React.Component<IPowerBIReportsSectio
 
     return (
       <div className={styles.powerBIReportsSection}>
-        {/* Section Header */}
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>📊 Power BI Reports</h2>
           <p className={styles.sectionSubtitle}>
@@ -64,7 +41,6 @@ export class PowerBIReportsSection extends React.Component<IPowerBIReportsSectio
           </p>
         </div>
 
-        {/* Report Card */}
         <div className={styles.reportsGrid}>
           <div
             className={styles.reportCard}
