@@ -15,8 +15,10 @@ export interface IMeetOurTeamProps {
   showSearch?: boolean;
 }
 
+const MEMBERS_WITHOUT_SCROLL = 10;
+
 export const MeetOurTeam: React.FC<IMeetOurTeamProps> = (props) => {
-  const { maxHeight = '465px', showSearch = true } = props;
+  const { maxHeight, showSearch = true } = props;
   
   const [members, setMembers] = React.useState<ITeamMember[]>([]);
   const [query, setQuery] = React.useState("");
@@ -61,6 +63,7 @@ export const MeetOurTeam: React.FC<IMeetOurTeamProps> = (props) => {
   const filtered = members.filter((m: ITeamMember) =>
     m.name.toLowerCase().indexOf(query.toLowerCase()) !== -1
   );
+  const needsScroll = filtered.length > MEMBERS_WITHOUT_SCROLL;
 
   if (isLoading) {
     return (
@@ -89,9 +92,9 @@ export const MeetOurTeam: React.FC<IMeetOurTeamProps> = (props) => {
         </div>
       )}
 
-      <div 
-        className={styles.listContainer}
-        style={{ maxHeight: maxHeight }}
+      <div
+        className={`${styles.listContainer} ${needsScroll ? styles.listScroll : ''}`}
+        style={needsScroll && maxHeight ? { maxHeight } : undefined}
       >
         {filtered.length === 0 ? (
           <div className={styles.emptyState}>

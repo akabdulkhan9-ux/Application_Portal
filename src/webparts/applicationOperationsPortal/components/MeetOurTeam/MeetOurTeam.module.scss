@@ -283,7 +283,6 @@ $radius-md: 9px;
   display: flex;
   flex-direction: column;
   height: auto;
-  max-height: 560px;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
@@ -357,10 +356,15 @@ $radius-md: 9px;
 .listContainer {
   flex: 1 1 auto;
   min-height: 0;
-  max-height: 400px;
+  overflow: visible;
+  margin-bottom: 13px;
+}
+
+.listScroll {
+  // Height of 10 member rows (40px avatar + 22px padding)
+  max-height: 620px;
   overflow-y: auto;
   overflow-x: hidden;
-  margin-bottom: 13px;
 
   &::-webkit-scrollbar {
     width: 7px;
@@ -500,10 +504,6 @@ $radius-md: 9px;
   
   .title {
     font-size: 18px;
-  }
-  
-  .listContainer {
-    max-height: 300px;
   }
 }
 

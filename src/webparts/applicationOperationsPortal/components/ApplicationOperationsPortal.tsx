@@ -102,7 +102,6 @@ export default class ApplicationOperationsPortal extends React.Component<
               <aside className={styles.sidebar}>
                 <MeetOurTeam 
                   context={spfxContext}
-                  maxHeight="400px"
                   showSearch={true}
                 />
               </aside>
@@ -116,7 +115,7 @@ export default class ApplicationOperationsPortal extends React.Component<
                   />
                 </div>
 
-                <div className={styles.reportsSection}>
+                <div className={`${styles.reportsSection} ${styles.hideAnniversariesBirthday}`}>
                   <AnniversariesBirthday context={spfxContext} />
                 </div>
 
