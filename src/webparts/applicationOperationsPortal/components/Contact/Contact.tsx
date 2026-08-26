@@ -150,6 +150,20 @@ const MessageIcon: React.FC = () => (
   </svg>
 );
 
+const PeopleIcon: React.FC = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+  </svg>
+);
+
+const MESSAGE_RECIPIENT = {
+  name: 'Application Operations and Shared Services',
+  email: 'AOSSLeadership@cibccaribbean.com',
+};
+
 const SendIcon: React.FC = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <line x1="22" y1="2" x2="11" y2="13" />
@@ -456,12 +470,24 @@ export const Contact: React.FC<IContactProps> = (props) => {
               </div>
             )}
 
+            <div className={styles.fieldWrap}>
+              <span className={styles.fieldLabel}>To</span>
+              <div className={styles.toField} aria-label={`To ${MESSAGE_RECIPIENT.name}`}>
+                <PeopleIcon />
+                <div className={styles.toFieldText}>
+                  <span className={styles.toName}>{MESSAGE_RECIPIENT.name}</span>
+                  <span className={styles.toEmail}>{MESSAGE_RECIPIENT.email}</span>
+                </div>
+              </div>
+            </div>
+
             <div className={styles.row2}>
               <div className={styles.fieldWrap}>
-                <label className={styles.fieldLabel}>Full Name</label>
+                <label className={styles.fieldLabel} htmlFor="contact-full-name">Full Name</label>
                 <div className={styles.inputIconWrap}>
                   <UserIcon />
                   <input
+                    id="contact-full-name"
                     type="text"
                     className={styles.input}
                     placeholder="Your full name"
@@ -474,10 +500,11 @@ export const Contact: React.FC<IContactProps> = (props) => {
               </div>
 
               <div className={styles.fieldWrap}>
-                <label className={styles.fieldLabel}>Email</label>
+                <label className={styles.fieldLabel} htmlFor="contact-email">Email</label>
                 <div className={styles.inputIconWrap}>
                   <MailIcon />
                   <input
+                    id="contact-email"
                     type="email"
                     className={styles.input}
                     placeholder="you@company.com"
@@ -491,10 +518,11 @@ export const Contact: React.FC<IContactProps> = (props) => {
             </div>
 
             <div className={styles.fieldWrap}>
-              <label className={styles.fieldLabel}>Subject</label>
+              <label className={styles.fieldLabel} htmlFor="contact-subject">Subject</label>
               <div className={styles.inputIconWrap}>
                 <TagIcon />
                 <input
+                  id="contact-subject"
                   type="text"
                   className={styles.input}
                   placeholder="What is this about?"
@@ -506,13 +534,14 @@ export const Contact: React.FC<IContactProps> = (props) => {
             </div>
 
             <div className={styles.fieldWrap}>
-              <label className={styles.fieldLabel}>Your Message</label>
+              <label className={styles.fieldLabel} htmlFor="contact-message">Your Message</label>
               <textarea
+                id="contact-message"
                 className={styles.textareaLarge}
                 placeholder="Write your message here..."
                 value={form.message}
                 onChange={(e) => update('message', e.target.value)}
-                rows={6}
+                rows={5}
                 required
               />
             </div>

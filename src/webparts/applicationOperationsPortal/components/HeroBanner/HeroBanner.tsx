@@ -53,7 +53,7 @@ const getTenantOrigin = (context?: WebPartContext): string => {
 const getMockActions = (context?: WebPartContext): Promise<IHeroAction[]> => {
   const tenantUrl = getTenantOrigin(context);
   return Promise.resolve([
-    { id: "1", label: "Core Banking", url: `${tenantUrl}/sites/CBSS` },
+    { id: "1", label: "Core, Digital Banking Support and Shared Services", url: `${tenantUrl}/sites/CBSS` },
     { id: "2", label: "Corporate Center", url: `${tenantUrl}/sites/WCCT` },
     { id: "3", label: "Contact Center", url: `${tenantUrl}/sites/CCT` }
   ]);
