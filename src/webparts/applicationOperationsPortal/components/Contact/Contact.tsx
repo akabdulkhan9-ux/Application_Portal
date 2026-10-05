@@ -15,8 +15,8 @@ export interface IContactProps {
 }
 
 const AUTO_ROTATE_MS = 15000;
-const PAST_MONTHS_RANGE = 3;
-const FUTURE_MONTHS_RANGE = 9;
+const PAST_MONTHS_RANGE = 0;
+const FUTURE_MONTHS_RANGE = 2;
 
 interface IMonthOption {
   label: string;

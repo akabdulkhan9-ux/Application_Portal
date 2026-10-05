@@ -50,11 +50,18 @@ const getTenantOrigin = (context?: WebPartContext): string => {
   }
 };
 
+const DOCUMENTS_PATH = '/Shared%20Documents/Forms/AllItems.aspx';
+
+const getDocumentsUrl = (context?: WebPartContext): string => {
+  const webUrl = (context?.pageContext.web.absoluteUrl || '').replace(/\/$/, '');
+  return webUrl ? `${webUrl}${DOCUMENTS_PATH}` : DOCUMENTS_PATH;
+};
+
 const getMockActions = (context?: WebPartContext): Promise<IHeroAction[]> => {
   const tenantUrl = getTenantOrigin(context);
   return Promise.resolve([
     { id: "1", label: "Core, Digital Banking Support and Shared Services", url: `${tenantUrl}/sites/CBSS` },
-    { id: "2", label: "Corporate Center", url: `${tenantUrl}/sites/WCCT` },
+    { id: "2", label: "Wealth and Corporate Center", url: `${tenantUrl}/sites/WCCT` },
     { id: "3", label: "Contact Center", url: `${tenantUrl}/sites/CCT` }
   ]);
 };
@@ -138,6 +145,7 @@ export const HeroBanner: React.FC<IHeroBannerProps> = (props) => {
   const paragraph = bannerData?.paragraph || DEFAULT_PARAGRAPH;
   const imageUrl = bannerData?.imageUrl || DEFAULT_IMAGE;
   const paragraphs = paragraph.split('\n\n').filter(p => p.trim().length > 0);
+  const documentsUrl = getDocumentsUrl(props.context);
 
   return (
     <section className={styles.hero}>
@@ -151,7 +159,15 @@ export const HeroBanner: React.FC<IHeroBannerProps> = (props) => {
         />
       </div>
       <div className={styles.content}>
-        <h1 className={styles.title}>{title}</h1>
+        <div className={styles.titleRow}>
+          <h1 className={styles.title}>{title}</h1>
+          <nav className={styles.topNav} aria-label="CEO message">
+            <a className={styles.topNavLink} href={documentsUrl}>
+              <span>Documents</span>
+              <span className={styles.arrow}>→</span>
+            </a>
+          </nav>
+        </div>
         {paragraphs.map((para, index) => (
           <p key={index} className={styles.paragraph}>
             {para}

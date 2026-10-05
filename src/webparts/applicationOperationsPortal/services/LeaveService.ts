@@ -177,6 +177,19 @@ const LEAVE_REQUESTS_LIST_NAME = "EmployeeLeaveRequests";
 const formatDisplayDate = (date: Date): string =>
   date.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
 
+const MS_PER_DAY = 24 * 60 * 60 * 1000;
+
+/** Inclusive calendar days from start through end. Both dates count. */
+const calculateLeaveDays = (start: Date, end: Date): number => {
+  const startDay = Date.UTC(start.getFullYear(), start.getMonth(), start.getDate());
+  const endDay = Date.UTC(end.getFullYear(), end.getMonth(), end.getDate());
+  const diffDays = Math.round((endDay - startDay) / MS_PER_DAY);
+  if (diffDays < 0) {
+    return 0;
+  }
+  return diffDays + 1;
+};
+
 interface IRawLeaveRequestItem {
   Id?: number;
   Title?: string;
@@ -187,7 +200,6 @@ interface IRawLeaveRequestItem {
   LeaveType?: string;
   StartDate?: string;
   EndDate?: string;
-  Days?: number;
   LeaveStatus?: string;
   [key: string]: unknown;
 }
@@ -267,7 +279,6 @@ class LeaveService {
           "LeaveType",
           "StartDate",
           "EndDate",
-          "Days",
           "LeaveStatus"
         )
         .top(500)();
@@ -283,7 +294,6 @@ class LeaveService {
             LeaveType: item.LeaveType,
             StartDate: item.StartDate,
             EndDate: item.EndDate,
-            Days: item.Days,
             LeaveStatus: item.LeaveStatus
           });
         });
@@ -327,7 +337,7 @@ class LeaveService {
             endDate: formatDisplayDate(end),
             startDateRaw: start,
             endDateRaw: end,
-            days: item.Days || 0,
+            days: calculateLeaveDays(start, end),
             leaveStatus: item.LeaveStatus || "N/A",
           });
         } catch (err) {
@@ -371,7 +381,6 @@ class LeaveService {
           "LeaveType",
           "StartDate",
           "EndDate",
-          "Days",
           "LeaveStatus"
         )();
 
@@ -408,7 +417,7 @@ class LeaveService {
             endDate: formatDisplayDate(end),
             startDateRaw: start,
             endDateRaw: end,
-            days: item.Days || 0,
+            days: calculateLeaveDays(start, end),
             leaveStatus: item.LeaveStatus || "N/A",
           });
         } catch (err) {

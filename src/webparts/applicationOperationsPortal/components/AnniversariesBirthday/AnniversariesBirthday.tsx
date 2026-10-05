@@ -183,7 +183,7 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
   const monthOptions = React.useMemo(() => buildMonthOptions(), []);
   const currentMonthValue = React.useMemo(() => getMonthValue(new Date()), []);
 
-  const [selectedMonthValue, setSelectedMonthValue] = React.useState<string>(currentMonthValue);
+  const [selectedMonthValue] = React.useState<string>(currentMonthValue);
 
   const [anniversaries, setAnniversaries] = React.useState<IEmployeeAnniversaryItem[]>([]);
   const [isAnniversaryLoading, setIsAnniversaryLoading] = React.useState(true);
@@ -291,10 +291,6 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
     return () => clearInterval(interval);
   }, [birthdayTotalPages]);
 
-  const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
-    setSelectedMonthValue(e.target.value);
-  };
-
   const handleAnniversaryPrev = (): void => {
     setAnniversaryPage((p) => Math.max(p - 1, 0));
   };
@@ -338,20 +334,6 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
     );
   }
 
-  const renderMonthSelector = (): JSX.Element => (
-    <div className={styles.monthSelectorWrap}>
-      <CalendarIcon className={styles.monthSelectorIcon} />
-      <select className={styles.monthSelect} value={selectedMonthValue} onChange={handleMonthChange} aria-label="Select month">
-        {monthOptions.map((m) => (
-          <option key={m.value} value={m.value}>{m.label}</option>
-        ))}
-      </select>
-      <svg className={styles.monthSelectorChevron} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <polyline points="6 9 12 15 18 9" />
-      </svg>
-    </div>
-  );
-
   return (
     <section className={styles.anniversariesBirthdaySection}>
       <div className={styles.grid}>
@@ -364,7 +346,6 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
                 Celebrating work anniversaries this month. Thank you for your dedication and contributions!
               </p>
             </div>
-            {renderMonthSelector()}
           </div>
 
           <div className={styles.summaryBanner}>
@@ -469,7 +450,6 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
                 Celebrating birthdays this month. Wishing a very happy birthday to our amazing team!
               </p>
             </div>
-            {renderMonthSelector()}
           </div>
 
           <div className={styles.summaryBanner}>
