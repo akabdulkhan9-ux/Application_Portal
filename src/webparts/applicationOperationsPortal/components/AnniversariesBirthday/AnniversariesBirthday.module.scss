@@ -90,6 +90,7 @@ $bronze: #c67b3c;
   overflow: hidden;
   min-width: 0;
   container-type: inline-size;
+  container-name: panel;
 }
 
 .anniversaryPanel {
@@ -198,7 +199,7 @@ $bronze: #c67b3c;
   }
 
   .infoRow {
-    justify-content: flex-start;
+    justify-content: center;
     color: $text-muted;
   }
 
@@ -208,9 +209,9 @@ $bronze: #c67b3c;
 
   .employeeName {
     color: $text-navy;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 700;
-    text-align: left;
+    text-align: center;
   }
 
   .dot.active {
@@ -405,16 +406,17 @@ $bronze: #c67b3c;
 }
 
 .panelTitleWrap {
-  flex: 1;
-  min-width: 200px;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .title {
   margin: 0 0 6px;
   font-size: 18.5px;
   font-weight: 700;
-  overflow-wrap: anywhere;
-  word-break: break-word;
+  overflow-wrap: break-word;
+  word-break: normal;
 }
 
 .subtitle {
@@ -494,6 +496,8 @@ $bronze: #c67b3c;
   align-items: baseline;
   gap: 10px;
   flex-wrap: wrap;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .summaryMonth {
@@ -571,169 +575,29 @@ $bronze: #c67b3c;
 
 .infoRow {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   font-size: 12.5px;
   margin-top: 3px;
   min-width: 0;
-  overflow-wrap: anywhere;
-  word-break: break-word;
-}
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: normal;
 
-// ============================================================
-// Anniversary list rows (design mock)
-// ============================================================
-.anniversaryList {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  flex: 1;
-  min-width: 0;
-}
-
-.anniversaryRow {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  gap: 12px 16px;
-  padding: 16px 8px;
-  border-bottom: 1px solid #eef0f5;
-  min-width: 0;
-  width: 100%;
-  box-sizing: border-box;
-
-  &:last-child {
-    border-bottom: none;
+  svg {
+    margin-top: 1px;
   }
-
-  @media (max-width: 768px) {
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 14px 4px;
-  }
-}
-
-.rowMedal {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 52px;
-  width: 52px;
-}
-
-.rowEmployee {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-.rowYears {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-}
-
-.rowJoined {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex: 0 0 auto;
-  margin-left: auto;
-
-  @media (max-width: 768px) {
-    justify-content: flex-start;
-    margin-left: 0;
-    width: 100%;
-    padding-left: 52px;
-  }
-}
-
-.medalIcon {
-  width: 42px;
-  height: 52px;
-  min-width: 42px;
-  display: block;
-}
-
-.laurelWrap {
-  position: relative;
-  width: 96px;
-  height: 72px;
-  min-width: 96px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.laurelImage {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center bottom;
-  clip-path: inset(16% 0 0 0);
-  mix-blend-mode: multiply;
-  pointer-events: none;
-  user-select: none;
-}
-
-.yearsCenter {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-top: 2px;
-}
-
-.yearsNumber {
-  font-size: 20px;
-  font-weight: 800;
-  line-height: 1;
-}
-
-.yearsLabel {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  margin-top: 1px;
 }
 
 .employeeName {
   margin: 0 0 4px;
   line-height: 1.25;
-  overflow-wrap: anywhere;
-  word-break: break-word;
-}
-
-.joinedOn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12.5px;
-  color: $text-muted;
-  white-space: nowrap;
-
-  @media (max-width: 768px) {
-    white-space: normal;
-  }
-
-  svg {
-    width: 14px;
-    height: 14px;
-    min-width: 14px;
-    stroke: $text-muted;
-    margin-right: 0;
-  }
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: normal;
 }
 
 // ============================================================
-// Birthday cards — 3 cards per page, matching design mock
+// Shared person cards — anniversary and birthday use the same card
 // ============================================================
 .birthdayCarousel {
   background: transparent;
@@ -830,6 +694,8 @@ $bronze: #c67b3c;
   font-size: 12px;
   color: $text-muted;
   margin-top: 2px;
+  max-width: 100%;
+  text-align: center;
 }
 
 .cardDivider {
@@ -1037,12 +903,6 @@ $bronze: #c67b3c;
   .birthdayPanel .summaryCount {
     font-size: 24px;
   }
-
-  .rowYears {
-    justify-content: flex-start;
-    width: 100%;
-    padding-left: 52px;
-  }
 }
 
 @media (max-width: 640px) {
@@ -1056,7 +916,6 @@ $bronze: #c67b3c;
     gap: 10px 8px;
   }
 
-  .anniversaryList,
   .birthdayGrid {
     grid-area: content;
   }
@@ -1100,22 +959,6 @@ $bronze: #c67b3c;
   .anniversaryPanel .summaryCount,
   .birthdayPanel .summaryCount {
     font-size: 22px;
-  }
-
-  .laurelWrap {
-    width: 80px;
-    height: 60px;
-    min-width: 80px;
-  }
-
-  .yearsNumber {
-    font-size: 16px;
-  }
-
-  .medalIcon {
-    width: 36px;
-    height: 44px;
-    min-width: 36px;
   }
 
   .birthdayCard {

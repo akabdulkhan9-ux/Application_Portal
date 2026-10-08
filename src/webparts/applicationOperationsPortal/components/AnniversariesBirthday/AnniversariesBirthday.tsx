@@ -5,13 +5,6 @@ import { employeeService, IEmployeeAnniversaryItem, IEmployeeBirthdayItem } from
 import { isPnPjsInitialized } from '../../services/pnpjsConfig';
 import { useResponsiveCardCount } from '../../hooks/useResponsiveCardCount';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const badgeGold: string = require('../../assets/badge-gold.png');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const badgeSilver: string = require('../../assets/badge-silver.png');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const badgeBronze: string = require('../../assets/badge-bronze.png');
-
 export interface IAnniversariesBirthdayProps {
   isDarkTheme?: boolean;
   hasTeamsContext?: boolean;
@@ -19,7 +12,6 @@ export interface IAnniversariesBirthdayProps {
   context?: WebPartContext;
 }
 
-const ANNIVERSARY_ITEMS_PER_PAGE = 3;
 const AUTO_ROTATE_MS = 15000;
 const FUTURE_MONTHS_RANGE = 5;
 
@@ -28,8 +20,6 @@ interface IMonthOption {
   value: string;
   date: Date;
 }
-
-type RankVariant = 'gold' | 'silver' | 'bronze' | 'default';
 
 const getMonthLabel = (date: Date): string =>
   date.toLocaleString('default', { month: 'long', year: 'numeric' });
@@ -59,36 +49,6 @@ const getDots = (count: number): number[] => {
     dots.push(i);
   }
   return dots;
-};
-
-const getRankVariant = (index: number): RankVariant => {
-  switch (index) {
-    case 0: return 'gold';
-    case 1: return 'silver';
-    case 2: return 'bronze';
-    default: return 'default';
-  }
-};
-
-const rankColors: Record<RankVariant, { fill: string; stroke: string; text: string }> = {
-  gold: { fill: '#F5C542', stroke: '#D4A017', text: '#8A6A00' },
-  silver: { fill: '#C5CDD8', stroke: '#9AA3B2', text: '#4B5563' },
-  bronze: { fill: '#E09A5B', stroke: '#C67B3C', text: '#7A4014' },
-  default: { fill: '#b3a5ac', stroke: '#9aa3b2', text: '#6b7280' },
-};
-
-const yearsColorMap: Record<RankVariant, string> = {
-  gold: '#D4A017',
-  silver: '#A0A6B0',
-  bronze: '#C4783A',
-  default: '#b3a5ac',
-};
-
-const badgeImageMap: Record<RankVariant, string> = {
-  gold: badgeGold,
-  silver: badgeSilver,
-  bronze: badgeBronze,
-  default: badgeBronze
 };
 
 const BriefcaseIcon: React.FC = () => (
@@ -149,36 +109,6 @@ const EmptyStateIcon: React.FC = () => (
   </svg>
 );
 
-const MedalRibbonIcon: React.FC<{ rank: number; variant: RankVariant }> = ({ rank, variant }) => {
-  const c = rankColors[variant];
-
-  return (
-    <svg className={styles.medalIcon} viewBox="0 0 48 56" xmlns="http://www.w3.org/2000/svg">
-      <path d="M18 34 L14 52 L24 46 L34 52 L30 34" fill={c.fill} stroke={c.stroke} strokeWidth="1.5" strokeLinejoin="round" />
-      <circle cx="24" cy="20" r="16" fill={c.fill} stroke={c.stroke} strokeWidth="2" />
-      <circle cx="24" cy="20" r="12" fill="#FFFDF7" stroke={c.stroke} strokeWidth="1.25" />
-      <text x="24" y="25" textAnchor="middle" fontSize="15" fontWeight="800" fill={c.text} fontFamily="Segoe UI, sans-serif">
-        {rank}
-      </text>
-    </svg>
-  );
-};
-
-const LaurelYearsBadge: React.FC<{ years: number | string; variant: RankVariant }> = ({ years, variant }) => {
-  const yearsColor = yearsColorMap[variant] || yearsColorMap.default;
-  const badgeSrc = badgeImageMap[variant] || badgeImageMap.default;
-
-  return (
-    <div className={styles.laurelWrap} style={{ color: yearsColor }}>
-      <img className={styles.laurelImage} src={badgeSrc} alt="" aria-hidden="true" />
-      <div className={styles.yearsCenter}>
-        <span className={styles.yearsNumber}>{years}</span>
-        <span className={styles.yearsLabel}>Years</span>
-      </div>
-    </div>
-  );
-};
-
 export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (props) => {
   const monthOptions = React.useMemo(() => buildMonthOptions(), []);
   const currentMonthValue = React.useMemo(() => getMonthValue(new Date()), []);
@@ -189,6 +119,8 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
   const [isAnniversaryLoading, setIsAnniversaryLoading] = React.useState(true);
   const [anniversaryError, setAnniversaryError] = React.useState('');
   const [anniversaryPage, setAnniversaryPage] = React.useState(0);
+  const [anniversaryGridEl, setAnniversaryGridEl] = React.useState<HTMLDivElement | undefined>(undefined);
+  const anniversaryItemsPerPage = useResponsiveCardCount(anniversaryGridEl, 3);
 
   const [birthdays, setBirthdays] = React.useState<IEmployeeBirthdayItem[]>([]);
   const [isBirthdayLoading, setIsBirthdayLoading] = React.useState(true);
@@ -262,12 +194,22 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
     return () => { cancelled = true; };
   }, [selectedMonth, props.context]);
 
-  const anniversaryTotalPages = Math.ceil(anniversaries.length / ANNIVERSARY_ITEMS_PER_PAGE);
+  const anniversaryTotalPages = Math.ceil(anniversaries.length / anniversaryItemsPerPage);
   const birthdayTotalPages = Math.ceil(birthdays.length / birthdayItemsPerPage);
+
+  React.useEffect(() => {
+    setAnniversaryPage(0);
+  }, [anniversaryItemsPerPage]);
 
   React.useEffect(() => {
     setBirthdayPage(0);
   }, [birthdayItemsPerPage]);
+
+  React.useEffect(() => {
+    if (anniversaryTotalPages > 0 && anniversaryPage > anniversaryTotalPages - 1) {
+      setAnniversaryPage(anniversaryTotalPages - 1);
+    }
+  }, [anniversaryPage, anniversaryTotalPages]);
 
   React.useEffect(() => {
     if (birthdayTotalPages > 0 && birthdayPage > birthdayTotalPages - 1) {
@@ -305,14 +247,17 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
   };
 
   const currentAnniversaryItems = anniversaries.slice(
-    anniversaryPage * ANNIVERSARY_ITEMS_PER_PAGE,
-    anniversaryPage * ANNIVERSARY_ITEMS_PER_PAGE + ANNIVERSARY_ITEMS_PER_PAGE
+    anniversaryPage * anniversaryItemsPerPage,
+    anniversaryPage * anniversaryItemsPerPage + anniversaryItemsPerPage
   );
   const currentBirthdayItems = birthdays.slice(
     birthdayPage * birthdayItemsPerPage,
     birthdayPage * birthdayItemsPerPage + birthdayItemsPerPage
   );
 
+  const anniversaryGridClass = `${styles.birthdayGrid} ${
+    anniversaryItemsPerPage === 1 ? styles.cols1 : anniversaryItemsPerPage === 2 ? styles.cols2 : styles.cols3
+  }`;
   const birthdayGridClass = `${styles.birthdayGrid} ${
     birthdayItemsPerPage === 1 ? styles.cols1 : birthdayItemsPerPage === 2 ? styles.cols2 : styles.cols3
   }`;
@@ -369,60 +314,60 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
 
           {anniversaries.length > 0 && (
             <div className={styles.panelBody}>
-              <div className={styles.contentRow}>
-                <div className={styles.carouselWrap}>
-                  <button
-                    className={`${styles.navButton} ${styles.navPrev}`}
-                    onClick={handleAnniversaryPrev}
-                    disabled={anniversaryPage === 0}
-                    aria-label="Previous"
-                  >
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polyline points="15 18 9 12 15 6" />
-                    </svg>
-                  </button>
+              <div className={styles.birthdayCarousel}>
+                <div className={styles.contentRow}>
+                  <div className={styles.carouselWrap}>
+                    <button
+                      className={`${styles.navButton} ${styles.navPrev}`}
+                      onClick={handleAnniversaryPrev}
+                      disabled={anniversaryPage === 0}
+                      aria-label="Previous"
+                    >
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <polyline points="15 18 9 12 15 6" />
+                      </svg>
+                    </button>
 
-                  <div className={styles.anniversaryList}>
-                    {currentAnniversaryItems.map((item, idx) => {
-                      const variant = getRankVariant(idx);
-                      return (
-                        <div key={item.employeeId} className={styles.anniversaryRow}>
-                          <div className={styles.rowMedal}>
-                            <MedalRibbonIcon rank={idx + 1} variant={variant} />
+                    <div className={anniversaryGridClass} ref={(node): void => setAnniversaryGridEl(node || undefined)}>
+                      {currentAnniversaryItems.map((item) => (
+                        <div key={item.employeeId} className={styles.birthdayCard}>
+                          <div className={styles.cakeHeader}>
+                            <CalendarIcon className={styles.cardCakeIcon} />
                           </div>
-                          <div className={styles.rowEmployee}>
+                          <div className={styles.dateCenter}>
+                            <span className={styles.dateDay}>{item.years} Years</span>
+                            <span className={styles.dateWeekday}>Joined {item.joinedOn}</span>
+                          </div>
+                          <div className={styles.cardDivider} />
+                          <div className={styles.cardBody}>
                             <h3 className={styles.employeeName}>{item.fullName}</h3>
                             <span className={styles.infoRow}><BriefcaseIcon />{item.jobTitle}</span>
                             <span className={styles.infoRow}><BuildingIcon />{item.department}</span>
                           </div>
-                          <div className={styles.rowYears}>
-                            <LaurelYearsBadge years={item.years} variant={variant} />
-                          </div>
-                          <div className={styles.rowJoined}>
-                            <span className={styles.joinedOn}>
-                              <CalendarIcon />
-                              Joined on {item.joinedOn}
+                          <div className={styles.cardFooter}>
+                            <span className={styles.happyBirthdayTag}>
+                              <span aria-hidden="true">🎉</span>
+                              Happy Anniversary!
+                              <span aria-hidden="true">✨</span>
                             </span>
                           </div>
                         </div>
-                      );
-                    })}
+                      ))}
+                    </div>
+
+                    <button
+                      className={`${styles.navButton} ${styles.navNext}`}
+                      onClick={handleAnniversaryNext}
+                      disabled={anniversaryPage >= anniversaryTotalPages - 1}
+                      aria-label="Next"
+                    >
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <polyline points="9 18 15 12 9 6" />
+                      </svg>
+                    </button>
                   </div>
-
-                  <button
-                    className={`${styles.navButton} ${styles.navNext}`}
-                    onClick={handleAnniversaryNext}
-                    disabled={anniversaryPage >= anniversaryTotalPages - 1}
-                    aria-label="Next"
-                  >
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polyline points="9 18 15 12 9 6" />
-                    </svg>
-                  </button>
                 </div>
-              </div>
 
-              <div className={styles.bottomStack}>
                 <div className={styles.dots}>
                   {getDots(anniversaryTotalPages).map((index) => (
                     <button
@@ -433,10 +378,11 @@ export const AnniversariesBirthday: React.FC<IAnniversariesBirthdayProps> = (pro
                     />
                   ))}
                 </div>
-                <div className={styles.footer}>
-                  <span className={styles.footerIcon}><InfoIcon /></span>
-                  <span>Showing employees with work anniversaries during {selectedMonthLabel}.</span>
-                </div>
+              </div>
+
+              <div className={styles.footer}>
+                <span className={styles.footerIcon}><InfoIcon /></span>
+                <span>Showing employees with work anniversaries during {selectedMonthLabel}.</span>
               </div>
             </div>
           )}

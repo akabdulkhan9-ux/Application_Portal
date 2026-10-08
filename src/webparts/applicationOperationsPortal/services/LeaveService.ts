@@ -171,23 +171,24 @@ export interface IEmployeeLeaveItem {
   leaveStatus: string;
 }
 
-// ✅ Make sure this matches your SharePoint list name EXACTLY
+// SharePoint list title. Days is a number column on this list.
 const LEAVE_REQUESTS_LIST_NAME = "EmployeeLeaveRequests";
 
 const formatDisplayDate = (date: Date): string =>
   date.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
 
-const MS_PER_DAY = 24 * 60 * 60 * 1000;
-
-/** Inclusive calendar days from start through end. Both dates count. */
-const calculateLeaveDays = (start: Date, end: Date): number => {
-  const startDay = Date.UTC(start.getFullYear(), start.getMonth(), start.getDate());
-  const endDay = Date.UTC(end.getFullYear(), end.getMonth(), end.getDate());
-  const diffDays = Math.round((endDay - startDay) / MS_PER_DAY);
-  if (diffDays < 0) {
-    return 0;
+/** Days is a number column on EmployeeLeaveRequests. Do not derive it from the dates. */
+const readLeaveDays = (value: number | string | undefined): number => {
+  if (typeof value === "number" && !isNaN(value)) {
+    return value;
   }
-  return diffDays + 1;
+  if (typeof value === "string" && value.trim() !== "") {
+    const parsed = Number(value);
+    if (!isNaN(parsed)) {
+      return parsed;
+    }
+  }
+  return 0;
 };
 
 interface IRawLeaveRequestItem {
@@ -201,6 +202,7 @@ interface IRawLeaveRequestItem {
   StartDate?: string;
   EndDate?: string;
   LeaveStatus?: string;
+  Days?: number | string;
   [key: string]: unknown;
 }
 
@@ -279,6 +281,7 @@ class LeaveService {
           "LeaveType",
           "StartDate",
           "EndDate",
+          "Days",
           "LeaveStatus"
         )
         .top(500)();
@@ -337,7 +340,7 @@ class LeaveService {
             endDate: formatDisplayDate(end),
             startDateRaw: start,
             endDateRaw: end,
-            days: calculateLeaveDays(start, end),
+            days: readLeaveDays(item.Days),
             leaveStatus: item.LeaveStatus || "N/A",
           });
         } catch (err) {
@@ -381,6 +384,7 @@ class LeaveService {
           "LeaveType",
           "StartDate",
           "EndDate",
+          "Days",
           "LeaveStatus"
         )();
 
@@ -417,7 +421,7 @@ class LeaveService {
             endDate: formatDisplayDate(end),
             startDateRaw: start,
             endDateRaw: end,
-            days: calculateLeaveDays(start, end),
+            days: readLeaveDays(item.Days),
             leaveStatus: item.LeaveStatus || "N/A",
           });
         } catch (err) {
