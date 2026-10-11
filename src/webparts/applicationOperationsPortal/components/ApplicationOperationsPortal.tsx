@@ -74,15 +74,15 @@ export default class ApplicationOperationsPortal extends React.Component<
     }
   };
 
-  private getPowerBIPageUrl = (): string => {
+  private getPowerBIPageUrl = (pagePath: string): string => {
     const { spfxContext } = this.props;
     const webUrl = spfxContext?.pageContext?.web?.absoluteUrl || '';
     const cleanWebUrl = webUrl.replace(/\/$/, '');
-    return `${cleanWebUrl}/SitePages/PowerBI.aspx`;
+    return `${cleanWebUrl}${pagePath}`;
   };
 
-  private navigateToPowerBIPage = (): void => {
-    const powerBIPageUrl = this.getPowerBIPageUrl();
+  private navigateToPowerBIPage = (pagePath: string): void => {
+    const powerBIPageUrl = this.getPowerBIPageUrl(pagePath);
     window.open(powerBIPageUrl, '_blank');
   };
 
@@ -109,9 +109,20 @@ export default class ApplicationOperationsPortal extends React.Component<
                 <div className={styles.reportsSection}>
                   <PowerBIReportsSection
                     onNavigate={this.navigateToPowerBIPage}
-                    title="AO Incident Management Dashboard"
-                    description="Provides a consolidated view of AO incidents, status, trends, SLA performance, and resolution metrics to support effective monitoring and informed decision-making."
-                    icon="📊"
+                    reports={[
+                      {
+                        title: 'AO Incident Management Dashboard',
+                        description: 'Provides a consolidated view of AO incidents, status, trends, SLA performance, and resolution metrics to support effective monitoring and informed decision-making.',
+                        icon: '📊',
+                        pagePath: '/SitePages/PowerBI.aspx'
+                      },
+                      {
+                        title: 'Deviations Dashboard',
+                        description: 'Provides a consolidated view of deviations, status, trends, and related metrics to support effective monitoring and informed decision-making.',
+                        icon: '📈',
+                        pagePath: '/SitePages/PowerBI2.aspx'
+                      }
+                    ]}
                   />
                 </div>
 

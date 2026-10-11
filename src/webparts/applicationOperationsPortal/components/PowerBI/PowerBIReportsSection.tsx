@@ -1,36 +1,31 @@
 import * as React from 'react';
 import styles from './PowerBIReportsSection.module.scss';
 
+export interface IPowerBIReportCard {
+  title: string;
+  description: string;
+  icon: string;
+  pagePath: string;
+}
+
 export interface IPowerBIReportsSectionProps {
-  onNavigate?: () => void;
-  title?: string;
-  description?: string;
-  icon?: string;
+  reports: IPowerBIReportCard[];
+  onNavigate?: (pagePath: string) => void;
 }
 
 export class PowerBIReportsSection extends React.Component<IPowerBIReportsSectionProps> {
 
-  private handleReportClick = (): void => {
+  private handleReportClick = (pagePath: string): void => {
     const { onNavigate } = this.props;
-    
+
     if (onNavigate) {
-      console.log('[PowerBIReportsSection] Navigating to Power BI page');
-      onNavigate();
+      console.log('[PowerBIReportsSection] Navigating to Power BI page:', pagePath);
+      onNavigate(pagePath);
     }
   };
 
-  private getReportData = (): { title: string; description: string; icon: string } => {
-    const { title, description, icon } = this.props;
-    
-    return {
-      title: title || 'AO Incident Management Dashboard',
-      description: description || 'Provides a consolidated view of AO incidents, status, trends, SLA performance, and resolution metrics to support effective monitoring and informed decision-making.',
-      icon: icon || '📊'
-    };
-  };
-
   public render(): React.ReactElement<IPowerBIReportsSectionProps> {
-    const { title, description, icon } = this.getReportData();
+    const { reports } = this.props;
 
     return (
       <div className={styles.powerBIReportsSection}>
@@ -42,35 +37,38 @@ export class PowerBIReportsSection extends React.Component<IPowerBIReportsSectio
         </div>
 
         <div className={styles.reportsGrid}>
-          <div
-            className={styles.reportCard}
-            onClick={this.handleReportClick}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                this.handleReportClick();
-              }
-            }}
-            aria-label={`Navigate to ${title} report`}
-          >
-            <div className={styles.reportIconWrapper}>
-              <span className={styles.reportIcon}>{icon}</span>
-            </div>
-            <div className={styles.reportContent}>
-              <h3 className={styles.reportTitle}>{title}</h3>
-              <p className={styles.reportDescription}>
-                {description}
-              </p>
-              <div className={styles.reportAction}>
-                <span className={styles.viewLink}>
-                  View Report
-                  <span className={styles.arrowIcon}>→</span>
-                </span>
+          {reports.map((report) => (
+            <div
+              key={report.pagePath}
+              className={styles.reportCard}
+              onClick={() => this.handleReportClick(report.pagePath)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  this.handleReportClick(report.pagePath);
+                }
+              }}
+              aria-label={`Navigate to ${report.title} report`}
+            >
+              <div className={styles.reportIconWrapper}>
+                <span className={styles.reportIcon}>{report.icon}</span>
+              </div>
+              <div className={styles.reportContent}>
+                <h3 className={styles.reportTitle}>{report.title}</h3>
+                <p className={styles.reportDescription}>
+                  {report.description}
+                </p>
+                <div className={styles.reportAction}>
+                  <span className={styles.viewLink}>
+                    View Report
+                    <span className={styles.arrowIcon}>→</span>
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     );
